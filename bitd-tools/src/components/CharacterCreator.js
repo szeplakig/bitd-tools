@@ -8,14 +8,7 @@ import {
   standard_items,
 } from "../data/characters_data";
 
-import {
-  TextField,
-  InputLabel,
-  FormControl,
-  MenuItem,
-  Box,
-  Autocomplete,
-} from "@mui/material";
+import { TextField, MenuItem, Box } from "@mui/material";
 
 const CharacterCreator = () => {
   let [selected_class, set_selected_class] = useState("");
@@ -24,24 +17,33 @@ const CharacterCreator = () => {
   };
   return (
     <div className="inline-block">
-      <FormControl fullWidth>
-        <Box m={5} pt={3} width="140px">
-          <InputLabel id="class-select-label">Classes</InputLabel>
-          <Autocomplete
-            labelId="class-select-label"
-            id="class-select"
-            variant="outlined"
-            type="search"
-            options={Object.keys(classes).map((class_name) => {
-              return { value: { class_name }, label: { class_name } };
-            })}
-            value={selected_class}
-            label={selected_class}
-            onChange={handleChange}
-            fullWidth
-          ></Autocomplete>
+      <Box m={5} pt={3} width="140px">
+        <TextField
+          id="class-select"
+          label="Class"
+          value={selected_class}
+          select
+          displayEmpty
+          onChange={handleChange}
+          fullWidth
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {Object.keys(classes).map((class_name) => (
+            <MenuItem value={class_name}>{class_name}</MenuItem>
+          ))}
+        </TextField>
+      </Box>
+      {selected_class && (
+        <Box>
+          <h2>{classes[selected_class].tag_line}</h2>
+          <h3>{classes[selected_class].description}</h3>
+          {classes[selected_class].long_description.map((section) => (
+            <p>{section}</p>
+          ))}
         </Box>
-      </FormControl>
+      )}
     </div>
   );
 };
