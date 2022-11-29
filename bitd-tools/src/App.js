@@ -1,22 +1,31 @@
-import "./App.css";
-import CharacterCreator from "./components/CharacterCreator";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import React from 'react';
+import CharacterCreator from './components/CharacterCreator';
+import Factions from './components/Factions';
+import Homepage from './components/Homepage';
+import ScoreGenerator from './components/ScoreGenerator';
+import Sidebar from './components/Sidebar';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+const pages = [
+  <Homepage />,
+  <CharacterCreator />,
+  <Factions />,
+  <ScoreGenerator />,
+];
 
 function App() {
+  const [openTab,setOpenTab] = React.useState(0);
+
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className="App">
-        <CharacterCreator />
+      <div
+        className='flex min-h-screen bg-gradient-to-b from-bitdDarkGray to-bitdGray text-white'
+      >
+        <Sidebar setCurrentPage={setOpenTab}/>
+        <div
+          className='px-[15%] pt-2'
+        >
+          {pages[openTab]}
+        </div>
       </div>
-    </ThemeProvider>
   );
 }
 
