@@ -50,7 +50,11 @@ const faction_data = [
             "Captain Michter (chief instructor, ambitious, fierce, confident)",
             "Captain Vale (quartermaster, loyal, insightful, quiet)",
         ],
-        assets: "Many large gangs of vicious thugs in uniform. Armored coaches and canal patrol boats. Public punishment sites (pillories, stocks, hanging cages).",
+        assets:[
+            "Many large gangs of vicious thugs in uniform.",
+            "Armored coaches and canal patrol boats.",
+            "Public punishment sites (pillories, stocks, hanging cages).",
+        ],
         quirks: "The Bluecoats are divided into companies by district, and they have fierce rivalries, encouraged by their superiors—often good-natured, but sometimes violent.",
         allies: [
             "The City Council",

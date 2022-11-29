@@ -19,3 +19,23 @@
             transition-all duration-100 scale-0 origin-left;
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #3B3C41;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0D0E13;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #E75B06;
+}

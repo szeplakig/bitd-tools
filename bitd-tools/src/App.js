@@ -21,7 +21,7 @@ function App() {
       >
         <Sidebar setCurrentPage={setOpenTab}/>
         <div
-          className='px-[15%] pt-2'
+          className='pl-20 pt-2 pr-4'
         >
           {pages[openTab]}
         </div>
