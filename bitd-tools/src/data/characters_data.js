@@ -1158,111 +1158,111 @@ const crew_data = {
       ],
     },
   },
-  heritages: [
-    {
+  heritages: {
+    Akoros: {
       name: "Akoros",
       description:
         "Akoros is the largest and most industrialized land in the Imperium, and is home to the capitol city as well as Duskwall itself. They’re known as a diverse conglomeration of cultures that have grown together in close proximity for centuries, somewhat like Europe.",
     },
-    {
+    "Dagger Isles": {
       name: "Dagger Isles",
       description:
         "If you want to be a rootless wanderer you could be from the Dagger Isles. People there often grow up on ships and travel a lot before settling down. They’re known as corsairs and merchants who live without lightning barriers—dealing with spirits in other ways.",
     },
-    {
+    Iruvia: {
       name: "Iruvia",
       description:
         "If you want to be from a culture considered “foreign” by the locals, you could be from Iruvia, a rich and powerful desert kingdom far to the south. It’s another diverse land of varying cultures similar to old Persia, Egypt, and India.",
     },
-    {
+    Severos: {
       name: "Severos",
       description:
         "If you want to be from a place considered “wild” by the rest of the empire, you could be from Severos. Outside the few Imperial settlements, most Severosi live in nomadic horse-tribes scattered across the blasted deathlands, surviving within the ruins of ancient arcane fortresses which still repel spirits.",
     },
-    {
+    Skovlan: {
       name: "Skovlan",
       description:
         "If you want to be from a marginalized people, you could be from Skovlan, the island kingdom just across the sea from Doskvol. Skovlan was last to be brought under Imperial rule, over the course of the 36-year Unity War(which ended only a few years ago).Many Skovlander refugees who lost their homes and jobs in the destruction of the war have come to Doskvol seeking new opportunities.",
     },
-    {
+    Tycheros: {
       name: "Tycheros",
       description:
         "If you want to be weird, you can be from Tycheros. It’s a semi-mythical place, far away beyond the northern Void Sea. Everyone says that the people there are part-demon. If you choose Tycherosi heritage, also create a demonic telltale (like black shark eyes, feathers instead of hair, etc.) that marks your character.",
     },
-  ],
-  backgrounds: [
-    {
+  },
+  backgrounds: {
+    Academic: {
       name: "Academic",
       description:
         "A scholar, a professor or student from Doskvol Academy, a philosopher or journalist, etc.",
     },
-    {
+    Labor: {
       name: "Labor",
       description:
         "A servant, a factory worker, a coach driver, a docker, a sailor, a Rail Jack, etc. A stevedore for the North Hook Company.",
     },
-    {
+    Law: {
       name: "Law",
       description:
         "An advocate or barrister, a Bluecoat or inspector (or even Spirit Warden), a prison guard from Ironhook, etc.",
     },
-    {
+    Trade: {
       name: "Trade",
       description:
         "A shopkeeper, a merchant, a skilled crafts-person, a shipping agent, etc. A liaison to the Ministry of Preservation.",
     },
-    {
+    Military: {
       name: "Military",
       description:
         "An Imperial or Skovlander soldier, a mercenary, an intelligence operative, a strategist, a training instructor, etc.",
     },
-    {
+    Noble: {
       name: "Noble",
       description:
         "A dilettante, a courtier, the scion of a fallen house, etc.",
     },
-    {
+    Underworld: {
       name: "Underworld",
       description:
         "A street urchin, gang member, young thug, or other outcast who grew up on the streets.",
     },
-  ],
-  vices: [
-    {
+  },
+  vices: {
+    Faith: {
       name: "Faith",
       description:
         "You’re dedicated to an unseen power, forgotten god, ancestor, etc.",
     },
-    {
+    Gambling: {
       name: "Gambling",
       description:
         "You crave games of chance, betting on sporting events, etc.",
     },
-    {
+    Luxury: {
       name: "Luxury",
       description: "Expensive or ostentatious displays of opulence.",
     },
-    {
+    Obligation: {
       name: "Obligation",
       description:
         "You’re devoted to a family, a cause, an organization, a charity, etc.",
     },
-    {
+    Pleasure: {
       name: "Pleasure",
       description:
         "Gratification from lovers, food, drink, drugs, art, theater, etc.",
     },
-    {
+    Stupor: {
       name: "Stupor",
       description:
         "You seek oblivion in the abuse of drugs, drinking to excess, getting beaten to a pulp in the fighting pits, etc.",
     },
-    {
+    Weird: {
       name: "Weird",
       description:
         "You experiment with strange essences, consort with rogue spirits, observe bizarre rituals or taboos, etc.",
     },
-  ],
+  },
   actions: [
     {
       name: "Attune",
