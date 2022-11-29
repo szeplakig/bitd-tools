@@ -78,8 +78,13 @@ const ScoreGenerator = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={(e) => e.target.preventDefault()}>
+        <div
+            className='flex items-center justify-center'
+        >
+            <form 
+                onSubmit={(e) => e.target.preventDefault()}
+                className=''
+            >
                 <Card 
                     header={
                         <div className='flex items-center justify-center'>
@@ -254,7 +259,7 @@ const ScoreGenerator = () => {
                                 bg-bitdDarkGray text-bitdLightGray
                                 hover:text-bitdOrange
                                 transition-all duration-200 ease-linear
-                                py-2 min-w-[40vw] my-4 mx-2
+                                py-2 w-[95%] my-4 mx-2
                                 flex justify-center items-center'
                     onClick={handleRollClick}
                     type='button'

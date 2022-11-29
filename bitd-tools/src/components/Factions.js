@@ -20,139 +20,23 @@ const Factions = () => {
     const [selectedFaction, setSelectedFaction] = React.useState(0);
 
     return (
-        <div className='flex justify-center'>
-            <div
-                className='rounded overflow-hidden
-                            shadow-lg bg-bitdGray text-white
-                            my-4 mx-2 w-[70%]'
-            >
-                <div
-                    className='flex justify-between bg-bitdBlack text-lg font-bold py-2 px-4 uppercase'
+        <div
+            className='flex justify-center items-center'
+        >
+            <div className='flex justify-center max-w-[890px] lg:max-w-full'>
+                <ul
+                    className='bg-bitdBlack 
+                            flex fixed overflow-y-hidden overflow-x-auto w-full h-16 
+                            sm:ml-4 sm:w-[30%] sm:my-4 sm:mx-2
+                            lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
+                            sm:flex-col sm:static sm:h-full
+                            lg:max-w-[275px]'
                 >
-                    <span>
-                        {faction_data[selectedFaction].name}
-                    </span>
-                    <span>
-                        {`Tier ${tiers[faction_data[selectedFaction].tier]}`}
-                    </span>
-                </div>
-                <div
-                    className='py-2 px-4'
-                >
-                    <p className='italic'>{faction_data[selectedFaction].desc}</p>
-
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <div>
-                        {
-                            faction_data[selectedFaction].clocks.map((clock) => (
-                                <Clock 
-                                    name={clock.name}
-                                    size={clock.size}
-                                />
-                            ))
-                        }
-                    </div>
-
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-                    
-                    <p>
-                        <span className='font-bold'>Turf: </span>
-                        {faction_data[selectedFaction].turf}
-                    </p>
-                    <p>
-                        <span className='font-bold'>Hold: </span>
-                        {faction_data[selectedFaction].hold}
-                    </p>
-
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <p>
-                        <span className='font-bold'>Quirks: </span>
-                        {faction_data[selectedFaction].quirks}
-                    </p>
-                    
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <span className='font-bold'>NPCs:</span>
-                    { faction_data[selectedFaction].npc_detail &&
-                        <span className='italic'>{faction_data[selectedFaction].npc_detail}</span>}
-                    <ul className='list-disc ml-10'>
-                        {
-                            faction_data[selectedFaction].npcs.map(npc => (
-                                <li
-                                    key={npc}
-                                >
-                                    {npc}
-                                </li>
-                            ))
-                        }
-                    </ul>
-                    
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <span className='font-bold'>Assets:</span>
-                    <ul className='list-disc ml-10'>
-                        {
-                            faction_data[selectedFaction].assets.map(asset => (
-                                <li
-                                    key={asset}
-                                >
-                                    {asset}
-                                </li>
-                            ))
-                        }                        
-                    </ul>
-                    
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <span className='font-bold'>Allies:</span>
-                    <ul className='list-disc ml-10'>
-                        {
-                            faction_data[selectedFaction].allies.map(ally => (
-                                <li
-                                    key={ally}
-                                >
-                                    {ally}
-                                </li>
-                            ))
-                        }                        
-                    </ul>
-                    
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <span className='font-bold'>Enemies:</span>
-                    <ul className='list-disc ml-10'>
-                        {
-                            faction_data[selectedFaction].enemies.map(enemy => (
-                                <li
-                                    key={enemy}
-                                >
-                                    {enemy}
-                                </li>
-                            ))
-                        }                        
-                    </ul>
-                    
-                    <hr className='border-t border-bitdLightGray my-2 mx-2'/>
-
-                    <p>
-                        <span className='font-bold'>Situation: </span>
-                        {faction_data[selectedFaction].situation}
-                    </p>
-                </div>
-            </div>
-
-            <div
-                className='bg-bitdBlack
-                            ml-4 w-[20%] my-4 mx-2
-                            h-[90vh] overflow-y-auto'
-            >
-                <ul>
                     {
                         faction_data.map((faction,ind) => (
                             <li 
-                                className={`block px-4 py-2
+                                className={`inline-block px-4 py-2 whitespace-nowrap
+                                            sm:block sm:whitespace-normal
                                             cursor-pointer
                                             hover:text-bitdOrange hover:bg-bitdDarkGray
                                             transition-all duration-200 ease-linear
@@ -166,6 +50,128 @@ const Factions = () => {
                         ))
                     }
                 </ul>
+                <div
+                    className='rounded overflow-hidden
+                                shadow-lg bg-bitdGray text-white
+                                my-4 mx-2 w-[70%] mt-16 sm:mt-2'
+                >
+                    <div
+                        className='flex justify-between bg-bitdBlack text-lg font-bold py-2 px-4 uppercase'
+                    >
+                        <span>
+                            {faction_data[selectedFaction].name}
+                        </span>
+                        <span>
+                            {`Tier ${tiers[faction_data[selectedFaction].tier]}`}
+                        </span>
+                    </div>
+                    <div
+                        className='py-2 px-4'
+                    >
+                        <p className='italic'>{faction_data[selectedFaction].desc}</p>
+
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <div>
+                            {
+                                faction_data[selectedFaction].clocks.map((clock) => (
+                                    <Clock 
+                                        name={clock.name}
+                                        size={clock.size}
+                                    />
+                                ))
+                            }
+                        </div>
+
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+                        
+                        <p>
+                            <span className='font-bold'>Turf: </span>
+                            {faction_data[selectedFaction].turf}
+                        </p>
+                        <p>
+                            <span className='font-bold'>Hold: </span>
+                            {faction_data[selectedFaction].hold}
+                        </p>
+
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <p>
+                            <span className='font-bold'>Quirks: </span>
+                            {faction_data[selectedFaction].quirks}
+                        </p>
+                        
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <span className='font-bold'>NPCs:</span>
+                        { faction_data[selectedFaction].npc_detail &&
+                            <span className='italic'>{faction_data[selectedFaction].npc_detail}</span>}
+                        <ul className='list-disc ml-10'>
+                            {
+                                faction_data[selectedFaction].npcs.map(npc => (
+                                    <li
+                                        key={npc}
+                                    >
+                                        {npc}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                        
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <span className='font-bold'>Assets:</span>
+                        <ul className='list-disc ml-10'>
+                            {
+                                faction_data[selectedFaction].assets.map(asset => (
+                                    <li
+                                        key={asset}
+                                    >
+                                        {asset}
+                                    </li>
+                                ))
+                            }                        
+                        </ul>
+                        
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <span className='font-bold'>Allies:</span>
+                        <ul className='list-disc ml-10'>
+                            {
+                                faction_data[selectedFaction].allies.map(ally => (
+                                    <li
+                                        key={ally}
+                                    >
+                                        {ally}
+                                    </li>
+                                ))
+                            }                        
+                        </ul>
+                        
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <span className='font-bold'>Enemies:</span>
+                        <ul className='list-disc ml-10'>
+                            {
+                                faction_data[selectedFaction].enemies.map(enemy => (
+                                    <li
+                                        key={enemy}
+                                    >
+                                        {enemy}
+                                    </li>
+                                ))
+                            }                        
+                        </ul>
+                        
+                        <hr className='border-t border-bitdLightGray my-2 mx-2'/>
+
+                        <p>
+                            <span className='font-bold'>Situation: </span>
+                            {faction_data[selectedFaction].situation}
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     )
@@ -188,7 +194,7 @@ const Clock = ({name,size}) => {
     }
 
     return (
-        <div className='flex justify-between px-[25%] items-center'>
+        <div className='flex justify-between md:mx-[10vw] items-center'>
             <span
                 className='inline-block'
             >
