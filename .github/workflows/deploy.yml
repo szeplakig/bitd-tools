@@ -23,7 +23,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    working-directory: ./bitd-tools
+    defaults:
+      run:
+        working-directory: ./bitd-tools
     strategy:
       matrix:
         node-version: [18.x]
