@@ -1,8 +1,8 @@
 {
   "name": "bitd-tools",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://szeplakig.github.io/bitd-tools"
+  "private": "true",
+  "homepage": "https://szeplakig.github.io/bitd-tools",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
