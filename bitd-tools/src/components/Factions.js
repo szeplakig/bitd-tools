@@ -16,7 +16,7 @@ const Factions = () => {
     <div className="flex justify-center items-center">
       <div className="flex justify-center max-w-[890px] lg:max-w-full">
         <ul
-          className="bg-bitdBlack 
+          className="bg-bitdBlack z-10
                             flex fixed overflow-y-hidden overflow-x-auto w-full h-16 
                             sm:ml-4 sm:w-[30%] sm:my-4 sm:mx-2
                             lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
@@ -25,6 +25,7 @@ const Factions = () => {
         >
           {faction_data.map((faction, ind) => (
             <li
+              key={faction.name}
               className={`inline-block px-4 py-2 whitespace-nowrap
                                             sm:block sm:whitespace-normal
                                             cursor-pointer
@@ -59,7 +60,7 @@ const Factions = () => {
 
             <div>
               {faction_data[selectedFaction].clocks.map((clock) => (
-                <Clock name={clock.name} size={clock.size} />
+                <Clock key={clock.name} name={clock.name} size={clock.size} />
               ))}
             </div>
 
@@ -154,7 +155,7 @@ const Clock = ({ name, size }) => {
   return (
     <div className="flex justify-between md:mx-[10vw] items-center">
       <span className="inline-block">{name}</span>
-      <img className="inline-block w-[40px] invert" src={imgSrc} />
+      <img className="inline-block w-[40px] invert z-0" src={imgSrc} />
     </div>
   );
 };
