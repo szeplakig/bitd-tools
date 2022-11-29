@@ -37,7 +37,7 @@ const score_generator_data = {
       type: "Strange",
       list: [
         "Ghost of (roll again)",
-        "Occust Collector",
+        "Occult Collector",
         "Vampire or Other Undead",
         "Demon disguised as (roll again)",
         "Possessed or Hollow",
