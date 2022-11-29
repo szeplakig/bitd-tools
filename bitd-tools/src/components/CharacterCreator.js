@@ -31,7 +31,6 @@ const CharacterCreator = () => {
             label="Class"
             value={selected_class}
             select
-            displayEmpty
             onChange={handleChange}
             fullWidth
           >
@@ -39,7 +38,7 @@ const CharacterCreator = () => {
               <em>None</em>
             </MenuItem>
             {Object.keys(classes).map((class_name) => (
-              <MenuItem value={class_name}>{class_name}</MenuItem>
+              <MenuItem key={`k-${class_name}`} value={class_name}>{class_name}</MenuItem>
             ))}
           </TextField>
         </Box>
