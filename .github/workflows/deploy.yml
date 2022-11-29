@@ -1,16 +1,28 @@
+<<<<<<< HEAD
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
+=======
+>>>>>>> d9195aa4a2cf421e12226af204d48fa1a1489506
 name: Node.js CI
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 permissions:
   contents: read
+=======
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: write
+>>>>>>> d9195aa4a2cf421e12226af204d48fa1a1489506
   pages: write
   id-token: write
 
@@ -21,11 +33,15 @@ concurrency:
 
 jobs:
   build:
+<<<<<<< HEAD
 
+=======
+>>>>>>> d9195aa4a2cf421e12226af204d48fa1a1489506
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./bitd-tools
+<<<<<<< HEAD
     strategy:
       matrix:
         node-version: [18.x]
@@ -49,3 +65,32 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v1
 
+=======
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --write **/*.{js,md,html,json}
+          same_commit: true
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+          cache-dependency-path: "./bitd-tools/package-lock.json"
+      - run: npm install
+      - run: npm run build
+        env:
+          CI: false
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "./bitd-tools/build"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+>>>>>>> d9195aa4a2cf421e12226af204d48fa1a1489506

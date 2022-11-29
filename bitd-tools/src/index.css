@@ -13,7 +13,11 @@
 
   .sidebar-tooltip {
     @apply  absolute w-auto p-2 m-2 min-w-max left-14
+<<<<<<< HEAD
             rounded-md shadow-md sm:block hidden
+=======
+            rounded-md shadow-md
+>>>>>>> d9195aa4a2cf421e12226af204d48fa1a1489506
             text-white bg-bitdGray
             text-sm font-bold
             transition-all duration-100 scale-0 origin-left;
