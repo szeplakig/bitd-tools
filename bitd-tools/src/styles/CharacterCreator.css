@@ -3,6 +3,7 @@
   border-collapse: collapse;
   overflow-wrap: break-word;
   overflow: hidden;
+  text-overflow: ellipsis ellipsis;
 }
 
 .characterCreatorGridParent {
@@ -58,4 +59,15 @@
 }
 .characterCreatorInventory {
   grid-area: 6 / 7 / 13 / 9;
+}
+
+div.characterCreatorDots input[type="checkbox"] {
+  clip-path: circle(40% at 50% 50%);
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+
+div.characterCreatorDots span {
+  margin-right: 10px;
 }

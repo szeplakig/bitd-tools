@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/CharacterCreator.css";
 import example_char_portrait from "../assets/images/example.png";
+import getNames from "../util/getNames";
 import {
   classes,
   heritages,
@@ -13,14 +14,7 @@ import {
 // import { TextField, MenuItem, Box } from "@mui/material";
 
 const CharacterCreator = () => {
-  let [character_name, set_character_name] = useState("");
-  let [character_alias, set_character_alias] = useState("");
-  let [selected_class, set_selected_class] = useState("");
-  let [selected_heritage, set_selected_heritage] = useState("");
-  let [selected_background, set_selected_background] = useState("");
-  let [selected_vice, set_selected_vice] = useState("");
-  let [selected_abilities, set_selected_abilities] = useState([]);
-  let [character_dots, set_character_dots] = useState({
+  const default_dots = {
     Hunt: 0,
     Study: 0,
     Survey: 0,
@@ -33,7 +27,17 @@ const CharacterCreator = () => {
     Command: 0,
     Consort: 0,
     Sway: 0,
-  });
+  };
+  let [character_name, set_character_name] = useState("");
+  let [character_alias, set_character_alias] = useState("");
+  let [selected_class, set_selected_class] = useState("");
+  let [selected_heritage, set_selected_heritage] = useState("");
+  let [selected_background, set_selected_background] = useState("");
+  let [selected_vice, set_selected_vice] = useState("");
+  let [selected_abilities, set_selected_abilities] = useState([]);
+  let [character_dots, set_character_dots] = useState(
+    Object.assign({}, default_dots)
+  );
 
   return (
     <div className="characterCreatorGridParent characterCreatorDiv">
@@ -65,11 +69,29 @@ const CharacterCreator = () => {
           id="characterClass"
           className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
           value={selected_class}
-          onChange={(event) => set_selected_class(event.target.value)}
+          onChange={(event) => {
+            set_selected_class(event.target.value);
+            set_selected_abilities([]);
+            if (event.target.value !== "") {
+              set_character_dots(
+                Object.assign(
+                  {},
+                  default_dots,
+                  classes[event.target.value].dots
+                )
+              );
+            } else {
+              set_character_dots(Object.assign({}, default_dots));
+            }
+          }}
         >
           <option value="">Choose a Class</option>
           {Object.keys(classes).map((key) => {
-            return <option value={key}>{key}</option>;
+            return (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -85,7 +107,11 @@ const CharacterCreator = () => {
         >
           <option value="">Choose a Background</option>
           {Object.keys(backgrounds).map((key) => {
-            return <option value={key}>{key}</option>;
+            return (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -103,7 +129,11 @@ const CharacterCreator = () => {
         >
           <option value="">Choose a Heritage</option>
           {Object.keys(heritages).map((key) => {
-            return <option value={key}>{key}</option>;
+            return (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -121,7 +151,11 @@ const CharacterCreator = () => {
         >
           <option value="">Choose a Vice</option>
           {Object.keys(vices).map((key) => {
-            return <option value={key}>{key}</option>;
+            return (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -129,10 +163,106 @@ const CharacterCreator = () => {
         {selected_vice && <h3>{vices[selected_vice].description}</h3>}
       </div>
       <div className="characterCreatorSpecialAbilities characterCreatorDiv">
-        characterCreatorSpecialAbilities
+        {selected_class &&
+          getNames(classes[selected_class].special_abilities).map(
+            (special_ability_name) => {
+              return (
+                <div
+                  key={selected_class + special_ability_name}
+                  className="flex items-center mb-4"
+                >
+                  <input
+                    id={`${special_ability_name}-checkbox`}
+                    type="checkbox"
+                    value={selected_abilities.includes(special_ability_name)}
+                    onChange={() => {
+                      const abilities = [...selected_abilities];
+                      if (abilities.includes(special_ability_name)) {
+                        abilities.splice(
+                          abilities.indexOf(special_ability_name),
+                          1
+                        );
+                      } else {
+                        abilities.push(special_ability_name);
+                      }
+                      set_selected_abilities(abilities);
+                    }}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  ></input>
+                  <label
+                    htmlFor={`${special_ability_name}-checkbox`}
+                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {special_ability_name}
+                  </label>
+                </div>
+              );
+            }
+          )}
       </div>
       <div className="characterCreatorDots characterCreatorDiv">
-        characterCreatorDots
+        {character_dots &&
+          Object.keys(character_dots).map((dot_name) => {
+            const headers = {
+              Hunt: "Insight",
+              Finesse: "Prowess",
+              Attune: "Resolve",
+            };
+            const header =
+              headers[dot_name] !== undefined ? (
+                <h3>{headers[dot_name]}</h3>
+              ) : (
+                ""
+              );
+            return [
+              header,
+              <div
+                key={selected_class + dot_name}
+                className="flex items-center mb-4"
+              >
+                {[1, -1, 2, 3, 4].map((n) => {
+                  if (n === -1) {
+                    return <span>|</span>;
+                  } else {
+                    return (
+                      <input
+                        id={`${dot_name}-checkbox`}
+                        key={selected_class + dot_name + n}
+                        type="checkbox"
+                        className="w-4 h-4 border- rounded-full text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        checked={character_dots[dot_name] >= n}
+                        onChange={() => {
+                          const dots = { ...character_dots };
+                          let value = dots[dot_name];
+                          let minValue =
+                            selected_class !== "" &&
+                            classes[selected_class].dots[dot_name] !== undefined
+                              ? classes[selected_class].dots[dot_name]
+                              : 0;
+                          if (value === n && n - 1 >= minValue) {
+                            value = n - 1;
+                          } else if (n >= minValue) {
+                            value = n;
+                          } else {
+                            value = minValue;
+                          }
+                          dots[dot_name] = value;
+
+                          set_character_dots(dots);
+                        }}
+                      ></input>
+                    );
+                  }
+                })}
+                <label
+                  htmlFor={`${dot_name}-checkbox`}
+                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {dot_name}
+                </label>
+              </div>,
+            ];
+          })}
       </div>
       <div className="characterCreatorFriends characterCreatorDiv">
         characterCreatorFriends
