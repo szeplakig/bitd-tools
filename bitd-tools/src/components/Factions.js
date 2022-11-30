@@ -12,6 +12,26 @@ const tiers = ["0", "I", "II", "III", "IV", "V"];
 const Factions = () => {
   const [selectedFaction, setSelectedFaction] = React.useState(0);
 
+  const getFactionText = (factionName) => {
+    const ind = faction_data.findIndex((faction) => faction.name === factionName);
+  
+    if (ind < 0) {
+      return <span>{factionName}</span>;
+    }
+  
+    return (
+      <span
+        className='hover:text-bitdOrange cursor-pointer
+                    transition-all duration-200 ease-linear'
+        onClick={() => {
+          setSelectedFaction(ind);
+        }}
+      >
+        {factionName}
+      </span>
+    )
+  };
+
   return (
     <div className="flex justify-center items-center">
       <div className="flex justify-center max-w-[890px] lg:max-w-full">
@@ -110,7 +130,7 @@ const Factions = () => {
             <span className="font-bold">Allies:</span>
             <ul className="list-disc ml-10">
               {faction_data[selectedFaction].allies.map((ally) => (
-                <li key={ally}>{ally}</li>
+                <li key={ally}>{getFactionText(ally)}</li>
               ))}
             </ul>
 
@@ -119,7 +139,7 @@ const Factions = () => {
             <span className="font-bold">Enemies:</span>
             <ul className="list-disc ml-10">
               {faction_data[selectedFaction].enemies.map((enemy) => (
-                <li key={enemy}>{enemy}</li>
+                <li key={enemy}>{getFactionText(enemy)}</li>
               ))}
             </ul>
 
