@@ -13,16 +13,19 @@ const Factions = () => {
   const [selectedFaction, setSelectedFaction] = React.useState(0);
 
   const getFactionText = (factionName) => {
-    const ind = faction_data.findIndex((faction) => faction.name.replace('The ','') === factionName.replace('The ', ''));
-  
+    const ind = faction_data.findIndex(
+      (faction) =>
+        faction.name.replace("The ", "") === factionName.replace("The ", "")
+    );
+
     if (ind < 0) {
       return <span>{factionName}</span>;
     }
-  
+
     return (
       <span
-        className='hover:text-bitdOrange cursor-pointer
-                    transition-all duration-200 ease-linear'
+        className="hover:text-bitdOrange cursor-pointer
+                    transition-all duration-200 ease-linear"
         onClick={() => {
           setSelectedFaction(ind);
         }}
