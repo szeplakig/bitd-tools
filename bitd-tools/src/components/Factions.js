@@ -13,7 +13,7 @@ const Factions = () => {
   const [selectedFaction, setSelectedFaction] = React.useState(0);
 
   const getFactionText = (factionName) => {
-    const ind = faction_data.findIndex((faction) => faction.name === factionName);
+    const ind = faction_data.findIndex((faction) => faction.name.replace('The ','') === factionName.replace('The ', ''));
   
     if (ind < 0) {
       return <span>{factionName}</span>;
