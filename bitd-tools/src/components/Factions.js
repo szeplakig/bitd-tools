@@ -29,7 +29,7 @@ const Factions = () => {
       >
         {factionName}
       </span>
-    )
+    );
   };
 
   return (
