@@ -1,4 +1,4 @@
-const crew_data = {
+const characters_data = {
   classes: {
     Cutter: {
       name: "Cutter",
@@ -11,7 +11,7 @@ const crew_data = {
         "When you play a Cutter, you earn xp when you address a challenge with violence or coercion. Go ahead and get up in everyone’s smug faces and tell them who’s boss, then let your blades do the talking if they don’t get the message.",
         "Do you have a personal code or a line you won’t cross? Do you want to be the boss or do you want to be the enforcer for the boss? How did you acquire your taste for violence and coercion?",
       ],
-      dots: {
+      actions: {
         Skirmish: 2,
         Command: 1,
       },
@@ -19,7 +19,7 @@ const crew_data = {
         {
           name: "Captain",
           flavor: "Leader",
-          dots: {
+          actions: {
             Command: 1,
             Study: 1,
             Survey: 2,
@@ -28,7 +28,7 @@ const crew_data = {
         {
           name: "Thug",
           role: "Not to be Trifled With",
-          dots: {
+          actions: {
             Command: 1,
             Consort: 2,
             Sway: 1,
@@ -37,7 +37,7 @@ const crew_data = {
         {
           name: "Terror",
           flavor: "Savage",
-          dots: {
+          actions: {
             Prowl: 2,
             Wreck: 2,
           },
@@ -45,7 +45,7 @@ const crew_data = {
         {
           name: "Devil Hunter",
           flavor: "Ghost Fighter",
-          dots: {
+          actions: {
             Attune: 2,
             Hunt: 1,
             Study: 1,
@@ -182,12 +182,12 @@ const crew_data = {
         "When you play a Hound, you earn xp when you address a challenge with tracking or violence. Take the initiative to hunt down opportunities and targets for a score and be willing to hurt whoever stands in your way",
         "Do you see the whole world as potential prey, or do you still care about people? Which target in the past gave you the most trouble? Why?",
       ],
-      dots: { Hunt: 2, Survey: 1 },
+      actions: { Hunt: 2, Survey: 1 },
       starting_build: [
         {
           name: "Bounty Hunter",
           flavor: "Scout",
-          dots: {
+          actions: {
             Consort: 1,
             Prowl: 1,
             Skirmish: 2,
@@ -196,7 +196,7 @@ const crew_data = {
         {
           name: "Deathlands Ranger",
           flavor: "Survivor",
-          dots: {
+          actions: {
             Attune: 2,
             Prowl: 1,
             Survey: 2,
@@ -205,7 +205,7 @@ const crew_data = {
         {
           name: "Sniper",
           flavor: "Sharpshooter",
-          dots: {
+          actions: {
             Survey: 1,
             Study: 1,
             Prowl: 2,
@@ -214,7 +214,7 @@ const crew_data = {
         {
           name: "Veteran",
           flavor: "Tough As Nails",
-          dots: {
+          actions: {
             Command: 1,
             Skirmish: 2,
             Wreck: 1,
@@ -342,12 +342,12 @@ const crew_data = {
         "When you play a Leech, you earn xp when you address a challenge with technical skill or mayhem. Duskwall is a city full of industrial machinery,  spark-crafts, plumbing, and electrical systems for you to bend to your purposes or sabotage. Get out your tools and get your hands dirty.",
         "The extensive training that makes a Leech is rare and strange among the disenfranchised underworld class—how did you learn your arts? Which side of the coin do you prefer, the side of creation and restoration, or the side of mayhem and destruction?",
       ],
-      dots: { Tinker: 2, Wreck: 1 },
+      actions: { Tinker: 2, Wreck: 1 },
       starting_build: [
         {
           name: "Doctor",
           flavor: "Physicker",
-          dots: {
+          actions: {
             Consort: 1,
             Finesse: 1,
             Study: 2,
@@ -356,7 +356,7 @@ const crew_data = {
         {
           name: "Sapper",
           flavor: "Saboteur",
-          dots: {
+          actions: {
             Study: 1,
             Survey: 2,
             Wreck: 1,
@@ -365,7 +365,7 @@ const crew_data = {
         {
           name: "Viper",
           flavor: "Venomous",
-          dots: {
+          actions: {
             Prowl: 2,
             Sway: 2,
           },
@@ -373,7 +373,7 @@ const crew_data = {
         {
           name: "Witch",
           flavor: "Alchemist",
-          dots: {
+          actions: {
             Attune: 2,
             Study: 2,
           },
@@ -507,12 +507,12 @@ const crew_data = {
         "When you play a Lurk, you earn xp when you address a challenge with stealth or evasion. Stay out of sight, sneak past your enemies, and strike from the shadows. If things go wrong, there’s no shame in disappearing into the darkness...  for now. Your greatest ally is the dark and twisting city, its ink-dark streets, its rooftop pathways.",
         "How did you learn the stealthy arts of the Lurk? Which aspect are you drawn to most? The invisible watcher, spying on the unwary? The adroit acrobat, racing across rooftops? The deadly ambush predator, waiting for a victim in the darkness?",
       ],
-      dots: { Finesse: 1, Prowl: 2 },
+      actions: { Finesse: 1, Prowl: 2 },
       starting_build: [
         {
           name: "Acrobat",
           flavor: "The Devil’s Footsteps",
-          dots: {
+          actions: {
             Consort: 2,
             Finesse: 1,
             Sway: 1,
@@ -521,7 +521,7 @@ const crew_data = {
         {
           name: "Assassin",
           flavor: "Ambush",
-          dots: {
+          actions: {
             Hunt: 2,
             Skirmish: 2,
           },
@@ -529,7 +529,7 @@ const crew_data = {
         {
           name: "Burglar",
           flavor: "Infiltrator",
-          dots: {
+          actions: {
             Survey: 2,
             Finesse: 1,
             Tinker: 1,
@@ -538,7 +538,7 @@ const crew_data = {
         {
           name: "Daring Rogue",
           flavor: "Daredevil",
-          dots: {
+          actions: {
             Skirmish: 2,
             Consort: 2,
           },
@@ -673,12 +673,12 @@ const crew_data = {
         "When you play a Slide, you earn xp when you address a challenge with deception or influence. Talk your way into trouble, then talk your way out again. Pretend to be someone you’re not. Bluff, lie, and manipulate to get your way. Every problem is ultimately a problem because of people—and people are the instrument upon which you play your music.",
         "Is there anything true about you, at your core? Or are you whatever you need to be, day to day? Are all of your relationships merely gambits that you play for your advantage?",
       ],
-      dots: { Consort: 1, Sway: 2 },
+      actions: { Consort: 1, Sway: 2 },
       starting_build: [
         {
           name: "The Siren",
           flavor: "Trust in Me",
-          dots: {
+          actions: {
             Attune: 2,
             Consort: 1,
             Prowl: 1,
@@ -687,7 +687,7 @@ const crew_data = {
         {
           name: "The Prestige",
           flavor: "Mesmerism",
-          dots: {
+          actions: {
             Finesse: 2,
             Prowl: 2,
           },
@@ -695,7 +695,7 @@ const crew_data = {
         {
           name: "The Grifter",
           flavor: "A Little Something on the Side",
-          dots: {
+          actions: {
             Consort: 1,
             Finesse: 2,
             Study: 1,
@@ -704,7 +704,7 @@ const crew_data = {
         {
           name: "The Spy",
           flavor: "Cloak & Dagger",
-          dots: {
+          actions: {
             Prowl: 2,
             Finesse: 1,
             Skirmish: 1,
@@ -838,12 +838,12 @@ const crew_data = {
         "When you play a Spider, you earn xp when you address a challenge with calculation or conspiracy. Reach out to your contacts, friends, and associates to set your crew up for success. Use your downtime activities and flashbacks wisely to prepare for trouble and to calculate the angles of success. When things go wrong, don’t panic, and remember: you planned for this.",
         "Are you enmeshed in the network of favors and debts that you exploit as a Spider, or do you scrupulously hold yourself apart, as a cold predator upon the web?",
       ],
-      dots: { Study: 1, Consort: 2 },
+      actions: { Study: 1, Consort: 2 },
       starting_build: [
         {
           name: "The Arbiter",
           flavor: "Ghost Contract",
-          dots: {
+          actions: {
             Attune: 2,
             Study: 1,
             Sway: 2,
@@ -852,7 +852,7 @@ const crew_data = {
         {
           name: "The Conductor",
           flavor: "Foresight",
-          dots: {
+          actions: {
             Command: 2,
             Survey: 2,
           },
@@ -860,7 +860,7 @@ const crew_data = {
         {
           name: "The Convict",
           flavor: "Jail Bird",
-          dots: {
+          actions: {
             Command: 1,
             Skirmish: 2,
             Sway: 1,
@@ -869,7 +869,7 @@ const crew_data = {
         {
           name: "The Operator",
           flavor: "Mastermind",
-          dots: {
+          actions: {
             Prowl: 2,
             Tinker: 2,
           },
@@ -1004,12 +1004,12 @@ const crew_data = {
         "When you play a Whisper, you earn xp when you address a challenge with knowledge or arcane power. Seek out the strange and dark forces and bend them to your will. By being willing to face the trauma from the stress-intensive abilities of the arcane, you’ll slowly remove parts of yourself, and replace them with power.",
         "Why did you pursue the path of the Whisper? How did you develop your abilities? Are you a natural, did you study and practice on your own, or did you have a mentor?",
       ],
-      dots: { Study: 1, Attune: 2 },
+      actions: { Study: 1, Attune: 2 },
       starting_build: [
         {
           name: "The Summoner",
           flavor: "Compel",
-          dots: {
+          actions: {
             Command: 1,
             Study: 1,
             Survey: 2,
@@ -1018,7 +1018,7 @@ const crew_data = {
         {
           name: "The Cultist",
           flavor: "Occultist",
-          dots: {
+          actions: {
             Command: 2,
             Consort: 2,
           },
@@ -1026,7 +1026,7 @@ const crew_data = {
         {
           name: "The Channeler",
           flavor: "Tempest",
-          dots: {
+          actions: {
             Skirmish: 2,
             Wreck: 2,
           },
@@ -1034,7 +1034,7 @@ const crew_data = {
         {
           name: "The Dark Scholar",
           flavor: "Ritual",
-          dots: {
+          actions: {
             Consort: 1,
             Study: 1,
             Tinker: 2,
@@ -1048,8 +1048,9 @@ const crew_data = {
             "Nyryx, a possessor ghost. Perhaps a good source for targets, or perhaps a spirit that escaped from your service?",
         },
         {
-          name: "Scurlock, a vampire.  Perhaps a mentor, or perhaps a deadly rival?",
-          description: "Scurlock",
+          name: "Scurlock",
+          description:
+            "Scurlock, a vampire.  Perhaps a mentor, or perhaps a deadly rival?",
         },
         {
           name: "Setarra",
@@ -1433,4 +1434,4 @@ export const {
   vices,
   actions,
   standard_items,
-} = crew_data;
+} = characters_data;

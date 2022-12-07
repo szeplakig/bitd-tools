@@ -1,5 +1,5 @@
 import React from "react";
-import CharacterCreator from "./components/CharacterCreator";
+import CharacterCreatorBase from "./components/CharacterCreator/CharacterCreatorBase";
 import Factions from "./components/Factions";
 import Homepage from "./components/Homepage";
 import ScoreGenerator from "./components/ScoreGenerator";
@@ -7,7 +7,7 @@ import Sidebar from "./components/Sidebar";
 
 const pages = [
   <Homepage />,
-  <CharacterCreator />,
+  <CharacterCreatorBase />,
   <Factions />,
   <ScoreGenerator />,
 ];
