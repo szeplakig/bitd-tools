@@ -16,48 +16,59 @@ import {
   standard_items,
 } from "../../data/characters_data";
 import ActionSelector from "./ActionSelector";
+import RollModal from "./RollModal";
 
 // import { TextField, MenuItem, Box } from "@mui/material";
 
 const CharacterCreator = () => {
   const key_base = "character_";
+  const [showRollModal, setShowRollModal] = React.useState(false);
+  const [rollType, setRollType] = React.useState(undefined);
+  const [rollArgs, setRollArgs] = React.useState({});
+
   const default_actions = {
-    Hunt: 0,
-    Study: 0,
-    Survey: 0,
-    Tinker: 0,
-    Finesse: 0,
-    Prowl: 0,
-    Skirmish: 0,
-    Wreck: 0,
-    Attune: 0,
-    Command: 0,
-    Consort: 0,
-    Sway: 0,
+    Insight: {
+      Hunt: 0,
+      Study: 0,
+      Survey: 0,
+      Tinker: 0,
+    },
+    Prowess: {
+      Finesse: 0,
+      Prowl: 0,
+      Skirmish: 0,
+      Wreck: 0,
+    },
+    Resolve: {
+      Attune: 0,
+      Command: 0,
+      Consort: 0,
+      Sway: 0,
+    },
   };
   let [character_name, set_character_name] = useState("");
   let [character_alias, set_character_alias] = useState("");
-  let [selected_class, set_selected_class] = useState("");
+  let [selected_class, setSelectedClass] = useState("");
   let [selected_heritage, set_selected_heritage] = useState("");
   let [selected_background, set_selected_background] = useState("");
   let [selected_vice, set_selected_vice] = useState("");
-  let [selected_abilities, set_selected_abilities] = useState([]);
-  let [character_friends_or_rivals, set_character_friends_or_rivals] = useState(
-    {}
-  );
-  let [character_actions, set_character_actions] = useState(
+  let [selected_abilities, setSelectedAbilities] = useState([]);
+  let [character_friends_or_rivals, setCharacterFriendsOrRivals] = useState({});
+  let [character_actions, setCharacterActions] = useState(
     Object.assign({}, default_actions)
   );
 
   let [saved_characters, set_saved_characters] = useState(0);
+  let [selected_menu_screen, set_selected_menu_screen] = useState(0);
 
-  const show_roll_menu = (roll_name) => {
-    // placeholder
-    alert(roll_name + " roll");
+  const showRollMenu = (roll_type, roll_args) => {
+    setShowRollModal(true);
+    setRollType(roll_type);
+    setRollArgs(roll_args);
   };
 
   const save_current_character = () => {
-    if (character_name.length == 0) {
+    if (character_name.length === 0) {
       alert(`Cannot save character without name!`);
       return;
     }
@@ -91,13 +102,13 @@ const CharacterCreator = () => {
     ) {
       set_character_name(data.character_name);
       set_character_alias(data.character_alias);
-      set_selected_class(data.selected_class);
+      setSelectedClass(data.selected_class);
       set_selected_heritage(data.selected_heritage);
       set_selected_background(data.selected_background);
       set_selected_vice(data.selected_vice);
-      set_selected_abilities(data.selected_abilities);
-      set_character_friends_or_rivals(data.character_friends_or_rivals);
-      set_character_actions(data.character_actions);
+      setSelectedAbilities(data.selected_abilities);
+      setCharacterFriendsOrRivals(data.character_friends_or_rivals);
+      setCharacterActions(data.character_actions);
     }
   };
   const remove_character = (character_name) => {
@@ -105,6 +116,41 @@ const CharacterCreator = () => {
       remove(key_base + character_name);
       set_saved_characters(savedCount(key_base));
     }
+  };
+
+  const setCharacterActionsHelper = (class_name) => {
+    if (class_name !== "") {
+      let actions = {};
+      for (const action_group_name in default_actions) {
+        actions[action_group_name] = Object.assign(
+          {},
+          default_actions[action_group_name],
+          classes[class_name].actions[action_group_name]
+        );
+      }
+      setCharacterActions(actions);
+    } else {
+      setCharacterActions(Object.assign({}, default_actions));
+    }
+  };
+
+  const setCharacterFriendsOrRivalsHelper = (class_name) => {
+    if (class_name !== "") {
+      const friends_or_rivals = {};
+      for (const fr of classes[class_name].friends_or_rivals) {
+        friends_or_rivals[fr.name] = null;
+      }
+      setCharacterFriendsOrRivals(friends_or_rivals);
+    } else {
+      setCharacterFriendsOrRivals({});
+    }
+  };
+
+  const setSelectedClassHelper = (class_name) => {
+    setSelectedClass(class_name);
+    setSelectedAbilities([]);
+    setCharacterActionsHelper(class_name);
+    setCharacterFriendsOrRivalsHelper(class_name);
   };
 
   return (
@@ -119,7 +165,7 @@ const CharacterCreator = () => {
       >
         <li>
           <span
-            className="inline-flex"
+            className="inline-flex cursor-pointer"
             onClick={() => save_current_character()}
           >
             <svg
@@ -141,7 +187,7 @@ const CharacterCreator = () => {
         </li>
         <hr className="white" />
         {savedElements(key_base).map((value) => (
-          <li className="inline-flex">
+          <li className="inline-flex cursor-pointer">
             <svg
               className="w-6 h-6 m-1"
               fill="none"
@@ -187,7 +233,7 @@ const CharacterCreator = () => {
         <div className="characterCreatorPortrait characterCreatorDiv rounded">
           <img src={example_char_portrait}></img>
         </div>
-        <div className="characterCreatorName characterCreatorDiv rounded">
+        <div className="characterCreatorName characterCreatorDiv rounded w-full h-full">
           <input
             className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             id="characterName"
@@ -197,7 +243,7 @@ const CharacterCreator = () => {
             onChange={(event) => set_character_name(event.target.value)}
           ></input>
         </div>
-        <div className="characterCreatorAlias characterCreatorDiv rounded">
+        <div className="characterCreatorAlias characterCreatorDiv rounded w-full h-full">
           <input
             className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             id="characterAlias"
@@ -207,33 +253,13 @@ const CharacterCreator = () => {
             onChange={(event) => set_character_alias(event.target.value)}
           ></input>
         </div>
-        <div className="characterCreatorClassSelect characterCreatorDiv rounded">
+        <div className="characterCreatorClassSelect characterCreatorDiv rounded w-full h-full">
           <select
             id="characterClass"
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             value={selected_class}
             onChange={(event) => {
-              set_selected_class(event.target.value);
-              set_selected_abilities([]);
-              if (event.target.value !== "") {
-                set_character_actions(
-                  Object.assign(
-                    {},
-                    default_actions,
-                    classes[event.target.value].actions
-                  )
-                );
-                const friends_or_rivals = {};
-                for (const fr of classes[event.target.value]
-                  .friends_or_rivals) {
-                  console.log(fr.name);
-                  friends_or_rivals[fr.name] = null;
-                }
-                set_character_friends_or_rivals(friends_or_rivals);
-              } else {
-                set_character_actions(Object.assign({}, default_actions));
-                set_character_friends_or_rivals({});
-              }
+              setSelectedClassHelper(event.target.value);
             }}
           >
             <option value="">Choose a Class</option>
@@ -246,13 +272,17 @@ const CharacterCreator = () => {
             })}
           </select>
         </div>
-        <div className="characterCreatorClassInfo characterCreatorDiv rounded">
-          {selected_class && <h3>{classes[selected_class].description}</h3>}
+        <div className="characterCreatorClassInfo characterCreatorDiv rounded w-full h-full">
+          {selected_class && (
+            <h3 className="w-full h-full">
+              {classes[selected_class].description}
+            </h3>
+          )}
         </div>
-        <div className="characterCreatorBackgroundSelect characterCreatorDiv rounded">
+        <div className="characterCreatorBackgroundSelect characterCreatorDiv rounded w-full h-full">
           <select
             id="characterBackground"
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             value={selected_background}
             onChange={(event) => set_selected_background(event.target.value)}
           >
@@ -266,15 +296,17 @@ const CharacterCreator = () => {
             })}
           </select>
         </div>
-        <div className="characterCreatorBackgroundInfo characterCreatorDiv rounded">
+        <div className="characterCreatorBackgroundInfo characterCreatorDiv rounded w-full h-full">
           {selected_background && (
-            <h3>{backgrounds[selected_background].description}</h3>
+            <h3 className="w-full h-full">
+              {backgrounds[selected_background].description}
+            </h3>
           )}
         </div>
-        <div className="characterCreatorHeritageSelect characterCreatorDiv rounded">
+        <div className="characterCreatorHeritageSelect characterCreatorDiv rounded w-full h-full">
           <select
             id="characterHeritage"
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             value={selected_heritage}
             onChange={(event) => set_selected_heritage(event.target.value)}
           >
@@ -288,15 +320,17 @@ const CharacterCreator = () => {
             })}
           </select>
         </div>
-        <div className="characterCreatorHeritageInfo characterCreatorDiv rounded">
+        <div className="characterCreatorHeritageInfo characterCreatorDiv rounded w-full h-full">
           {selected_heritage && (
-            <h3>{heritages[selected_heritage].description}</h3>
+            <h3 className="w-full h-full">
+              {heritages[selected_heritage].description}
+            </h3>
           )}
         </div>
-        <div className="characterCreatorViceSelect characterCreatorDiv rounded">
+        <div className="characterCreatorViceSelect characterCreatorDiv rounded w-full h-full">
           <select
             id="characterVice"
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
             value={selected_vice}
             onChange={(event) => set_selected_vice(event.target.value)}
           >
@@ -310,143 +344,200 @@ const CharacterCreator = () => {
             })}
           </select>
         </div>
-        <div className="characterCreatorViceInfo characterCreatorDiv rounded">
-          {selected_vice && <h3>{vices[selected_vice].description}</h3>}
+        <div className="characterCreatorViceInfo characterCreatorDiv rounded w-full h-full">
+          {selected_vice && (
+            <h3 className="w-full h-full">
+              {vices[selected_vice].description}
+            </h3>
+          )}
         </div>
-        <div className="characterCreatorSpecialAbilities characterCreatorDiv rounded">
-          {selected_class &&
-            getNames(classes[selected_class].special_abilities).map(
-              (special_ability_name) => {
-                return (
-                  <div
-                    key={selected_class + special_ability_name}
-                    className="flex items-center mb-4"
-                  >
-                    <input
-                      id={`${special_ability_name}-checkbox`}
-                      type="checkbox"
-                      value={selected_abilities.includes(special_ability_name)}
-                      onChange={() => {
-                        const abilities = [...selected_abilities];
-                        if (abilities.includes(special_ability_name)) {
-                          abilities.splice(
-                            abilities.indexOf(special_ability_name),
-                            1
-                          );
-                        } else {
-                          abilities.push(special_ability_name);
-                        }
-                        set_selected_abilities(abilities);
-                      }}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    ></input>
-                    <label
-                      htmlFor={`${special_ability_name}-checkbox`}
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      {special_ability_name}
-                    </label>
-                  </div>
-                );
-              }
-            )}
+        <div className="characterSwitchMenu">
+          <div className="flex flex-row justify-evenly">
+            <h1
+              className="mb-5 inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
+              onClick={() => set_selected_menu_screen(0)}
+            >
+              Special Abilities
+            </h1>
+            <h1
+              className="mb-5 before:inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
+              onClick={() => set_selected_menu_screen(1)}
+            >
+              {selected_class &&
+                classes[selected_class].friends_or_rivals_type + " "}
+              Friends or Rivals
+            </h1>
+            <h1
+              className="mb-5 inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
+              onClick={() => set_selected_menu_screen(2)}
+            >
+              Character Inventory
+            </h1>
+          </div>
+          {selected_menu_screen == 0 && (
+            <div className="characterCreatorDiv rounded">
+              {selected_class &&
+                Object.keys(classes[selected_class].special_abilities).map(
+                  (special_ability_name) => {
+                    return (
+                      <div
+                        key={selected_class + special_ability_name}
+                        className="flex items-center flex-row max-h-[25vh] ma-5 overflow-x-hidden overflow-y-auto"
+                      >
+                        <div className="flex flex-col">
+                          <div className="min-w-[150px] mr-6 flex-row flex">
+                            <input
+                              id={`${special_ability_name}-checkbox`}
+                              type="checkbox"
+                              value={selected_abilities.includes(
+                                special_ability_name
+                              )}
+                              onChange={() => {
+                                const abilities = [...selected_abilities];
+                                if (abilities.includes(special_ability_name)) {
+                                  abilities.splice(
+                                    abilities.indexOf(special_ability_name),
+                                    1
+                                  );
+                                } else {
+                                  abilities.push(special_ability_name);
+                                }
+                                setSelectedAbilities(abilities);
+                              }}
+                              className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            ></input>
+                            <label
+                              htmlFor={`${special_ability_name}-checkbox`}
+                              className="ml-[2px] mr-[8px] text-gray-900 dark:text-gray-300 break-words"
+                            >
+                              {special_ability_name}
+                            </label>
+                          </div>
+                        </div>
+                        <div className="flex flex-col">
+                          <h2 className="break-words">
+                            {
+                              classes[selected_class].special_abilities[
+                                special_ability_name
+                              ].ability
+                            }
+                          </h2>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+            </div>
+          )}
+          {selected_menu_screen == 1 && (
+            <div className="characterCreatorDiv rounded">
+              {selected_class &&
+                getNames(classes[selected_class].friends_or_rivals).map(
+                  (acquaintance) => (
+                    <span>
+                      <span className="inline-flex flex-col">
+                        <input
+                          type="radio"
+                          className="top"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "good"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = "Friend";
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          className="none"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "none"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = null;
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                          defaultChecked
+                        />
+                        <input
+                          type="radio"
+                          className="bot"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "bad"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = "Rival";
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                        />
+                      </span>
+                      <h3 className="inline-block ml-5">{acquaintance}</h3>
+                      <br />
+                    </span>
+                  )
+                )}
+            </div>
+          )}
+          {selected_menu_screen == 2 && (
+            <div className="characterCreatorDiv rounded"></div>
+          )}
         </div>
         <div className="characterCreatorActions characterCreatorDiv rounded">
+          <h1 className="mb-5">Character Actions</h1>
           {character_actions &&
-            Object.keys(character_actions).map((action_name) => {
-              const headers = {
-                Hunt: "Insight",
-                Finesse: "Prowess",
-                Attune: "Resolve",
-              };
-              const header =
-                headers[action_name] !== undefined ? (
-                  <h3>
-                    <a
-                      href="javascript:;"
-                      onClick={(event) => show_roll_menu(headers[action_name])}
-                    >
-                      {headers[action_name]}
-                    </a>
-                  </h3>
-                ) : (
-                  ""
-                );
-              return [
-                header,
-                <div
-                  key={selected_class + action_name}
-                  className="flex items-center mb-4"
+            Object.keys(character_actions).map((action_group_name) => [
+              <h3>
+                <a
+                  href="javascript:;"
+                  onClick={(event) =>
+                    showRollMenu("Save", {
+                      action_group_name,
+                      character_actions,
+                    })
+                  }
                 >
-                  <ActionSelector
-                    selected_class={selected_class}
-                    set_character_actions={set_character_actions}
-                    character_actions={character_actions}
-                    action_name={action_name}
-                    show_roll_menu={show_roll_menu}
-                  />
-                </div>,
-              ];
-            })}
-        </div>
-        <div className="characterCreatorFriends characterCreatorDiv rounded">
-          <p>
-            {selected_class &&
-              classes[selected_class].friends_or_rivals_type + " "}
-            Friends or Rivals
-          </p>
-          {selected_class &&
-            getNames(classes[selected_class].friends_or_rivals).map(
-              (acquaintance) => (
-                <span>
-                  <span className="inline-flex flex-col">
-                    <input
-                      type="radio"
-                      className="top"
-                      name={selected_class + acquaintance + "type"}
-                      id={selected_class + acquaintance + "good"}
-                      onChange={(event) => {
-                        const current = { ...character_friends_or_rivals };
-                        current[acquaintance] = "Friend";
-                        set_character_friends_or_rivals(current);
-                      }}
+                  {action_group_name}
+                </a>
+              </h3>,
+              Object.keys(character_actions[action_group_name]).map(
+                (action_name) => (
+                  <div
+                    key={selected_class + action_name}
+                    className="flex items-center mb-4"
+                  >
+                    <ActionSelector
+                      selected_class={selected_class}
+                      set_character_actions={setCharacterActions}
+                      character_actions={character_actions}
+                      action_group_name={action_group_name}
+                      action_name={action_name}
+                      showRollMenu={showRollMenu}
                     />
-                    <input
-                      type="radio"
-                      className="none"
-                      name={selected_class + acquaintance + "type"}
-                      id={selected_class + acquaintance + "none"}
-                      onChange={(event) => {
-                        const current = { ...character_friends_or_rivals };
-                        current[acquaintance] = null;
-                        set_character_friends_or_rivals(current);
-                      }}
-                      defaultChecked
-                    />
-                    <input
-                      type="radio"
-                      className="bot"
-                      name={selected_class + acquaintance + "type"}
-                      id={selected_class + acquaintance + "bad"}
-                      onChange={(event) => {
-                        const current = { ...character_friends_or_rivals };
-                        current[acquaintance] = "Rival";
-                        set_character_friends_or_rivals(current);
-                      }}
-                    />
-                  </span>
-                  <h3 className="inline-block ml-5">{acquaintance}</h3>
-                  <br />
-                </span>
-              )
+                  </div>
+                )
+              ),
+            ])}
+          <h3>
+            Total:{" "}
+            {Object.values(character_actions).reduce(
+              (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
+              0
             )}
+          </h3>
+          <button onClick={() => setCharacterActionsHelper(selected_class)}>
+            Reset
+          </button>
         </div>
-        <div className="characterCreatorInventory characterCreatorDiv rounded">
-          characterCreatorInventory
+        <div className="div16 characterCreatorDiv">
+          <h2 className="mb-5">Empty</h2>
         </div>
-        <div className="div16">empty</div>
       </div>
-      <div></div>
+      <RollModal
+        showRollModal={showRollModal}
+        setShowRollModal={setShowRollModal}
+        rollType={rollType}
+        rollArgs={rollArgs}
+      ></RollModal>
     </div>
   );
 };
