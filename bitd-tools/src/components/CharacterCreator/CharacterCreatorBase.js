@@ -375,111 +375,149 @@ const CharacterCreator = () => {
             </h1>
           </div>
           {selected_menu_screen == 0 && (
-            <div className="characterCreatorDiv rounded">
+            <div className="characterCreatorDiv rounded characterSpecialAbilitiesGrid">
+              <div></div>
+              <div>
+                <h2>Ability name</h2>
+              </div>
+              <div>
+                <h2>Description</h2>
+              </div>
               {selected_class &&
                 Object.keys(classes[selected_class].special_abilities).map(
                   (special_ability_name) => {
-                    return (
-                      <div
-                        key={selected_class + special_ability_name}
-                        className="flex items-center flex-row max-h-[25vh] ma-5 overflow-x-hidden overflow-y-auto"
+                    return [
+                      <input
+                        id={`${special_ability_name}-checkbox`}
+                        type="checkbox"
+                        value={selected_abilities.includes(
+                          special_ability_name
+                        )}
+                        onChange={() => {
+                          const abilities = [...selected_abilities];
+                          if (abilities.includes(special_ability_name)) {
+                            abilities.splice(
+                              abilities.indexOf(special_ability_name),
+                              1
+                            );
+                          } else {
+                            abilities.push(special_ability_name);
+                          }
+                          setSelectedAbilities(abilities);
+                        }}
+                        className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      ></input>,
+                      <label
+                        htmlFor={`${special_ability_name}-checkbox`}
+                        className="text-gray-900 dark:text-gray-300 break-words"
                       >
-                        <div className="flex flex-col">
-                          <div className="min-w-[150px] mr-6 flex-row flex">
-                            <input
-                              id={`${special_ability_name}-checkbox`}
-                              type="checkbox"
-                              value={selected_abilities.includes(
-                                special_ability_name
-                              )}
-                              onChange={() => {
-                                const abilities = [...selected_abilities];
-                                if (abilities.includes(special_ability_name)) {
-                                  abilities.splice(
-                                    abilities.indexOf(special_ability_name),
-                                    1
-                                  );
-                                } else {
-                                  abilities.push(special_ability_name);
-                                }
-                                setSelectedAbilities(abilities);
-                              }}
-                              className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            ></input>
-                            <label
-                              htmlFor={`${special_ability_name}-checkbox`}
-                              className="ml-[2px] mr-[8px] text-gray-900 dark:text-gray-300 break-words"
-                            >
-                              {special_ability_name}
-                            </label>
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <h2 className="break-words">
-                            {
-                              classes[selected_class].special_abilities[
-                                special_ability_name
-                              ].ability
-                            }
-                          </h2>
-                        </div>
-                      </div>
-                    );
+                        {special_ability_name}
+                      </label>,
+                      <h2 className="break-words max-h-[20vh] overflow-x-hidden overflow-y-auto">
+                        {
+                          classes[selected_class].special_abilities[
+                            special_ability_name
+                          ].ability
+                        }
+                      </h2>,
+                    ];
                   }
                 )}
             </div>
           )}
           {selected_menu_screen == 1 && (
-            <div className="characterCreatorDiv rounded">
+            <div className="characterFriendsNRivals characterCreatorDiv rounded">
               {selected_class &&
                 getNames(classes[selected_class].friends_or_rivals).map(
-                  (acquaintance) => (
-                    <span>
-                      <span className="inline-flex flex-col">
-                        <input
-                          type="radio"
-                          className="top"
-                          name={selected_class + acquaintance + "type"}
-                          id={selected_class + acquaintance + "good"}
-                          onChange={(event) => {
-                            const current = { ...character_friends_or_rivals };
-                            current[acquaintance] = "Friend";
-                            setCharacterFriendsOrRivals(current);
-                          }}
-                        />
-                        <input
-                          type="radio"
-                          className="none"
-                          name={selected_class + acquaintance + "type"}
-                          id={selected_class + acquaintance + "none"}
-                          onChange={(event) => {
-                            const current = { ...character_friends_or_rivals };
-                            current[acquaintance] = null;
-                            setCharacterFriendsOrRivals(current);
-                          }}
-                          defaultChecked
-                        />
-                        <input
-                          type="radio"
-                          className="bot"
-                          name={selected_class + acquaintance + "type"}
-                          id={selected_class + acquaintance + "bad"}
-                          onChange={(event) => {
-                            const current = { ...character_friends_or_rivals };
-                            current[acquaintance] = "Rival";
-                            setCharacterFriendsOrRivals(current);
-                          }}
-                        />
-                      </span>
-                      <h3 className="inline-block ml-5">{acquaintance}</h3>
-                      <br />
-                    </span>
-                  )
+                  (acquaintance) => [
+                    <span className="inline-flex flex-col">
+                      <input
+                        type="radio"
+                        className="top"
+                        name={selected_class + acquaintance + "type"}
+                        id={selected_class + acquaintance + "good"}
+                        onChange={(event) => {
+                          const current = { ...character_friends_or_rivals };
+                          current[acquaintance] = "Friend";
+                          setCharacterFriendsOrRivals(current);
+                        }}
+                      />
+                      <input
+                        type="radio"
+                        className="none"
+                        name={selected_class + acquaintance + "type"}
+                        id={selected_class + acquaintance + "none"}
+                        onChange={(event) => {
+                          const current = { ...character_friends_or_rivals };
+                          current[acquaintance] = null;
+                          setCharacterFriendsOrRivals(current);
+                        }}
+                        defaultChecked
+                      />
+                      <input
+                        type="radio"
+                        className="bot"
+                        name={selected_class + acquaintance + "type"}
+                        id={selected_class + acquaintance + "bad"}
+                        onChange={(event) => {
+                          const current = { ...character_friends_or_rivals };
+                          current[acquaintance] = "Rival";
+                          setCharacterFriendsOrRivals(current);
+                        }}
+                      />
+                    </span>,
+                    <h3 className="inline-block ml-5">{acquaintance}</h3>,
+                  ]
                 )}
             </div>
           )}
           {selected_menu_screen == 2 && (
-            <div className="characterCreatorDiv rounded"></div>
+            <div className="characterCreatorDiv rounded ">
+              <div className="characterInventoryGrid">
+                <div></div>
+                <div>
+                  <h2>Name</h2>
+                </div>
+                <div>
+                  <h2>Load</h2>
+                </div>
+                <div>
+                  <h2>Description</h2>
+                </div>
+                {selected_class &&
+                  Object.values(classes[selected_class].items).map((item) => [
+                    <div>
+                      <input
+                        id={`${item.name}-checkbox`}
+                        type="checkbox"
+                        value={[item.name, item.load]}
+                        onChange={() => {}}
+                        className="w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      ></input>
+                    </div>,
+                    <div>{item.name}</div>,
+                    <div>{item.load}</div>,
+                    <div>{item.description}</div>,
+                  ])}
+              </div>
+              <hr className="my-10" />
+              <div className="characterInventoryGrid">
+                {Object.values(standard_items).map((item) => [
+                  <div>
+                    <input
+                      id={`${item.name}-checkbox`}
+                      type="checkbox"
+                      value={[item.name, item.load]}
+                      onChange={() => {}}
+                      className="w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    ></input>
+                  </div>,
+                  <div>{item.name}</div>,
+                  <div>{item.load}</div>,
+                  <div>{item.description}</div>,
+                ])}
+              </div>
+            </div>
           )}
         </div>
         <div className="characterCreatorActions characterCreatorDiv rounded">

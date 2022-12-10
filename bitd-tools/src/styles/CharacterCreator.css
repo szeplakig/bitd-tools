@@ -9,7 +9,7 @@
 .characterCreatorGridParent {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(5, 2fr) 10fr;
+  grid-row: auto;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin: 5px;
@@ -81,12 +81,12 @@
   overflow: auto;
 }
 .characterSwitchMenu {
-  grid-area: 6 / 1 / 7 / 9;
+  grid-area: 6 / 1 / 7 / 8;
   overflow: auto;
   margin: 20px;
 }
 .characterCreatorActions {
-  grid-area: 6 / 9 / 7 / 11;
+  grid-area: 6 / 8 / 7 / 11;
   overflow: auto;
 }
 .div16 {
@@ -94,6 +94,23 @@
   max-height: 8vh;
   min-height: 8vh;
   overflow: auto;
+}
+
+.characterInventoryGrid {
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr 15fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+}
+
+.characterSpecialAbilitiesGrid {
+  display: grid;
+  grid-template-columns: 1fr 5fr 15fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+  align-items: flex-start;
 }
 
 select {
@@ -123,17 +140,26 @@ div.characterCreatorActions span {
   margin-right: 10px;
 }
 
-div.characterCreatorFriends input[type="radio"].top {
+.characterFriendsNRivals {
+  display: grid;
+  grid-template-columns: 1fr 15fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+  align-items: flex-start;
+}
+
+div.characterFriendsNRivals input[type="radio"].top {
   clip-path: polygon(50% 50%, 0% 100%, 100% 100%);
   accent-color: green;
 }
 
-div.characterCreatorFriends input[type="radio"].bot {
+div.characterFriendsNRivals input[type="radio"].bot {
   clip-path: polygon(50% 50%, 0 0, 100% 0);
   accent-color: red;
 }
 
-div.characterCreatorFriends input[type="radio"].none {
+div.characterFriendsNRivals input[type="radio"].none {
   clip-path: polygon(0 33%, 100% 33%, 100% 66%, 0 66%);
   accent-color: cyan;
 }
