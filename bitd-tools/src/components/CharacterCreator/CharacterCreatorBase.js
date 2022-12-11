@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../../styles/CharacterCreator.css";
 import example_char_portrait from "../../assets/images/example.png";
-import getNames from "../../util/getNames";
 import savedElements from "../../util/savedElements";
 import savedKeyExists from "../../util/savedKeyExists";
 import save from "../../util/save";
 import remove from "../../util/remove";
 import savedCount from "../../util/savedCount";
+import { toast } from "react-toastify";
 import {
   classes,
   heritages,
@@ -15,6 +15,7 @@ import {
   actions,
   standard_items,
 } from "../../data/characters_data";
+import data from "../../data/characters_data";
 import ActionSelector from "./ActionSelector";
 import RollModal from "./RollModal";
 
@@ -153,339 +154,425 @@ const CharacterCreator = () => {
     setCharacterFriendsOrRivalsHelper(class_name);
   };
 
+  // const transform = (obj) => {
+  //   if (Array.isArray(obj)) {
+  //     console.log("Array", obj);
+  //     if (obj[0].name !== undefined) {
+  //       const obj2 = {};
+  //       for (const el of obj) {
+  //         obj2[el.name] = transform(el);
+  //       }
+  //       return obj2;
+  //     } else {
+  //       const obj2 = [];
+  //       for (const el of obj) {
+  //         obj2.push(transform(el));
+  //       }
+  //       return obj2;
+  //     }
+  //   } else if (!["string", "number"].includes(typeof obj)) {
+  //     console.log("Keyed", obj, typeof obj);
+  //     const obj2 = {};
+  //     for (const key of Object.keys(obj)) {
+  //       obj2[key] = transform(obj[key]);
+  //     }
+  //     return obj2;
+  //   } else {
+  //     console.log("Other", obj);
+  //     return obj;
+  //   }
+  // };
+
   return (
-    <div className="flex justify-center items-start align-top">
-      <ul
-        className="bg-bitdBlack z-10
-                            flex fixed overflow-y-hidden overflow-x-auto w-full h-16 
-                            sm:ml-4 sm:w-[30%] sm:my-4 sm:mx-2
-                            lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
-                            sm:flex-col sm:static sm:h-full
-                            lg:max-w-[275px] rounded p-2"
-      >
-        <li>
-          <span
-            className="inline-flex cursor-pointer"
-            onClick={() => save_current_character()}
-          >
-            <svg
-              className="w-6 h-6 m-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-              />
-            </svg>
-            Save character
-          </span>
-        </li>
-        <hr className="white" />
-        {savedElements(key_base).map((value) => (
-          <li className="inline-flex cursor-pointer">
-            <svg
-              className="w-6 h-6 m-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              onClick={() => load_character(value)}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            {value.character_name}
-            <svg
-              className="w-6 h-6 m-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              onClick={() => remove_character(value.character_name)}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </li>
-        ))}
-      </ul>
-      <div
-        className="
+    <div>
+      <RollModal
+        showRollModal={showRollModal}
+        setShowRollModal={setShowRollModal}
+        rollType={rollType}
+        rollArgs={rollArgs}
+      ></RollModal>
+      <div className="flex justify-center items-start align-top">
+        <div
+          className="outerDiv bg-bitdBlack z-10
+                  flex fixed overflow-y-hidden overflow-x-auto w-full h-16 
+                  lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
+                  sm:flex-col sm:static sm:h-full
+                  lg:max-w-[275px] rounded shadow-lg"
+        >
+          <div className="w-full">
+            <ul className="w-full">
+              <li>
+                <span
+                  className="inline-flex cursor-pointer"
+                  onClick={() => save_current_character()}
+                >
+                  <svg
+                    className="w-6 h-6 m-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                    />
+                  </svg>
+                  Save character
+                </span>
+              </li>
+              <hr className="white" />
+              {savedElements(key_base).map((value) => (
+                <li className="inline-flex cursor-pointer">
+                  <svg
+                    className="w-6 h-6 m-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => load_character(value)}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  {value.character_name}
+                  <svg
+                    className="w-6 h-6 m-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => remove_character(value.character_name)}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div
+          className="outerDiv
           characterCreatorGridParent
           characterCreatorDiv
           rounded overflow-hidden
           shadow-lg bg-bitdGray text-white
-          my-4 mx-2 lg:w-[70%] mt-16 sm:mt-2 p-2"
-      >
-        <div className="characterCreatorPortrait characterCreatorDiv rounded">
-          <img src={example_char_portrait}></img>
-        </div>
-        <div className="characterCreatorName characterCreatorDiv rounded w-full h-full">
-          <input
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            id="characterName"
-            type="text"
-            placeholder="Character name"
-            value={character_name}
-            onChange={(event) => set_character_name(event.target.value)}
-          ></input>
-        </div>
-        <div className="characterCreatorAlias characterCreatorDiv rounded w-full h-full">
-          <input
-            className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            id="characterAlias"
-            type="text"
-            placeholder="Character alias"
-            value={character_alias}
-            onChange={(event) => set_character_alias(event.target.value)}
-          ></input>
-        </div>
-        <div className="characterCreatorClassSelect characterCreatorDiv rounded w-full h-full">
-          <select
-            id="characterClass"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            value={selected_class}
-            onChange={(event) => {
-              setSelectedClassHelper(event.target.value);
-            }}
-          >
-            <option value="">Choose a Class</option>
-            {Object.keys(classes).map((key) => {
-              return (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="characterCreatorClassInfo characterCreatorDiv rounded w-full h-full">
-          {selected_class && (
-            <h3 className="w-full h-full">
-              {classes[selected_class].description}
-            </h3>
-          )}
-        </div>
-        <div className="characterCreatorBackgroundSelect characterCreatorDiv rounded w-full h-full">
-          <select
-            id="characterBackground"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            value={selected_background}
-            onChange={(event) => set_selected_background(event.target.value)}
-          >
-            <option value="">Choose a Background</option>
-            {Object.keys(backgrounds).map((key) => {
-              return (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="characterCreatorBackgroundInfo characterCreatorDiv rounded w-full h-full">
-          {selected_background && (
-            <h3 className="w-full h-full">
-              {backgrounds[selected_background].description}
-            </h3>
-          )}
-        </div>
-        <div className="characterCreatorHeritageSelect characterCreatorDiv rounded w-full h-full">
-          <select
-            id="characterHeritage"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            value={selected_heritage}
-            onChange={(event) => set_selected_heritage(event.target.value)}
-          >
-            <option value="">Choose a Heritage</option>
-            {Object.keys(heritages).map((key) => {
-              return (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="characterCreatorHeritageInfo characterCreatorDiv rounded w-full h-full">
-          {selected_heritage && (
-            <h3 className="w-full h-full">
-              {heritages[selected_heritage].description}
-            </h3>
-          )}
-        </div>
-        <div className="characterCreatorViceSelect characterCreatorDiv rounded w-full h-full">
-          <select
-            id="characterVice"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
-            value={selected_vice}
-            onChange={(event) => set_selected_vice(event.target.value)}
-          >
-            <option value="">Choose a Vice</option>
-            {Object.keys(vices).map((key) => {
-              return (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="characterCreatorViceInfo characterCreatorDiv rounded w-full h-full">
-          {selected_vice && (
-            <h3 className="w-full h-full">
-              {vices[selected_vice].description}
-            </h3>
-          )}
-        </div>
-        <div className="characterSwitchMenu">
-          <div className="flex flex-row justify-evenly">
-            <h1
-              className="mb-5 inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
-              onClick={() => set_selected_menu_screen(0)}
-            >
-              Special Abilities
-            </h1>
-            <h1
-              className="mb-5 before:inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
-              onClick={() => set_selected_menu_screen(1)}
-            >
-              {selected_class &&
-                classes[selected_class].friends_or_rivals_type + " "}
-              Friends or Rivals
-            </h1>
-            <h1
-              className="mb-5 inline-flex cursor-pointer bg-bitdBlack p-2 rounded"
-              onClick={() => set_selected_menu_screen(2)}
-            >
-              Character Inventory
-            </h1>
+          lg:w-[70%]"
+        >
+          <div className="characterCreatorPortrait characterCreatorDiv rounded">
+            <img src={example_char_portrait}></img>
           </div>
-          {selected_menu_screen == 0 && (
-            <div className="characterCreatorDiv rounded characterSpecialAbilitiesGrid">
-              <div></div>
-              <div>
-                <h2>Ability name</h2>
-              </div>
-              <div>
-                <h2>Description</h2>
-              </div>
-              {selected_class &&
-                Object.keys(classes[selected_class].special_abilities).map(
-                  (special_ability_name) => {
-                    return [
-                      <input
-                        id={`${special_ability_name}-checkbox`}
-                        type="checkbox"
-                        value={selected_abilities.includes(
-                          special_ability_name
-                        )}
-                        onChange={() => {
-                          const abilities = [...selected_abilities];
-                          if (abilities.includes(special_ability_name)) {
-                            abilities.splice(
-                              abilities.indexOf(special_ability_name),
-                              1
-                            );
-                          } else {
-                            abilities.push(special_ability_name);
-                          }
-                          setSelectedAbilities(abilities);
-                        }}
-                        className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      ></input>,
-                      <label
-                        htmlFor={`${special_ability_name}-checkbox`}
-                        className="text-gray-900 dark:text-gray-300 break-words"
-                      >
-                        {special_ability_name}
-                      </label>,
-                      <h2 className="break-words max-h-[20vh] overflow-x-hidden overflow-y-auto">
-                        {
-                          classes[selected_class].special_abilities[
-                            special_ability_name
-                          ].ability
-                        }
-                      </h2>,
-                    ];
-                  }
-                )}
+          <div className="characterCreatorName characterCreatorDiv rounded w-full h-full">
+            <input
+              className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              id="characterName"
+              type="text"
+              placeholder="Character name"
+              value={character_name}
+              onChange={(event) => set_character_name(event.target.value)}
+            ></input>
+          </div>
+          <div className="characterCreatorAlias characterCreatorDiv rounded w-full h-full">
+            <input
+              className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              id="characterAlias"
+              type="text"
+              placeholder="Character alias"
+              value={character_alias}
+              onChange={(event) => set_character_alias(event.target.value)}
+            ></input>
+          </div>
+          <div className="characterCreatorClassSelect characterCreatorDiv rounded w-full h-full">
+            <select
+              id="characterClass"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              value={selected_class}
+              onChange={(event) => {
+                setSelectedClassHelper(event.target.value);
+              }}
+            >
+              <option value="">Choose a Class</option>
+              {Object.keys(classes).map((key) => {
+                return (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="characterCreatorClassInfo characterCreatorDiv rounded w-full h-full">
+            {selected_class && (
+              <h3 className="w-full h-full">
+                {classes[selected_class].description}
+              </h3>
+            )}
+          </div>
+          <div className="characterCreatorBackgroundSelect characterCreatorDiv rounded w-full h-full">
+            <select
+              id="characterBackground"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              value={selected_background}
+              onChange={(event) => set_selected_background(event.target.value)}
+            >
+              <option value="">Choose a Background</option>
+              {Object.keys(backgrounds).map((key) => {
+                return (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="characterCreatorBackgroundInfo characterCreatorDiv rounded w-full h-full">
+            {selected_background && (
+              <h3 className="w-full h-full">
+                {backgrounds[selected_background].description}
+              </h3>
+            )}
+          </div>
+          <div className="characterCreatorHeritageSelect characterCreatorDiv rounded w-full h-full">
+            <select
+              id="characterHeritage"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              value={selected_heritage}
+              onChange={(event) => set_selected_heritage(event.target.value)}
+            >
+              <option value="">Choose a Heritage</option>
+              {Object.keys(heritages).map((key) => {
+                return (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="characterCreatorHeritageInfo characterCreatorDiv rounded w-full h-full">
+            {selected_heritage && (
+              <h3 className="w-full h-full">
+                {heritages[selected_heritage].description}
+              </h3>
+            )}
+          </div>
+          <div className="characterCreatorViceSelect characterCreatorDiv rounded w-full h-full">
+            <select
+              id="characterVice"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
+              value={selected_vice}
+              onChange={(event) => set_selected_vice(event.target.value)}
+            >
+              <option value="">Choose a Vice</option>
+              {Object.keys(vices).map((key) => {
+                return (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="characterCreatorViceInfo characterCreatorDiv rounded w-full h-full">
+            {selected_vice && (
+              <h3 className="w-full h-full">
+                {vices[selected_vice].description}
+              </h3>
+            )}
+          </div>
+          <div className="characterSwitchMenu">
+            <div className="flex flex-row justify-evenly">
+              <h1
+                className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
+                  selected_menu_screen == 0 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                }`}
+                onClick={() => set_selected_menu_screen(0)}
+              >
+                Special Abilities
+              </h1>
+              <h1
+                className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
+                  selected_menu_screen == 1 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                }`}
+                onClick={() => set_selected_menu_screen(1)}
+              >
+                {selected_class &&
+                  classes[selected_class].friends_or_rivals_type + " "}
+                Friends or Rivals
+              </h1>
+              <h1
+                className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
+                  selected_menu_screen == 2 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                }`}
+                onClick={() => set_selected_menu_screen(2)}
+              >
+                Character Inventory
+              </h1>
             </div>
-          )}
-          {selected_menu_screen == 1 && (
-            <div className="characterFriendsNRivals characterCreatorDiv rounded">
-              {selected_class &&
-                getNames(classes[selected_class].friends_or_rivals).map(
-                  (acquaintance) => [
-                    <span className="inline-flex flex-col">
-                      <input
-                        type="radio"
-                        className="top"
-                        name={selected_class + acquaintance + "type"}
-                        id={selected_class + acquaintance + "good"}
-                        onChange={(event) => {
-                          const current = { ...character_friends_or_rivals };
-                          current[acquaintance] = "Friend";
-                          setCharacterFriendsOrRivals(current);
-                        }}
-                      />
-                      <input
-                        type="radio"
-                        className="none"
-                        name={selected_class + acquaintance + "type"}
-                        id={selected_class + acquaintance + "none"}
-                        onChange={(event) => {
-                          const current = { ...character_friends_or_rivals };
-                          current[acquaintance] = null;
-                          setCharacterFriendsOrRivals(current);
-                        }}
-                        defaultChecked
-                      />
-                      <input
-                        type="radio"
-                        className="bot"
-                        name={selected_class + acquaintance + "type"}
-                        id={selected_class + acquaintance + "bad"}
-                        onChange={(event) => {
-                          const current = { ...character_friends_or_rivals };
-                          current[acquaintance] = "Rival";
-                          setCharacterFriendsOrRivals(current);
-                        }}
-                      />
-                    </span>,
-                    <h3 className="inline-block ml-5">{acquaintance}</h3>,
-                  ]
-                )}
-            </div>
-          )}
-          {selected_menu_screen == 2 && (
-            <div className="characterCreatorDiv rounded ">
-              <div className="characterInventoryGrid">
+            {selected_menu_screen == 0 && (
+              <div className="characterCreatorDiv rounded characterSpecialAbilitiesGrid">
                 <div></div>
                 <div>
                   <h2>Name</h2>
                 </div>
                 <div>
-                  <h2>Load</h2>
+                  <h2>Description</h2>
+                </div>
+                {selected_class &&
+                  Object.keys(classes[selected_class].special_abilities).map(
+                    (special_ability_name) => {
+                      return [
+                        <div>
+                          <input
+                            id={`${special_ability_name}-checkbox`}
+                            type="checkbox"
+                            value={selected_abilities.includes(
+                              special_ability_name
+                            )}
+                            onChange={() => {
+                              const abilities = [...selected_abilities];
+                              if (abilities.includes(special_ability_name)) {
+                                abilities.splice(
+                                  abilities.indexOf(special_ability_name),
+                                  1
+                                );
+                              } else {
+                                abilities.push(special_ability_name);
+                              }
+                              setSelectedAbilities(abilities);
+                            }}
+                            className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          ></input>
+                        </div>,
+                        <div>
+                          <label
+                            htmlFor={`${special_ability_name}-checkbox`}
+                            className="text-gray-900 dark:text-gray-300 break-words"
+                          >
+                            {special_ability_name}
+                          </label>
+                        </div>,
+                        <div>
+                          <h2 className="break-words max-h-[20vh] overflow-x-hidden overflow-y-auto">
+                            {
+                              classes[selected_class].special_abilities[
+                                special_ability_name
+                              ].ability
+                            }
+                          </h2>
+                        </div>,
+                      ];
+                    }
+                  )}
+              </div>
+            )}
+            {selected_menu_screen == 1 && (
+              <div className="characterFriendsNRivals characterCreatorDiv rounded">
+                <div></div>
+                <div>
+                  <h2>Name</h2>
                 </div>
                 <div>
                   <h2>Description</h2>
                 </div>
                 {selected_class &&
-                  Object.values(classes[selected_class].items).map((item) => [
+                  Object.keys(classes[selected_class].friends_or_rivals).map(
+                    (acquaintance) => [
+                      <div>
+                        <input
+                          type="radio"
+                          className="top"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "good"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = "Friend";
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          className="none"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "none"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = null;
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                          defaultChecked
+                        />
+                        <input
+                          type="radio"
+                          className="bot"
+                          name={selected_class + acquaintance + "type"}
+                          id={selected_class + acquaintance + "bad"}
+                          onChange={(event) => {
+                            const current = { ...character_friends_or_rivals };
+                            current[acquaintance] = "Rival";
+                            setCharacterFriendsOrRivals(current);
+                          }}
+                        />
+                      </div>,
+                      <div>
+                        <h3 className="inline-block ml-5">{acquaintance}</h3>
+                      </div>,
+                      <div>
+                        <h3 className="inline-block ml-5">
+                          {
+                            classes[selected_class].friends_or_rivals[
+                              acquaintance
+                            ].description
+                          }
+                        </h3>
+                      </div>,
+                    ]
+                  )}
+              </div>
+            )}
+            {selected_menu_screen == 2 && (
+              <div className="characterCreatorDiv rounded ">
+                <div className="characterInventoryGrid">
+                  <div></div>
+                  <div>
+                    <h2>Name</h2>
+                  </div>
+                  <div>
+                    <h2>Load</h2>
+                  </div>
+                  <div>
+                    <h2>Description</h2>
+                  </div>
+                  {selected_class &&
+                    Object.values(classes[selected_class].items).map((item) => [
+                      <div>
+                        <input
+                          id={`${item.name}-checkbox`}
+                          type="checkbox"
+                          value={[item.name, item.load]}
+                          onChange={() => {}}
+                          className="w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        ></input>
+                      </div>,
+                      <div>{item.name}</div>,
+                      <div>{item.load}</div>,
+                      <div>{item.description}</div>,
+                    ])}
+                </div>
+                <hr className="my-10" />
+                <div className="characterInventoryGrid">
+                  {Object.values(standard_items).map((item) => [
                     <div>
                       <input
                         id={`${item.name}-checkbox`}
@@ -499,83 +586,61 @@ const CharacterCreator = () => {
                     <div>{item.load}</div>,
                     <div>{item.description}</div>,
                   ])}
+                </div>
               </div>
-              <hr className="my-10" />
-              <div className="characterInventoryGrid">
-                {Object.values(standard_items).map((item) => [
-                  <div>
-                    <input
-                      id={`${item.name}-checkbox`}
-                      type="checkbox"
-                      value={[item.name, item.load]}
-                      onChange={() => {}}
-                      className="w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    ></input>
-                  </div>,
-                  <div>{item.name}</div>,
-                  <div>{item.load}</div>,
-                  <div>{item.description}</div>,
-                ])}
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="characterCreatorActions characterCreatorDiv rounded">
-          <h1 className="mb-5">Character Actions</h1>
-          {character_actions &&
-            Object.keys(character_actions).map((action_group_name) => [
-              <h3>
-                <a
-                  href="javascript:;"
-                  onClick={(event) =>
-                    showRollMenu("Save", {
-                      action_group_name,
-                      character_actions,
-                    })
-                  }
-                >
-                  {action_group_name}
-                </a>
-              </h3>,
-              Object.keys(character_actions[action_group_name]).map(
-                (action_name) => (
-                  <div
-                    key={selected_class + action_name}
-                    className="flex items-center mb-4"
-                  >
-                    <ActionSelector
-                      selected_class={selected_class}
-                      set_character_actions={setCharacterActions}
-                      character_actions={character_actions}
-                      action_group_name={action_group_name}
-                      action_name={action_name}
-                      showRollMenu={showRollMenu}
-                    />
-                  </div>
-                )
-              ),
-            ])}
-          <h3>
-            Total:{" "}
-            {Object.values(character_actions).reduce(
-              (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
-              0
             )}
-          </h3>
-          <button onClick={() => setCharacterActionsHelper(selected_class)}>
-            Reset
-          </button>
-        </div>
-        <div className="div16 characterCreatorDiv">
-          <h2 className="mb-5">Empty</h2>
+          </div>
+          <div className="characterCreatorActions characterCreatorDiv rounded">
+            <h1 className="mb-5">Character Actions</h1>
+            {character_actions &&
+              Object.keys(character_actions).map((action_group_name) => [
+                <h3>
+                  <a
+                    href="javascript:;"
+                    onClick={(event) =>
+                      showRollMenu("Save", {
+                        action_group_name,
+                        character_actions,
+                      })
+                    }
+                  >
+                    {action_group_name}
+                  </a>
+                </h3>,
+                Object.keys(character_actions[action_group_name]).map(
+                  (action_name) => (
+                    <div
+                      key={selected_class + action_name}
+                      className="flex items-center mb-4"
+                    >
+                      <ActionSelector
+                        selected_class={selected_class}
+                        set_character_actions={setCharacterActions}
+                        character_actions={character_actions}
+                        action_group_name={action_group_name}
+                        action_name={action_name}
+                        showRollMenu={showRollMenu}
+                      />
+                    </div>
+                  )
+                ),
+              ])}
+            <h3>
+              Total:{" "}
+              {Object.values(character_actions).reduce(
+                (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
+                0
+              )}
+            </h3>
+            <button onClick={() => setCharacterActionsHelper(selected_class)}>
+              Reset
+            </button>
+          </div>
+          <div className="div16 characterCreatorDiv">
+            <h2 className="mb-5">Empty</h2>
+          </div>
         </div>
       </div>
-      <RollModal
-        showRollModal={showRollModal}
-        setShowRollModal={setShowRollModal}
-        rollType={rollType}
-        rollArgs={rollArgs}
-      ></RollModal>
     </div>
   );
 };

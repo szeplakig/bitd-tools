@@ -44,7 +44,8 @@ const Factions = () => {
                             sm:ml-4 sm:w-[30%] sm:my-4 sm:mx-2
                             lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
                             sm:flex-col sm:static sm:h-full
-                            lg:max-w-[275px]"
+                            lg:max-w-[275px]
+                            "
         >
           {faction_data.map((faction, ind) => (
             <li

@@ -11,69 +11,56 @@ const characters_data = {
         "When you play a Cutter, you earn xp when you address a challenge with violence or coercion. Go ahead and get up in everyone’s smug faces and tell them who’s boss, then let your blades do the talking if they don’t get the message.",
         "Do you have a personal code or a line you won’t cross? Do you want to be the boss or do you want to be the enforcer for the boss? How did you acquire your taste for violence and coercion?",
       ],
-      actions: {
-        Prowess: { Skirmish: 2 },
-        Resolve: { Command: 1 },
-      },
-      starting_build: [
-        {
+      actions: { Prowess: { Skirmish: 2 }, Resolve: { Command: 1 } },
+      starting_build: {
+        Captain: {
           name: "Captain",
           flavor: "Leader",
-          actions: {
-            Survey: { Study: 1, Survey: 2 },
-            Resolve: { Command: 1 },
-          },
+          actions: { Survey: { Study: 1, Survey: 2 }, Resolve: { Command: 1 } },
         },
-        {
+        Thug: {
           name: "Thug",
           role: "Not to be Trifled With",
-          actions: {
-            Resolve: { Command: 1, Consort: 2, Sway: 1 },
-          },
+          actions: { Resolve: { Command: 1, Consort: 2, Sway: 1 } },
         },
-        {
+        Terror: {
           name: "Terror",
           flavor: "Savage",
-          actions: {
-            Prowess: { Prowl: 2, Wreck: 2 },
-          },
+          actions: { Prowess: { Prowl: 2, Wreck: 2 } },
         },
-        {
+        "Devil Hunter": {
           name: "Devil Hunter",
           flavor: "Ghost Fighter",
-          actions: {
-            Insight: { Hunt: 1, Study: 1 },
-            Resolve: { Attune: 2 },
-          },
+          actions: { Insight: { Hunt: 1, Study: 1 }, Resolve: { Attune: 2 } },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Marlane: {
           name: "Marlane",
           description:
-            "Marlane, a pugilist.  Perhaps a pit fighter down at the docks, or a boxing coach who trained you?",
+            "Marlane, a pugilist. Perhaps a pit fighter down at the docks, or a boxing coach who trained you?",
         },
-        {
+        Chael: {
           name: "Chael",
           description:
-            "Chael, a vicious thug.  Perhaps a member of a gang that you were in before the current crew, or an independent operator who’s been in your way before?",
+            "Chael, a vicious thug. Perhaps a member of a gang that you were in before the current crew, or an independent operator who’s been in your way before?",
         },
-        {
+        Mercy: {
           name: "Mercy",
           description:
-            "Mercy, a cold killer.  Perhaps an assassin for hire, or a particularly deadly underworld scoundrel?",
+            "Mercy, a cold killer. Perhaps an assassin for hire, or a particularly deadly underworld scoundrel?",
         },
-        {
+        Grace: {
           name: "Grace",
           description:
-            "Grace, an extortionist.  Perhaps a former partner in thuggery, or a competitor on the scene?",
+            "Grace, an extortionist. Perhaps a former partner in thuggery, or a competitor on the scene?",
         },
-        {
+        Sawtooth: {
           name: "Sawtooth",
           description:
-            "Sawtooth, a physicker.  Perhaps a buddy from the war, or perhaps a butcher who botched your treatment?",
+            "Sawtooth, a physicker. Perhaps a buddy from the war, or perhaps a butcher who botched your treatment?",
         },
-      ],
+      },
       friends_or_rivals_type: "Dangerous",
       special_abilities: {
         Battleborn: {
@@ -133,38 +120,38 @@ const characters_data = {
             "Your healing clock becomes a 3-clock, and you get a bonus die when you recover.",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine hand weapon": {
           name: "Fine hand weapon",
           description:
             "A finely crafted one-handed melee weapon of your choice. Is this a well-crafted standard weapon, like a perfectly-balanced dagger, or something exotic, like an Iruvian dueling saber or a metal-banded war-club?",
           load: 1,
         },
-        {
+        "Fine heavy weapon": {
           name: "Fine heavy weapon",
           description:
             "A finely crafted two-handed melee weapon of your choice. A warhammer, a greatsword, a military pike, a battleaxe, etc. A heavy weapon has more reach and hits harder than a standard weapon. This might give you potency when the power or reach of the weapon is a factor.",
           load: 2,
         },
-        {
+        "Scary weapon or tool": {
           name: "Scary weapon or tool",
           description:
             "A scary-looking hand weapon or tool. This item grants increased effect when you intimidate, not increased harm in combat.",
           load: 1,
         },
-        {
+        "Manacles & chain": {
           name: "Manacles & chain",
           description:
             "A set of heavy manacles and chain, suitable for restraining a prisoner. A souvenir from a stay with the Bluecoats, perhaps?",
           load: 0,
         },
-        {
+        "Rage essence vial": {
           name: "Rage essence vial",
           description:
             "A single dose, which greatly enhances the user’s strength, resistance to pain, and irrational aggression for the span of several minutes. The GM will modify your position and effect accordingly when you fight on rage essence. Also, you suffer two consequences: “Can’t Tell Friend From Foe” and “Can’t Stop Until They’re All Broken.” You may resist these as usual.",
           load: 0,
         },
-      ],
+      },
     },
     Hound: {
       name: "Hound",
@@ -173,76 +160,67 @@ const characters_data = {
         "Hounds are good at tracking things down and also long-distance combat. Play a Hound if you want to choose your battles.",
       long_description: [
         "There’s always a need for scoundrels who can find what others want to keep hidden. Whether that’s a deadbeat gambler trying to skip out on their debts, a treacherous informant or witness who’s going to squeal to the Bluecoats, or the trail to a treasure squirreled away in a secret vault—it’s the Hounds that ferret them out.",
-        "Why have a fair fight, when you can stalk and ambush your prey on your terms?  The underworld is your hunting ground. ",
+        "Why have a fair fight, when you can stalk and ambush your prey on your terms? The underworld is your hunting ground. ",
         "When you play a Hound, you earn xp when you address a challenge with tracking or violence. Take the initiative to hunt down opportunities and targets for a score and be willing to hurt whoever stands in your way",
         "Do you see the whole world as potential prey, or do you still care about people? Which target in the past gave you the most trouble? Why?",
       ],
       actions: { Insight: { Hunt: 2, Survey: 1 } },
-      starting_build: [
-        {
+      starting_build: {
+        "Bounty Hunter": {
           name: "Bounty Hunter",
           flavor: "Scout",
-          actions: {
-            Resolve: { Consort: 1, Prowl: 1, Skirmish: 2 },
-          },
+          actions: { Resolve: { Consort: 1, Prowl: 1, Skirmish: 2 } },
         },
-        {
+        "Deathlands Ranger": {
           name: "Deathlands Ranger",
           flavor: "Survivor",
           actions: {
             Insight: { Survey: 2 },
             Prowess: { Prowl: 1 },
-            Resolve: {
-              Attune: 2,
-            },
+            Resolve: { Attune: 2 },
           },
         },
-        {
+        Sniper: {
           name: "Sniper",
           flavor: "Sharpshooter",
-          actions: {
-            Insight: { Survey: 1, Study: 1 },
-            Prowess: { Prowl: 2 },
-          },
+          actions: { Insight: { Survey: 1, Study: 1 }, Prowess: { Prowl: 2 } },
         },
-        {
+        Veteran: {
           name: "Veteran",
           flavor: "Tough As Nails",
           actions: {
             Prowess: { Skirmish: 2, Wreck: 1 },
-            Resolve: {
-              Command: 1,
-            },
+            Resolve: { Command: 1 },
           },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Steiner: {
           name: "Steiner",
           description:
             "Steiner, an assassin. Perhaps one of your competitors, or a former partner from before you joined the crew?",
         },
-        {
+        Celene: {
           name: "Celene",
           description:
-            "Celene, a sentinel.  Celene is a guardian; a protector. Who does she watch over?",
+            "Celene, a sentinel. Celene is a guardian; a protector. Who does she watch over?",
         },
-        {
+        Melvir: {
           name: "Melvir",
           description:
             "Melvir, a physicker. Perhaps an old friend who’s patched you up many times, or someone to whom you’ve sent too many victims?",
         },
-        {
+        Veleris: {
           name: "Veleris",
           description:
             "Veleris, a spy. Who does Veleris give their intelligence to?",
         },
-        {
+        Casta: {
           name: "Casta",
           description:
             "Casta, a bounty hunter. Perhaps a mentor who trained you in the deadly arts, or vice versa?",
         },
-      ],
+      },
       friends_or_rivals_type: "Deadly",
       special_abilities: {
         Sharpshooter: {
@@ -294,38 +272,38 @@ const characters_data = {
           description: "",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine pair of pistols": {
           name: "Fine pair of pistols",
           description:
-            "A matched pair of handguns, made for greater accuracy,  with double barrels that allow for two shots before reloading. Were your pistols made by Kardera’s Daughters, Templeton & Slane, the Imperial Forge, or some other gunsmith? How do they stand out from the average handgun?",
+            "A matched pair of handguns, made for greater accuracy, with double barrels that allow for two shots before reloading. Were your pistols made by Kardera’s Daughters, Templeton & Slane, the Imperial Forge, or some other gunsmith? How do they stand out from the average handgun?",
           load: 1,
         },
-        {
+        "Fine long rifle": {
           name: "Fine long rifle",
           description:
             "A finely crafted hunting rifle, deadly at long range, unwieldy in close quarters. Long rifles are usually illegal for private citizens in Doskvol, but you have (real or forged) military paperwork for this one.",
           load: 2,
         },
-        {
+        "Electroplasmic ammunition": {
           name: "Electroplasmic ammunition",
           description:
             "A bandolier of electroplasmic ammo, especially potent against spirits, but less effective against physical targets. The electrical charge is enough to stun a person, but does very little real harm. Several hits might incapacitate a human target. This ammunition is especially reactive in the ghost field—make a 4-clock called “Attention from the Spirit Wardens” and tick it for every operation in which this ammo was used.",
           load: 1,
         },
-        {
+        "A trained hunting pet": {
           name: "A trained hunting pet",
           description:
             "Your animal companion obeys your commands and anticipates your actions. Cohort (Expert: Hunter).",
           load: 0,
         },
-        {
+        Spyglass: {
           name: "Spyglass",
           description:
-            "A brass tube with lenses that allow long-distance vision. Collapsible.  May attach to a rifle.",
+            "A brass tube with lenses that allow long-distance vision. Collapsible. May attach to a rifle.",
           load: 1,
         },
-      ],
+      },
     },
     Leech: {
       name: "Leech",
@@ -333,13 +311,13 @@ const characters_data = {
       description:
         "Leeches are good at using alchemy and wrecking stuff with sabotage. Play a Leech if you want to be creative with weird tools.",
       long_description: [
-        "The world is built on industry, and the underworld is no different. Leeches are the scoundrels who distill the drugs, refine the arcane essences, build the bombs,  bandage the wounds, and forge the tools of the criminal trades—and knowing how to make things also means knowing how to break them.",
-        "When you play a Leech, you earn xp when you address a challenge with technical skill or mayhem. Duskwall is a city full of industrial machinery,  spark-crafts, plumbing, and electrical systems for you to bend to your purposes or sabotage. Get out your tools and get your hands dirty.",
+        "The world is built on industry, and the underworld is no different. Leeches are the scoundrels who distill the drugs, refine the arcane essences, build the bombs, bandage the wounds, and forge the tools of the criminal trades—and knowing how to make things also means knowing how to break them.",
+        "When you play a Leech, you earn xp when you address a challenge with technical skill or mayhem. Duskwall is a city full of industrial machinery, spark-crafts, plumbing, and electrical systems for you to bend to your purposes or sabotage. Get out your tools and get your hands dirty.",
         "The extensive training that makes a Leech is rare and strange among the disenfranchised underworld class—how did you learn your arts? Which side of the coin do you prefer, the side of creation and restoration, or the side of mayhem and destruction?",
       ],
       actions: { Insight: { Tinker: 2 }, Prowess: { Wreck: 1 } },
-      starting_build: [
-        {
+      starting_build: {
+        Doctor: {
           name: "Doctor",
           flavor: "Physicker",
           actions: {
@@ -348,60 +326,49 @@ const characters_data = {
             Resolve: { Consort: 1 },
           },
         },
-        {
+        Sapper: {
           name: "Sapper",
           flavor: "Saboteur",
-          actions: {
-            Insight: { Study: 1, Survey: 2 },
-            Prowess: { Wreck: 1 },
-          },
+          actions: { Insight: { Study: 1, Survey: 2 }, Prowess: { Wreck: 1 } },
         },
-        {
+        Viper: {
           name: "Viper",
           flavor: "Venomous",
-          actions: {
-            Prowess: { Prowl: 2 },
-            Resolve: {
-              Sway: 2,
-            },
-          },
+          actions: { Prowess: { Prowl: 2 }, Resolve: { Sway: 2 } },
         },
-        {
+        Witch: {
           name: "Witch",
           flavor: "Alchemist",
-          actions: {
-            Insight: { Study: 2 },
-            Resolve: { Attune: 2 },
-          },
+          actions: { Insight: { Study: 2 }, Resolve: { Attune: 2 } },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Stazia: {
           name: "Stazia",
           description:
-            "Stazia, an apothecary.  Perhaps a former scoundrel turned to legitimate alchemical business, or perhaps the other way around?",
+            "Stazia, an apothecary. Perhaps a former scoundrel turned to legitimate alchemical business, or perhaps the other way around?",
         },
-        {
+        Veldren: {
           name: "Veldren",
           description:
             "Veldren, a psychonaut. Perhaps an addict too poisoned to ever return to lucid thought, or perhaps an explorer of psychedelic realms beyond mere mortal experience?",
         },
-        {
+        Eckerd: {
           name: "Eckerd",
           description:
-            "Eckerd, a corpse thief.  Perhaps a good source of “raw materials”?",
+            "Eckerd, a corpse thief. Perhaps a good source of “raw materials”?",
         },
-        {
+        Jul: {
           name: "Jul",
           description:
-            "Jul, a blood dealer.  What other strange clients do they have?",
+            "Jul, a blood dealer. What other strange clients do they have?",
         },
-        {
+        Malista: {
           name: "Malista",
           description:
             "Malista, a priestess. To what forgotten god does Malista give her service?",
         },
-      ],
+      },
       friends_or_rivals_type: "Clever",
       special_abilities: {
         Alchemist: {
@@ -427,21 +394,21 @@ const characters_data = {
         Fortitude: {
           name: "Fortitude",
           ability:
-            "You may expend your special armor to resist a consequence of fatigue, weakness,  or chemical effects, or to push yourself when working with technical skill or handling alchemicals.",
+            "You may expend your special armor to resist a consequence of fatigue, weakness, or chemical effects, or to push yourself when working with technical skill or handling alchemicals.",
           description:
             "When you use this ability, tick the special armor box on your playbook sheet. If you “resist a consequence” of the appropriate type, you avoid it completely. If you use this ability to push yourself, you get one of the benefits (+1d, +1 effect, act despite severe harm) but you don’t take 2 stress. Your special armor is restored at the beginning of downtime.",
         },
         "Ghost ward": {
           name: "Ghost ward",
           ability:
-            "When you Wreck an area with arcane substances, ruining it for any other use,  it becomes anathema or enticing to spirits (your choice).",
+            "When you Wreck an area with arcane substances, ruining it for any other use, it becomes anathema or enticing to spirits (your choice).",
           description:
             "If you make an area anathema to spirits, they will do everything they can to avoid it, and will suffer torment if forced inside the area. If you make an area enticing to spirits, they will seek it out and linger in the area, and will suffer torment if forced to leave. This effect lasts for several days over an area the size of a small room. Particularly powerful or prepared spirits may roll their quality or arcane magnitude to see how well they’re able to resist the effect.",
         },
         Physicker: {
           name: "Physicker",
           ability:
-            "You can Tinker with bones, blood, and bodily humours to treat wounds or stabilize the dying. You may Study a malady or corpse. Everyone in your crew  (including you) gets +1d to their healing treatment rolls.",
+            "You can Tinker with bones, blood, and bodily humours to treat wounds or stabilize the dying. You may Study a malady or corpse. Everyone in your crew (including you) gets +1d to their healing treatment rolls.",
           description:
             "Knowledge of anatomy and healing is a rare and esoteric thing in Duskwall. Without this ability, any attempts at treatment are likely to fail or make things worse. You can use this ability to give first aid (rolling Tinker) to allow your patient to ignore a harm penalty for an hour or two.",
         },
@@ -460,38 +427,38 @@ const characters_data = {
             "When you push yourself to activate this ability, you still get one of the normal benefits of pushing yourself (+1d, +1 effect, etc.) if you’re making a roll, in addition to the special ability. You choose the type of drug or poison when you get this ability. You may change the drug or poison by completing a long-term project. Only a single drug or poison may be chosen—you can’t become immune to any essences, oils, or other alchemical substances",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine tinkering tools": {
           name: "Fine tinkering tools",
           description:
-            "A finely crafted set of tools for detailed mechanist work.  A jeweler’s loupe. Measuring devices.",
+            "A finely crafted set of tools for detailed mechanist work. A jeweler’s loupe. Measuring devices.",
           load: 1,
         },
-        {
+        "Fine wrecking tools": {
           name: "Fine wrecking tools",
           description:
-            "A specialized set of tools for sabotage and destruction.  A small, powerful drill. A mallet and steel spikes. A prybar. An electroplasmic battery, clamps, wire. Vials of acid. A spark-torch cutter and fuel tank.",
+            "A specialized set of tools for sabotage and destruction. A small, powerful drill. A mallet and steel spikes. A prybar. An electroplasmic battery, clamps, wire. Vials of acid. A spark-torch cutter and fuel tank.",
           load: 2,
         },
-        {
+        "Blowgun & darts, syringes": {
           name: "Blowgun & darts, syringes",
           description:
             "A small tube and darts that can be filled from alchemy flasks. Empty syringes.",
           load: 0,
         },
-        {
+        Bandolier: {
           name: "Bandolier",
           description:
             "A strap worn across the body, fitted with specially-padded pouches to hold three alchemical agents or spark-craft bombs. When you employ an alchemical or bomb from a bandolier, choose one from the list at right (or one of your custom-made formulas). See page 226 for more on alchemicals and bombs. During downtime, you automatically refill your bandoliers, so long as you have reasonable access to a supplier or workshop.",
           load: 1,
         },
-        {
+        Gadgets: {
           name: "Gadgets",
           description:
             "You may create gadgets during downtime by Tinkering with tools and materials. See Gadgets, page 227. Track the load for each gadget you deploy during an operation. Alcahest, Binding Oil, Drift Oil, Drown Powder, Eyeblind Poison, Fire Oil, Grenade, Quicksilver, Skullfire Poison, Smoke Bomb, Spark (drug), Standstill Poison, Trance Powder",
           load: 1,
         },
-      ],
+      },
     },
     Lurk: {
       name: "Lurk",
@@ -499,32 +466,26 @@ const characters_data = {
       description:
         "Lurks are good at sneaking around and breaking into places. Play a Lurk if you want to slink around in the shadows.",
       long_description: [
-        "There is no longer any sunlight—the world is plunged into eternal night. There are scoundrels who live in the darkness, who prowl the underworld unseen,  trespassing where they will. They are the burglars, the spies, the infiltrators, the cut-throats—commonly called Lurks.",
-        "When you play a Lurk, you earn xp when you address a challenge with stealth or evasion. Stay out of sight, sneak past your enemies, and strike from the shadows. If things go wrong, there’s no shame in disappearing into the darkness...  for now. Your greatest ally is the dark and twisting city, its ink-dark streets, its rooftop pathways.",
+        "There is no longer any sunlight—the world is plunged into eternal night. There are scoundrels who live in the darkness, who prowl the underworld unseen, trespassing where they will. They are the burglars, the spies, the infiltrators, the cut-throats—commonly called Lurks.",
+        "When you play a Lurk, you earn xp when you address a challenge with stealth or evasion. Stay out of sight, sneak past your enemies, and strike from the shadows. If things go wrong, there’s no shame in disappearing into the darkness... for now. Your greatest ally is the dark and twisting city, its ink-dark streets, its rooftop pathways.",
         "How did you learn the stealthy arts of the Lurk? Which aspect are you drawn to most? The invisible watcher, spying on the unwary? The adroit acrobat, racing across rooftops? The deadly ambush predator, waiting for a victim in the darkness?",
       ],
       actions: { Prowess: { Finesse: 1, Prowl: 2 } },
-      starting_build: [
-        {
+      starting_build: {
+        Acrobat: {
           name: "Acrobat",
           flavor: "The Devil’s Footsteps",
           actions: {
             Prowess: { Finesse: 1 },
-            Resolve: {
-              Consort: 2,
-              Sway: 1,
-            },
+            Resolve: { Consort: 2, Sway: 1 },
           },
         },
-        {
+        Assassin: {
           name: "Assassin",
           flavor: "Ambush",
-          actions: {
-            Insight: { Hunt: 2 },
-            Prowess: { Skirmish: 2 },
-          },
+          actions: { Insight: { Hunt: 2 }, Prowess: { Skirmish: 2 } },
         },
-        {
+        Burglar: {
           name: "Burglar",
           flavor: "Infiltrator",
           actions: {
@@ -532,42 +493,39 @@ const characters_data = {
             Prowess: { Finesse: 1 },
           },
         },
-        {
+        "Daring Rogue": {
           name: "Daring Rogue",
           flavor: "Daredevil",
-          actions: {
-            Prowess: { Skirmish: 2 },
-            Resolve: { Consort: 2 },
-          },
+          actions: { Prowess: { Skirmish: 2 }, Resolve: { Consort: 2 } },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Telda: {
           name: "Telda",
           description:
             "Telda, a beggar. Perhaps a mentor who taught you your skills, or perhaps a rival sneak-thief",
         },
-        {
+        Darmot: {
           name: "Darmot",
           description:
             "Darmot, a Bluecoat. Perhaps a savvy officer that’s busted you many times, or perhaps an old friend who turned to the law instead of crime?",
         },
-        {
+        Frake: {
           name: "Frake",
           description:
             "Frake, a locksmith. Perhaps an expert that you go to for consultations, or perhaps a master who creates locks to defeat you?",
         },
-        {
+        "Roslyn Kellis": {
           name: "Roslyn Kellis",
           description:
             "Roslyn Kellis, a noble. Perhaps an old friend and confidant, or perhaps one of the victims of your espionage, bent on revenge?",
         },
-        {
+        Petra: {
           name: "Petra",
           description:
             "Petra, a city clerk. Perhaps a good source of information?",
         },
-      ],
+      },
       friends_or_rivals_type: "Shady",
       special_abilities: {
         Infiltrator: {
@@ -627,38 +585,38 @@ const characters_data = {
             "When you use this ability, tick the special armor box on your playbook sheet. If you “resist a consequence” of the appropriate type, you avoid it completely. If you use this ability to push yourself, you get one of the benefits (+1d, +1 effect, act despite severe harm) but you don’t take 2 stress. Your special armor is restored at the beginning of downtime.",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine lockpicks": {
           name: "Fine lockpicks",
           description:
             "A finely crafted set of tools to disable and circumvent locks. ",
           load: 0,
         },
-        {
+        "Fine shadow cloak": {
           name: "Fine shadow cloak",
           description:
             "A hooded cloak made of rare Iruvian shadow-silk that blends into the darkness around it. This item improves your effect level when you sneak around.",
           load: 1,
         },
-        {
+        "Light climbing gear": {
           name: "Light climbing gear",
           description:
             "A well-crafted set of climbing gear that is less bulky and heavy than a standard set. Standard climbing gear is 2 load.",
           load: 1,
         },
-        {
+        "Silence potion vial": {
           name: "Silence potion vial",
           description:
             "A vial of golden liquid that negates all sound within 10 paces of the drinker for a span of several moments.",
           load: 0,
         },
-        {
+        "Dark-sight goggles": {
           name: "Dark-sight goggles",
           description:
             "An arcane device that allows the wearer to see in pitch darkness as if it were well-lit.",
           load: 1,
         },
-      ],
+      },
     },
     Slide: {
       name: "Slide",
@@ -671,26 +629,21 @@ const characters_data = {
         "Is there anything true about you, at your core? Or are you whatever you need to be, day to day? Are all of your relationships merely gambits that you play for your advantage?",
       ],
       actions: { Resolve: { Consort: 1, Sway: 2 } },
-      starting_build: [
-        {
+      starting_build: {
+        "The Siren": {
           name: "The Siren",
           flavor: "Trust in Me",
           actions: {
             Prowess: { Prowl: 1 },
-            Resolve: {
-              Attune: 2,
-              Consort: 1,
-            },
+            Resolve: { Attune: 2, Consort: 1 },
           },
         },
-        {
+        "The Prestige": {
           name: "The Prestige",
           flavor: "Mesmerism",
-          actions: {
-            Prowess: { Finesse: 2, Prowl: 2 },
-          },
+          actions: { Prowess: { Finesse: 2, Prowl: 2 } },
         },
-        {
+        "The Grifter": {
           name: "The Grifter",
           flavor: "A Little Something on the Side",
           actions: {
@@ -699,47 +652,45 @@ const characters_data = {
             Resolve: { Consort: 1 },
           },
         },
-        {
+        "The Spy": {
           name: "The Spy",
           flavor: "Cloak & Dagger",
-          actions: {
-            Prowess: { Finesse: 1, Prowl: 2, Skirmish: 1 },
-          },
+          actions: { Prowess: { Finesse: 1, Prowl: 2, Skirmish: 1 } },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Bryl: {
           name: "Bryl",
           description:
             "Bryl, a drug dealer. Perhaps a reliable underworld contact, or perhaps an old partner with a grudge?",
         },
-        {
+        "Bazso Baz": {
           name: "Bazso Baz",
           description:
             "Bazso Baz, a gang leader. Perhaps a paramour pursuing your affections, or perhaps a former lover, now scorned?",
         },
-        {
+        Klyra: {
           name: "Klyra",
           description:
-            "Klyra, a tavern owner.  Perhaps a good source for gossip?",
+            "Klyra, a tavern owner. Perhaps a good source for gossip?",
         },
-        {
+        Nyryx: {
           name: "Nyryx",
           description:
-            "Nyryx, a prostitute.  Perhaps an informant to spark potential marks, or perhaps a rival manipulator?",
+            "Nyryx, a prostitute. Perhaps an informant to spark potential marks, or perhaps a rival manipulator?",
         },
-        {
+        Harker: {
           name: "Harker",
           description:
             "Harker, a jail bird. Perhaps a friend who you helped when you were in prison, or perhaps an enemy who hurt you when you served your time?",
         },
-      ],
+      },
       friends_or_rivals_type: "Sly",
       special_abilities: {
         "Rook’s gambit": {
           name: "Rook’s gambit",
           ability:
-            "Take 2 stress to roll your best action rating while performing a different action.  Say how you adapt your skill to this use.",
+            "Take 2 stress to roll your best action rating while performing a different action. Say how you adapt your skill to this use.",
           description:
             "This is the “jack-of-all-trades” ability. If you want to attempt lots of different sorts of actions and still have a good dice pool to roll, this is the special ability for you.",
         },
@@ -791,38 +742,38 @@ const characters_data = {
             "This ability isn’t just for social interactions. Any action can get the bonus. “Intimate” is for you and the group to define, it need not exclusively mean romantic intimacy.",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine clothes & jewelry": {
           name: "Fine clothes & jewelry",
           description:
             "An outfit that appears to be of such fine make as to pass you off as a wealthy noble. If you’re carrying this item as a second outfit to change into, it counts as 2 load.",
           load: 0,
         },
-        {
+        "Fine disguise kit": {
           name: "Fine disguise kit",
           description:
             "A theatrical make-up kit equipped with an impressive array of expert appliances to fool the eye. The fine quality of this kit may increase the effect of your deceptive actions when you use it.",
           load: 1,
         },
-        {
+        "Fine loaded dice, trick cards": {
           name: "Fine loaded dice, trick cards",
           description:
             "Gambling accouterments subtly altered to favor particular outcomes. The fine quality of this kit may increase the effect of your deceptive actions when you use it.",
           load: 0,
         },
-        {
+        "Trance powder": {
           name: "Trance powder",
           description:
             "A dose of the popular drug, which induces an altered mental state. The victim of this powder is not fully unconscious, but rather retreats into a calm, suggestible mental state, similar to hypnotism.",
           load: 0,
         },
-        {
+        "A cane-sword": {
           name: "A cane-sword",
           description:
             "A slim sword and its sheath, disguised as a noble’s cane. The disguise will fool a cursory inspection.",
           load: 1,
         },
-      ],
+      },
     },
     Spider: {
       name: "Spider",
@@ -835,24 +786,18 @@ const characters_data = {
         "Are you enmeshed in the network of favors and debts that you exploit as a Spider, or do you scrupulously hold yourself apart, as a cold predator upon the web?",
       ],
       actions: { Insight: { Study: 1 }, Resolve: { Consort: 2 } },
-      starting_build: [
-        {
+      starting_build: {
+        "The Arbiter": {
           name: "The Arbiter",
           flavor: "Ghost Contract",
-          actions: {
-            Insight: { Study: 1 },
-            Resolve: { Attune: 2, Sway: 2 },
-          },
+          actions: { Insight: { Study: 1 }, Resolve: { Attune: 2, Sway: 2 } },
         },
-        {
+        "The Conductor": {
           name: "The Conductor",
           flavor: "Foresight",
-          actions: {
-            Insight: { Survey: 2 },
-            Resolve: { Command: 2 },
-          },
+          actions: { Insight: { Survey: 2 }, Resolve: { Command: 2 } },
         },
-        {
+        "The Convict": {
           name: "The Convict",
           flavor: "Jail Bird",
           actions: {
@@ -860,42 +805,39 @@ const characters_data = {
             Resolve: { Command: 1, Sway: 1 },
           },
         },
-        {
+        "The Operator": {
           name: "The Operator",
           flavor: "Mastermind",
-          actions: {
-            Insight: { Tinker: 2 },
-            Prowess: { Prowl: 2 },
-          },
+          actions: { Insight: { Tinker: 2 }, Prowess: { Prowl: 2 } },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Salia: {
           name: "Salia",
           description:
             "Salia, an information broker. Perhaps a reliable contact for underworld jobs, or perhaps a former partner who sold you out?",
         },
-        {
+        Augus: {
           name: "Augus",
           description:
             "Augus, a master architect. Perhaps a good source for building schematics and historical details, or perhaps a rival who designs security measures?",
         },
-        {
+        Jennah: {
           name: "Jennah",
           description:
-            "Jennah, a servant.  Perhaps a good source for gossip among the upper class?",
+            "Jennah, a servant. Perhaps a good source for gossip among the upper class?",
         },
-        {
+        Riven: {
           name: "Riven",
           description:
-            "Riven, a chemist.  Perhaps a good source of medicines for recovery?",
+            "Riven, a chemist. Perhaps a good source of medicines for recovery?",
         },
-        {
+        Jeren: {
           name: "Jeren",
           description:
             "Jeren, a Bluecoat archivist. Perhaps a double-agent within the City Watch, or perhaps an overly curious officer, interested in your crimes?",
         },
-      ],
+      },
       friends_or_rivals_type: "Shrewd",
       special_abilities: {
         Foresight: {
@@ -936,7 +878,7 @@ const characters_data = {
         "Jail bird": {
           name: "Jail bird",
           ability:
-            "When incarcerated, your wanted level counts as 1 less, your Tier as 1 more,  and you gain +1 faction status with a faction that you help while you’re inside,  in addition to whatever you get from the incarceration roll.",
+            "When incarcerated, your wanted level counts as 1 less, your Tier as 1 more, and you gain +1 faction status with a faction that you help while you’re inside, in addition to whatever you get from the incarceration roll.",
           description:
             "Zero is the minimum wanted level; this ability can’t make your wanted level negative. See the Incarceration roll, page 148.",
         },
@@ -950,43 +892,43 @@ const characters_data = {
         "Weaving the web": {
           name: "Weaving the web",
           ability:
-            "You gain +1d to Consort when you gather information on a target for a score.  You get +1d to the engagement roll for that operation.",
+            "You gain +1d to Consort when you gather information on a target for a score. You get +1d to the engagement roll for that operation.",
           description:
             "Your network of underworld connections can always be leveraged to gain insight for a job—even when your contacts aren’t aware that they’re helping you.",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine cover identity": {
           name: "Fine cover identity",
           description:
             "Paperwork, planted stories and rumors, and false relationships sufficient to pass as a different person.",
           load: 0,
         },
-        {
+        "Fine bottle of whiskey": {
           name: "Fine bottle of whiskey",
           description:
-            "A rare distillation from your personal collection,  potent both in its alcohol and its ability to impress.",
+            "A rare distillation from your personal collection, potent both in its alcohol and its ability to impress.",
           load: 1,
         },
-        {
+        Blueprints: {
           name: "Blueprints",
           description:
             "A folio of useful architectural drawings and city plans. Feel free to specify which plans you’re carrying when you choose this item.",
           load: 1,
         },
-        {
+        "Vial of slumber essence": {
           name: "Vial of slumber essence",
           description:
             "A dose of slumber essence sufficient to put someone to sleep for an hour. The victim’s sleep isn’t supernatural, but it is deep—they can be roused with some effort. ",
           load: 0,
         },
-        {
+        "Concealed palm pistol": {
           name: "Concealed palm pistol",
           description:
             "A small firearm with a weak charge, easily concealed in a sleeve or waistcoat. This pistol has extremely limited range; only a few feet. It’s very difficult to detect on your person, even if you’re searched.",
           load: 0,
         },
-      ],
+      },
     },
     Whisper: {
       name: "Whisper",
@@ -994,13 +936,13 @@ const characters_data = {
       description:
         "Whispers are good at magical stuff and dealing with ghosts. Play a Whisper if you want to meddle with arcane powers.",
       long_description: [
-        "Duskwall is a haunted place—plagued by rogue spirits consumed by vengeance,  by cunning demons manipulating humans for their own inscrutable purposes,  and by even stranger horrors lurking in the space just beyond sight and reason.  To go into this shadowy world without knowledge of the arcane and the occult is to walk unarmed into the lair of the enemy. The Whispers are the sentinels who watch the greater darkness—staring into the void so others don’t have to.",
+        "Duskwall is a haunted place—plagued by rogue spirits consumed by vengeance, by cunning demons manipulating humans for their own inscrutable purposes, and by even stranger horrors lurking in the space just beyond sight and reason. To go into this shadowy world without knowledge of the arcane and the occult is to walk unarmed into the lair of the enemy. The Whispers are the sentinels who watch the greater darkness—staring into the void so others don’t have to.",
         "When you play a Whisper, you earn xp when you address a challenge with knowledge or arcane power. Seek out the strange and dark forces and bend them to your will. By being willing to face the trauma from the stress-intensive abilities of the arcane, you’ll slowly remove parts of yourself, and replace them with power.",
         "Why did you pursue the path of the Whisper? How did you develop your abilities? Are you a natural, did you study and practice on your own, or did you have a mentor?",
       ],
       actions: { Insight: { Study: 1 }, Resolve: { Attune: 2 } },
-      starting_build: [
-        {
+      starting_build: {
+        "The Summoner": {
           name: "The Summoner",
           flavor: "Compel",
           actions: {
@@ -1008,21 +950,17 @@ const characters_data = {
             Resolve: { Command: 1 },
           },
         },
-        {
+        "The Cultist": {
           name: "The Cultist",
           flavor: "Occultist",
-          actions: {
-            Resolve: { Command: 2, Consort: 2 },
-          },
+          actions: { Resolve: { Command: 2, Consort: 2 } },
         },
-        {
+        "The Channeler": {
           name: "The Channeler",
           flavor: "Tempest",
-          actions: {
-            Prowess: { Skirmish: 2, Wreck: 2 },
-          },
+          actions: { Prowess: { Skirmish: 2, Wreck: 2 } },
         },
-        {
+        "The Dark Scholar": {
           name: "The Dark Scholar",
           flavor: "Ritual",
           actions: {
@@ -1030,34 +968,34 @@ const characters_data = {
             Resolve: { Consort: 1 },
           },
         },
-      ],
-      friends_or_rivals: [
-        {
+      },
+      friends_or_rivals: {
+        Nyryx: {
           name: "Nyryx",
           description:
             "Nyryx, a possessor ghost. Perhaps a good source for targets, or perhaps a spirit that escaped from your service?",
         },
-        {
+        Scurlock: {
           name: "Scurlock",
           description:
-            "Scurlock, a vampire.  Perhaps a mentor, or perhaps a deadly rival?",
+            "Scurlock, a vampire. Perhaps a mentor, or perhaps a deadly rival?",
         },
-        {
+        Setarra: {
           name: "Setarra",
           description:
-            "Setarra, a demon.  Perhaps your partner in a dark endeavor, or perhaps an entity you once controlled, seeking vengeance?",
+            "Setarra, a demon. Perhaps your partner in a dark endeavor, or perhaps an entity you once controlled, seeking vengeance?",
         },
-        {
+        Quellyn: {
           name: "Quellyn",
           description:
-            "Quellyn, a witch.  Perhaps a knowledgeable healer and seer, or perhaps a student of yours who left over bad blood?",
+            "Quellyn, a witch. Perhaps a knowledgeable healer and seer, or perhaps a student of yours who left over bad blood?",
         },
-        {
+        Flint: {
           name: "Flint",
           description:
-            "Flint, a spirit trafficker.  Perhaps a good source for unusual arcane supplies, or perhaps a rival in the occult world of Duskwall?",
+            "Flint, a spirit trafficker. Perhaps a good source for unusual arcane supplies, or perhaps a rival in the occult world of Duskwall?",
         },
-      ],
+      },
       friends_or_rivals_type: "Strange",
       special_abilities: {
         Compel: {
@@ -1076,7 +1014,7 @@ const characters_data = {
         "Iron will": {
           name: "Iron will",
           ability:
-            "You are immune to the terror that some supernatural entities inflict on sight.  When you make a resistance roll with Resolve, take +1d.",
+            "You are immune to the terror that some supernatural entities inflict on sight. When you make a resistance roll with Resolve, take +1d.",
           description:
             "With this ability, you do not freeze up or flee when confronted by any kind of supernatural entity or strange occult event.",
         },
@@ -1090,7 +1028,7 @@ const characters_data = {
         Ritual: {
           name: "Ritual",
           ability:
-            "You know the arcane methods to perform ritual sorcery. You can Study an occult ritual (or create a new one) to summon a supernatural effect or being.  You begin with one ritual already learned.",
+            "You know the arcane methods to perform ritual sorcery. You can Study an occult ritual (or create a new one) to summon a supernatural effect or being. You begin with one ritual already learned.",
           description:
             "Without this special ability, the study and practice of rituals leaves you utterly vulnerable to the powers you supplicate. Such endeavors are not recommended. For more details, see Rituals, page 222.",
         },
@@ -1116,37 +1054,37 @@ const characters_data = {
             "When you use this ability, tick the special armor box on your playbook sheet. If you resist a consequence, this ability negates or reduces its severity. If you use this ability to push yourself, you get one of the benefits (+1d, +1 effect, act despite severe harm) but you don’t take 2 stress. Your special armor is restored at the beginning of downtime.",
         },
       },
-      items: [
-        {
+      items: {
+        "Fine lightning hook": {
           name: "Fine lightning hook",
           description:
             "A long, two-handed pole with a loop of heavy wire at the end, connected to an electroplasmic capacitor. Suitable for grappling a spirit and dragging it into a spirit bottle. This custom-made hook collapses into a compact form, thus reducing its load to 1, even though it’s two-handed.",
           load: 1,
         },
-        {
+        "Fine spirit mask": {
           name: "Fine spirit mask",
           description:
             "An arcane item that allows the trained user to see supernatural energies in great detail. Also affords some measure of protection against ghostly possession. Each spirit mask is unique. What does yours look like? What makes it strange and disturbing to see?",
           load: 1,
         },
-        {
+        "Spirit bottles (2)": {
           name: "Spirit bottles (2)",
           description:
             "An arcane device used to trap a spirit. A metal and crystalline cylinder, the size of a loaf of bread.",
           load: 1,
         },
-        {
+        "Ghost key": {
           name: "Ghost key",
           description:
             "An arcane device that can open ghost doors. There’s an echo of the entire city, across the ages, trapped in the ghost field. Sometimes a door to that place can be found. ",
           load: 0,
         },
-        {
+        "Demonbane charm": {
           name: "Demonbane charm",
           description: "An arcane trinket that demons prefer to avoid.",
           load: 0,
         },
-      ],
+      },
     },
   },
   heritages: {
@@ -1254,168 +1192,168 @@ const characters_data = {
         "You experiment with strange essences, consort with rogue spirits, observe bizarre rituals or taboos, etc.",
     },
   },
-  actions: [
-    {
+  actions: {
+    Attune: {
       name: "Attune",
       description:
         "When you Attune, you open your mind to the ghost field or other arcane power.",
       tips: "You might communicate with a ghost or understand aspects of spectrology. You could try to perceive beyond sight in order to better understand your situation (but Surveying might be better).",
     },
-    {
+    Command: {
       name: "Command",
       description: "When you Command, you compel swift obedience.",
       tips: "You might intimidate or threaten to get what you want. You might lead a gang in a group action. You could try to order people around to persuade them (but Consorting might be better).",
     },
-    {
+    Consort: {
       name: "Consort",
       description: "When you Consort, you socialize with friends and contacts.",
       tips: "You might gain access to resources, information, people, or places. You might make a good impression or win someone over with your charm and style. You might make new friends or connect with your heritage or background. You could try to manipulate your friends with social pressure (but Sway might be better).",
     },
-    {
+    Finesse: {
       name: "Finesse",
       description:
         "When you Finesse, you employ dextrous manipulation or subtle misdirection.",
       tips: "You might pick someone’s pocket. You might handle the controls of a vehicle or direct a mount. You might formally duel an opponent with graceful fighting arts. You could try to employ those arts in a chaotic melee (but Skirmishing might be better). You could try to pick a lock (but Tinkering might be better).",
     },
-    {
+    Hunt: {
       name: "Hunt",
       description: "When you Hunt, you carefully track a target.",
       tips: "You might follow a target or discover their location. You might arrange an ambush. You might attack with precision shooting from a distance. You could try to bring your guns to bear in a melee (but Skirmishing might be better).",
     },
-    {
+    Prowl: {
       name: "Prowl",
       description: "When you Prowl, you traverse skillfully and quietly.",
       tips: "You might sneak past a guard or hide in the shadows. You might run and leap across the rooftops. You might attack someone from hiding with a backstab or blackjack. You could try to waylay a victim in the midst of battle (but Skirmishing might be better).",
     },
-    {
+    Skirmish: {
       name: "Skirmish",
       description:
         "When you Skirmish, you entangle a target in close combat so they can’t easily escape.",
       tips: "You might brawl or wrestle with them. You might hack and slash. You might seize or hold a position in battle. You could try to fight in a formal duel (but Finessing might be better).",
     },
-    {
+    Study: {
       name: "Study",
       description:
         "When you Study, you scrutinize details and interpret evidence.",
       tips: "You might gather information from documents, newspapers, and books. You might do research on an esoteric topic. You might closely analyze a person to detect lies or true feelings. You could try to examine events to understand a pressing situation (but Surveying might be better).",
     },
-    {
+    Survey: {
       name: "Survey",
       description:
         "When you Survey, you observe the situation and anticipate outcomes.",
       tips: "You might spot telltale signs of trouble before it happens. You might uncover opportunities or weaknesses. You might detect a person’s motivations or intentions. You could try to spot a good ambush point (but Hunting might be better).",
     },
-    {
+    Sway: {
       name: "Sway",
       description:
         "When you Sway, you influence with guile, charm, or argument.",
       tips: "You might lie convincingly. You might persuade someone to do what you want. You might argue a compelling case that leaves no clear rebuttal. You could try to trick people into affection or obedience (but Consorting or Commanding might be better).",
     },
-    {
+    Tinker: {
       name: "Tinker",
       description: "When you Tinker, you fiddle with devices and mechanisms.",
       tips: "You might create a new gadget or alter an existing item. You might pick a lock or crack a safe. You might disable an alarm or trap. You might turn the clockwork and electroplasmic devices around the city to your advantage. You could try to use your technical expertise to control a vehicle (but Finessing might be better).",
     },
-    {
+    Wreck: {
       name: "Wreck",
       description: "When you Wreck, you unleash savage force.",
       tips: "You might smash down a door or wall with a sledgehammer, or use an explosive to do the same. You might employ chaos or sabotage to create a distraction or overcome an obstacle. You could try to overwhelm an enemy with sheer force in battle (but Skirmishing might be better).",
     },
-  ],
-  standard_items: [
-    {
+  },
+  standard_items: {
+    "A Blade or Two": {
       name: "A Blade or Two",
       description:
         "A Blade or Two: Perhaps you carry a simple fighting knife. Or two curved swords. Or a rapier and stiletto. Or a heavy butcher’s cleaver.",
       load: 1,
     },
-    {
+    "Throwing Knives": {
       name: "Throwing Knives",
       description: " Six small, light blades.",
       load: 1,
     },
-    {
+    "A Pistol": {
       name: "A Pistol",
       description:
         "A heavy, single-shot, breechloading firearm. Devastating at 20 paces, slow to reload.",
       load: 1,
     },
-    {
+    "A Large Weapon": {
       name: "A Large Weapon",
       description:
-        "A weapon meant for two hands. A battle-axe, greatsword,  warhammer, or pole-arm. A hunting rifle. A blunderbuss. A bow or crossbow.",
+        "A weapon meant for two hands. A battle-axe, greatsword, warhammer, or pole-arm. A hunting rifle. A blunderbuss. A bow or crossbow.",
       load: 2,
     },
-    {
+    "An Unusual Weapon": {
       name: "An Unusual Weapon",
       description:
-        "A curiosity or tool turned into a weapon. A whip, a flail,  a hatchet, a shovel, a length of chain,  a razor-edged fan, steel-toed boots.",
+        "A curiosity or tool turned into a weapon. A whip, a flail, a hatchet, a shovel, a length of chain, a razor-edged fan, steel-toed boots.",
       load: 1,
     },
-    {
+    Armor: {
       name: "Armor",
       description: "A thick leather tunic plus reinforced gloves and boots.",
       load: 2,
     },
-    {
+    "Heavy Armor": {
       name: "Heavy Armor",
       description:
-        "The addition of chain mail,  metal plates, a metal helm. The load for heavy armor is in addition to normal armor—5 load total.",
+        "The addition of chain mail, metal plates, a metal helm. The load for heavy armor is in addition to normal armor—5 load total.",
       load: 3,
     },
-    {
+    "Burglary Gear": {
       name: "Burglary Gear",
       description:
         "A set of lockpicks. A small pry-bar. Vials of oil to silence squeaky hinges. A coil of wire and fishing hooks. A small pouch of fine sand.",
       load: 1,
     },
-    {
+    "Climbing Gear": {
       name: "Climbing Gear",
       description:
         "A large coil of rope. A small coil of rope. Grappling hooks. A small pouch of chalk dust. A climbing harness with loops and metal rings. A set of iron pitons and a small mallet. ",
       load: 2,
     },
-    {
+    Documents: {
       name: "Documents",
       description:
-        "A collection of slim volumes on a variety of topics, including a registry of the nobility, City Watch commanders,  and other notable citizens. Blank pages, a vial of ink, a pen. A number of interesting maps.",
+        "A collection of slim volumes on a variety of topics, including a registry of the nobility, City Watch commanders, and other notable citizens. Blank pages, a vial of ink, a pen. A number of interesting maps.",
       load: 1,
     },
-    {
+    "Arcane Implements": {
       name: "Arcane Implements",
       description:
-        "A vial of quicksilver.  A pouch of black salt. A spirit anchor in the form of a small stone. A spirit bottle.  A vial of electroplasm, designed to break and splatter on impact.",
+        "A vial of quicksilver. A pouch of black salt. A spirit anchor in the form of a small stone. A spirit bottle. A vial of electroplasm, designed to break and splatter on impact.",
       load: 1,
     },
-    {
+    "Subterfuge supplies": {
       name: "Subterfuge supplies",
       description:
-        "A theatrical makeup kit. A selection of blank documents,  ready for the forger’s hand. Costume jewelry. A reversible cloak and distinctive hat. A forged badge of office.",
+        "A theatrical makeup kit. A selection of blank documents, ready for the forger’s hand. Costume jewelry. A reversible cloak and distinctive hat. A forged badge of office.",
       load: 1,
     },
-    {
+    "Demolition tools": {
       name: "Demolition tools",
       description: "A sledgehammer and iron spikes. Heavy drill. Crowbar. ",
       load: 2,
     },
-    {
+    "Tinkering Tools": {
       name: "Tinkering Tools",
       description:
-        "An assortment for detailed mechanist work: jeweler’s loupe, tweezers, a small hammer, pliers,  screwdriver, etc.",
+        "An assortment for detailed mechanist work: jeweler’s loupe, tweezers, a small hammer, pliers, screwdriver, etc.",
       load: 1,
     },
-    {
+    Lantern: {
       name: "Lantern",
       description:
         "A simple oil lantern, a fancy electroplasmic lamp, or other light source.",
       load: 1,
     },
-    {
+    "Spiritbane Charm": {
       name: "Spiritbane Charm",
       description: "A small arcane trinket that ghosts prefer to avoid.",
       load: 0,
     },
-  ],
+  },
 };
 export const {
   classes,

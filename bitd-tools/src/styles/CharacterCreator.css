@@ -1,3 +1,8 @@
+.outerDiv {
+  margin: 5px;
+  padding: 5px;
+}
+
 .characterCreatorDiv {
   /* border: 1px solid black;
   border-collapse: collapse; */
@@ -12,7 +17,6 @@
   grid-row: auto;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  margin: 5px;
 }
 
 .characterCreatorPortrait {
@@ -98,7 +102,7 @@
 
 .characterInventoryGrid {
   display: grid;
-  grid-template-columns: 1fr 5fr 2fr 15fr;
+  grid-template-columns: 1fr 5fr 2fr 13fr;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-row: auto;
@@ -142,7 +146,7 @@ div.characterCreatorActions span {
 
 .characterFriendsNRivals {
   display: grid;
-  grid-template-columns: 1fr 15fr;
+  grid-template-columns: 1fr 5fr 15fr;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-row: auto;

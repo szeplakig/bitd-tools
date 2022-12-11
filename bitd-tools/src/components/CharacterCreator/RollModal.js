@@ -67,11 +67,16 @@ export default function RollModal({
       ],
     },
   };
-  const effect_levels = ["Standard", "Limited", "Great"];
+  const effect_levels = ["Standard", "Great", "Limited"];
   let character_action_dice = 0;
   if (rollType === "Action") {
     const { character_actions, action_name, action_group_name } = rollArgs;
     character_action_dice = character_actions[action_group_name][action_name];
+  } else if (rollType === "Save") {
+    const { character_actions, action_group_name } = rollArgs;
+    character_action_dice = Object.values(
+      character_actions[action_group_name]
+    ).reduce((p, c) => (c > 0 ? p + 1 : p), 0);
   }
   const resetState = () => {
     setSelectedPosition("Risky");
@@ -86,6 +91,7 @@ export default function RollModal({
       rolls.push(rollD());
     }
     const rollObj = {
+      rollType,
       position,
       effect,
       dice_count,
@@ -95,14 +101,68 @@ export default function RollModal({
       is_critical: rolls.filter((v) => v == 6).length >= 2,
       created_at: Date.now(),
     };
-    console.log(rollObj);
-    save("rolls_" + rollObj.created_at, rollObj);
+
+    window.notify(
+      <div>
+        <h1>
+          {rollObj.rollType} roll:{" "}
+          <span
+            className={
+              {
+                Risky: "text-yellow-300",
+                Desperate: "text-red-500",
+                Controlled: "text-green-600",
+              }[rollObj.position]
+            }
+          >
+            {rollObj.position}
+          </span>
+          /
+          <span
+            className={
+              {
+                Standard: "text-yellow-300",
+                Limited: "text-red-500",
+                Great: "text-green-600",
+              }[rollObj.effect]
+            }
+          >
+            {rollObj.effect}
+          </span>
+        </h1>
+        {rollObj.is_critical && <h1 className="text-red-500">Critical!</h1>}
+        <p>
+          Rolls:&nbsp;
+          {rollObj.rolls.map((r, i, a) => [
+            <span
+              className={
+                r < 4
+                  ? "text-red-500"
+                  : r < 6
+                  ? "text-yellow-300"
+                  : "text-green-600"
+              }
+            >
+              {r}
+            </span>,
+            i < a.length - 1 && ",",
+          ])}
+        </p>
+        <p>
+          Min:&nbsp;{rollObj.min_roll}, Max:&nbsp;{rollObj.max_roll}
+        </p>
+      </div>
+    );
+    // save("rolls_" + rollObj.created_at, rollObj);
   };
   return (
     <>
       {showRollModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            // onClick={() => setShowRollModal(false)}
+          >
             <div className="relative w-auto min-w-[15vw] my-6 mx-auto max-w-md">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-bitdGray outline-none focus:outline-none">
@@ -217,16 +277,22 @@ export default function RollModal({
                     className="bg-bitdGray text-emerald-400 hover:bg-emerald-600 hover:text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => {
-                      doRoll(
+                      const dc =
                         (hasAssistance ? 1 : 0) +
-                          (hasPushOrBargain ? 1 : 0) +
-                          character_action_dice +
-                          otherBonus,
-                        selectedPosition,
-                        selectedEffect
-                      );
-                      resetState();
-                      setShowRollModal(false);
+                        (hasPushOrBargain ? 1 : 0) +
+                        character_action_dice +
+                        otherBonus;
+                      if (dc > 0) {
+                        doRoll(dc, selectedPosition, selectedEffect);
+                        resetState();
+                        setShowRollModal(false);
+                      } else if (dc == 0) {
+                        doRoll(2, selectedPosition, selectedEffect);
+                        resetState();
+                        setShowRollModal(false);
+                      } else {
+                        window.error("Cannot roll less 0 dice!");
+                      }
                     }}
                   >
                     Roll
