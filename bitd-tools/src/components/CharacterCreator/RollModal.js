@@ -68,14 +68,14 @@ export default function RollModal({
     },
   };
   const effect_levels = ["Standard", "Great", "Limited"];
-  let character_action_dice = 0;
+  let characterActionDice = 0;
   if (rollType === "Action") {
-    const { character_actions, action_name, action_group_name } = rollArgs;
-    character_action_dice = character_actions[action_group_name][action_name];
+    const { characterActions, actionGroupName, actionName } = rollArgs;
+    characterActionDice = characterActions[actionGroupName][actionName];
   } else if (rollType === "Save") {
-    const { character_actions, action_group_name } = rollArgs;
-    character_action_dice = Object.values(
-      character_actions[action_group_name]
+    const { characterActions, actionGroupName } = rollArgs;
+    characterActionDice = Object.values(
+      characterActions[actionGroupName]
     ).reduce((p, c) => (c > 0 ? p + 1 : p), 0);
   }
   const resetState = () => {
@@ -85,23 +85,31 @@ export default function RollModal({
     setHasPushOrBargain(false);
     setOtherBonus(0);
   };
-  const doRoll = (dice_count, position, effect) => {
+  const doRoll = (diceCount, position, effect) => {
     let rolls = [];
-    for (let i = 0; i < dice_count; i++) {
+    for (let i = 0; i < diceCount; i++) {
       rolls.push(rollD());
     }
     const rollObj = {
       rollType,
       position,
       effect,
-      dice_count,
+      dice_count: diceCount,
       rolls,
       min_roll: Math.min(...rolls),
       max_roll: Math.max(...rolls),
       is_critical: rolls.filter((v) => v == 6).length >= 2,
       created_at: Date.now(),
     };
-
+    if (rollObj.rollType == "Save") {
+      const { characterActions, actionGroupName } = rollArgs;
+      rollObj.actionGroupName = actionGroupName;
+    } else if (rollObj.rollType == "Action") {
+      const { characterActions, actionGroupName, actionName } = rollArgs;
+      rollObj.actionGroupName = actionGroupName;
+      rollObj.actionName = actionName;
+    }
+    console.log(rollObj);
     window.notify(
       <div>
         <h1>
@@ -153,7 +161,7 @@ export default function RollModal({
         </p>
       </div>
     );
-    // save("rolls_" + rollObj.created_at, rollObj);
+    save("rolls_" + rollObj.created_at, rollObj);
   };
   return (
     <>
@@ -257,7 +265,7 @@ export default function RollModal({
                     Dice:{" "}
                     {(hasAssistance ? 1 : 0) +
                       (hasPushOrBargain ? 1 : 0) +
-                      character_action_dice +
+                      characterActionDice +
                       otherBonus}
                   </div>
                 </div>
@@ -280,7 +288,7 @@ export default function RollModal({
                       const dc =
                         (hasAssistance ? 1 : 0) +
                         (hasPushOrBargain ? 1 : 0) +
-                        character_action_dice +
+                        characterActionDice +
                         otherBonus;
                       if (dc > 0) {
                         doRoll(dc, selectedPosition, selectedEffect);
