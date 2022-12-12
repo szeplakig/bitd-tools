@@ -608,12 +608,10 @@ const CharacterCreator = () => {
                           name: item.name,
                           load: item.load,
                         })}
-                        checked={characterInventory.includes(
-                          JSON.stringify({
-                            name: item.name,
-                            load: item.load,
-                          })
-                        )}
+                        checked={characterInventory.includes({
+                          name: item.name,
+                          load: item.load,
+                        })}
                         onChange={(event) => {
                           let inv = [...characterInventory];
                           const v = JSON.parse(event.target.value);
