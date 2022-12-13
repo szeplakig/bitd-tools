@@ -51,7 +51,6 @@ const ScoreGenerator = () => {
   const [connectionLock, setConnectionLock] = React.useState(false);
 
   React.useEffect(() => {
-    debugger;
     setClientTarget(rollClientTarget(clientTargetType));
     setClientTargetLock(false);
   }, [clientTargetType]);
