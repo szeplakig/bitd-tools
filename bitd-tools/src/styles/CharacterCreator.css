@@ -1,3 +1,8 @@
+.outerDiv {
+  margin: 5px;
+  padding: 5px;
+}
+
 .characterCreatorDiv {
   /* border: 1px solid black;
   border-collapse: collapse; */
@@ -9,10 +14,9 @@
 .characterCreatorGridParent {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(5, 2fr) 10fr;
+  grid-row: auto;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  margin: 5px;
 }
 
 .characterCreatorPortrait {
@@ -22,86 +26,95 @@
 }
 .characterCreatorName {
   grid-area: 1 / 3 / 2 / 7;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorAlias {
   grid-area: 1 / 7 / 2 / 11;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorClassSelect {
   grid-area: 2 / 3 / 3 / 5;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorClassInfo {
   grid-area: 2 / 5 / 3 / 11;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorBackgroundSelect {
   grid-area: 3 / 3 / 4 / 5;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorBackgroundInfo {
   grid-area: 3 / 5 / 4 / 11;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorHeritageSelect {
   grid-area: 4 / 3 / 5 / 5;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorHeritageInfo {
   grid-area: 4 / 5 / 5 / 11;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorViceSelect {
   grid-area: 5 / 3 / 6 / 5;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
 .characterCreatorViceInfo {
   grid-area: 5 / 5 / 6 / 11;
-  max-height: 10vh;
-  min-height: 10vh;
+  /* max-height: 8vh;
+  min-height: 8vh; */
   overflow: auto;
 }
-.characterCreatorSpecialAbilities {
-  grid-area: 6 / 1 / 7 / 5;
+.characterSwitchMenu {
+  grid-area: 6 / 1 / 7 / 8;
   overflow: auto;
+  margin: 20px;
 }
 .characterCreatorActions {
-  grid-area: 6 / 9 / 7 / 11;
+  grid-area: 6 / 8 / 7 / 11;
   overflow: auto;
 }
-.characterCreatorFriends {
-  grid-area: 6 / 7 / 7 / 9;
-  overflow: auto;
-}
-.characterCreatorInventory {
-  grid-area: 6 / 5 / 7 / 7;
+.div16 {
+  grid-area: 5 / 1 / 6 / 3;
+  max-height: 8vh;
+  min-height: 8vh;
   overflow: auto;
 }
 
-.div16 {
-  grid-area: 5 / 1 / 6 / 3;
-  max-height: 10vh;
-  min-height: 10vh;
-  overflow: auto;
+.characterInventoryGrid {
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr 13fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+}
+
+.characterSpecialAbilitiesGrid {
+  display: grid;
+  grid-template-columns: 1fr 5fr 15fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+  align-items: flex-start;
 }
 
 select {
@@ -112,7 +125,9 @@ select {
 input[type="checkbox"] {
   width: 25px;
   height: 25px;
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 input[type="radio"] {
@@ -129,17 +144,26 @@ div.characterCreatorActions span {
   margin-right: 10px;
 }
 
-div.characterCreatorFriends input[type="radio"].top {
+.characterFriendsNRivals {
+  display: grid;
+  grid-template-columns: 1fr 5fr 15fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-row: auto;
+  align-items: flex-start;
+}
+
+div.characterFriendsNRivals input[type="radio"].top {
   clip-path: polygon(50% 50%, 0% 100%, 100% 100%);
   accent-color: green;
 }
 
-div.characterCreatorFriends input[type="radio"].bot {
+div.characterFriendsNRivals input[type="radio"].bot {
   clip-path: polygon(50% 50%, 0 0, 100% 0);
   accent-color: red;
 }
 
-div.characterCreatorFriends input[type="radio"].none {
+div.characterFriendsNRivals input[type="radio"].none {
   clip-path: polygon(0 33%, 100% 33%, 100% 66%, 0 66%);
   accent-color: cyan;
 }

@@ -12,11 +12,12 @@ import {
 // import { TextField, MenuItem, Box } from "@mui/material";
 
 const ActionSelector = ({
-  selected_class,
-  set_character_actions,
-  character_actions,
-  action_name,
-  show_roll_menu,
+  selectedClass,
+  setCharacterActions,
+  characterActions,
+  actionGroupName,
+  actionName,
+  showRollMenu,
 }) => {
   return [
     [1, -1, 2, 3, 4].map((n) => {
@@ -27,18 +28,20 @@ const ActionSelector = ({
       } else {
         return (
           <input
-            id={`${action_name}-checkbox`}
-            key={selected_class + action_name + n}
+            id={`${actionName}-checkbox`}
+            key={selectedClass + actionName + n}
             type="checkbox"
             className="w-4 h-4 border- rounded-full text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            checked={character_actions[action_name] >= n}
+            checked={characterActions[actionGroupName][actionName] >= n}
             onChange={() => {
-              const actions = { ...character_actions };
-              let value = actions[action_name];
+              const actions = Object.assign({}, characterActions);
+              let value = actions[actionGroupName][actionName];
               let minValue =
-                selected_class !== "" &&
-                classes[selected_class].actions[action_name] !== undefined
-                  ? classes[selected_class].actions[action_name]
+                selectedClass !== "" &&
+                classes[selectedClass].actions[actionGroupName] != undefined &&
+                classes[selectedClass].actions[actionGroupName][actionName] !==
+                  undefined
+                  ? classes[selectedClass].actions[actionGroupName][actionName]
                   : 0;
               if (value === n && n - 1 >= minValue) {
                 value = n - 1;
@@ -47,20 +50,28 @@ const ActionSelector = ({
               } else {
                 value = minValue;
               }
-              actions[action_name] = value;
-
-              set_character_actions(actions);
+              actions[actionGroupName][actionName] = value;
+              setCharacterActions(actions);
             }}
           ></input>
         );
       }
     }),
     <label
-      htmlFor={`${action_name}-checkbox`}
-      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      htmlFor={`${actionName}-checkbox`}
+      className="ml-2 text-gray-900 dark:text-gray-300"
     >
-      <a href="javascript:;" onClick={(event) => show_roll_menu(action_name)}>
-        <h4>{action_name}</h4>
+      <a
+        href="javascript:;"
+        onClick={(event) =>
+          showRollMenu("Action", {
+            actionGroupName,
+            actionName,
+            characterActions,
+          })
+        }
+      >
+        <h4>{actionName}</h4>
       </a>
     </label>,
   ];
