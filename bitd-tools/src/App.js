@@ -13,7 +13,7 @@ const pages = [
   <CharacterCreatorBase />,
   <Factions />,
   <ScoreGenerator />,
-    <DevilsBargain />, 
+  <DevilsBargain />,
 ];
 
 function App() {

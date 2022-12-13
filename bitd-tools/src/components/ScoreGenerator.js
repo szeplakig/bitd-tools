@@ -51,7 +51,7 @@ const ScoreGenerator = () => {
   const [connectionLock, setConnectionLock] = React.useState(false);
 
   React.useEffect(() => {
-        debugger;
+    debugger;
     setClientTarget(rollClientTarget(clientTargetType));
     setClientTargetLock(false);
   }, [clientTargetType]);
@@ -83,10 +83,10 @@ const ScoreGenerator = () => {
     }
 
     if (!twistLock) {
-        setTwist(rollArray(score_generator_data.twist));
+      setTwist(rollArray(score_generator_data.twist));
     }
     if (!connectionLock) {
-        setConnection(rollArray(score_generator_data.connection));
+      setConnection(rollArray(score_generator_data.connection));
     }
   };
 
@@ -132,24 +132,24 @@ const ScoreGenerator = () => {
                   <option key={e.type}>{e.type}</option>
                 ))}
               </select>
-                <div className="flex items-center justify-between">
-                    <LockButton
-                        locked={clientTargetTypeLock}
-                        setLocked={setClientTargetTypeLock}
-                        />
-                    <DiceButton
-                        onClick={() => {
-                            if (clientTargetTypeLock) {
-                                return;
-                            }
-                            setClientTargetType(
-                                rollArray(
-                                    score_generator_data.client_target.map((e) => e.type)
-                                )
-                            );
-                        }}
-                        />
-                </div>
+              <div className="flex items-center justify-between">
+                <LockButton
+                  locked={clientTargetTypeLock}
+                  setLocked={setClientTargetTypeLock}
+                />
+                <DiceButton
+                  onClick={() => {
+                    if (clientTargetTypeLock) {
+                      return;
+                    }
+                    setClientTargetType(
+                      rollArray(
+                        score_generator_data.client_target.map((e) => e.type)
+                      )
+                    );
+                  }}
+                />
+              </div>
             </div>
           }
           content={
@@ -198,19 +198,19 @@ const ScoreGenerator = () => {
                   <option key={e.type}>{e.type}</option>
                 ))}
               </select>
-                <div className="flex items-center justify-between">
-              <LockButton locked={workTypeLock} setLocked={setWorkTypeLock} />
-              <DiceButton
-                onClick={() => {
-                  if (workTypeLock) {
-                    return;
-                  }
-                  setWorkType(
-                    rollArray(score_generator_data.work.map((e) => e.type))
-                  );
-                }}
-              />
-                </div>
+              <div className="flex items-center justify-between">
+                <LockButton locked={workTypeLock} setLocked={setWorkTypeLock} />
+                <DiceButton
+                  onClick={() => {
+                    if (workTypeLock) {
+                      return;
+                    }
+                    setWorkType(
+                      rollArray(score_generator_data.work.map((e) => e.type))
+                    );
+                  }}
+                />
+              </div>
             </div>
           }
           content={
@@ -242,17 +242,17 @@ const ScoreGenerator = () => {
           header={
             <div className="flex items-center justify-between">
               <span className="font-bold">Twist</span>
-                <div className="flex items-center justify-between">
-              <LockButton locked={twistLock} setLocked={setTwistLock} />
-              <DiceButton
-                onClick={() => {
-                  if (twistLock) {
-                    return;
-                  }
-                  setTwist(rollArray(score_generator_data.twist));
-                }}
-              />
-                </div>
+              <div className="flex items-center justify-between">
+                <LockButton locked={twistLock} setLocked={setTwistLock} />
+                <DiceButton
+                  onClick={() => {
+                    if (twistLock) {
+                      return;
+                    }
+                    setTwist(rollArray(score_generator_data.twist));
+                  }}
+                />
+              </div>
             </div>
           }
           content={
@@ -266,20 +266,20 @@ const ScoreGenerator = () => {
           header={
             <div className="flex items-center justify-between">
               <span className="font-bold">Connection</span>
-                <div className="flex items-center justify-between">
-              <LockButton
-                locked={connectionLock}
-                setLocked={setConnectionLock}
-              />
-              <DiceButton
-                onClick={() => {
-                  if (connectionLock) {
-                    return;
-                  }
-                  setConnection(rollArray(score_generator_data.connection));
-                }}
-              />
-                </div>
+              <div className="flex items-center justify-between">
+                <LockButton
+                  locked={connectionLock}
+                  setLocked={setConnectionLock}
+                />
+                <DiceButton
+                  onClick={() => {
+                    if (connectionLock) {
+                      return;
+                    }
+                    setConnection(rollArray(score_generator_data.connection));
+                  }}
+                />
+              </div>
             </div>
           }
           content={

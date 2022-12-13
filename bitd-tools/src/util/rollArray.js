@@ -3,7 +3,7 @@ const rollArray = (arr) => {
     return;
   }
 
-    const selected = arr[Math.floor(Math.random() * arr.length)];
+  const selected = arr[Math.floor(Math.random() * arr.length)];
   return selected;
 };
 
