@@ -24,7 +24,11 @@ const ActionSelector = ({
       if (n === 0) {
         return <span key={`span-${n}`}>X</span>;
       } else if (n === -1) {
-        return <span key={`span-${n}`} className="mr-1">|</span>;
+        return (
+          <span key={`span-${n}`} className="mr-1">
+            |
+          </span>
+        );
       } else {
         return (
           <input
