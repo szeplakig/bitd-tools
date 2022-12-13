@@ -51,6 +51,7 @@ const ScoreGenerator = () => {
   const [connectionLock, setConnectionLock] = React.useState(false);
 
   React.useEffect(() => {
+        debugger;
     setClientTarget(rollClientTarget(clientTargetType));
     setClientTargetLock(false);
   }, [clientTargetType]);
@@ -81,22 +82,40 @@ const ScoreGenerator = () => {
       setWork(rollArray(el.list));
     }
 
-    setTwist(rollArray(score_generator_data.twist));
-    setConnection(rollArray(score_generator_data.connection));
+    if (!twistLock) {
+        setTwist(rollArray(score_generator_data.twist));
+    }
+    if (!connectionLock) {
+        setConnection(rollArray(score_generator_data.connection));
+    }
   };
 
   return (
     <div className="flex items-center justify-center">
       <form onSubmit={(e) => e.target.preventDefault()} className="">
+        <button
+          className="rounded shadow-lg 
+                                bg-bitdDarkGray text-bitdLightGray
+                                hover:text-bitdOrange
+                                transition-all duration-200 ease-linear
+                                py-2 w-[95%] my-4 mx-2
+                                flex justify-center items-center"
+          onClick={handleRollClick}
+          type="button"
+        >
+          Roll
+          <DiceIcon className="ml-4" size="20" />
+        </button>
+
         <Card
           header={
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <label htmlFor="clientTargetType" className="font-bold">
                 Client / Target
               </label>
               <select
                 id="clientTargetType"
-                className="cursor-pointer ml-3 bg-bitdBlack"
+                className="w-fit cursor-pointer ml-3 bg-bitdBlack"
                 value={clientTargetType}
                 onChange={(e) => {
                   if (clientTargetTypeLock) {
@@ -113,22 +132,24 @@ const ScoreGenerator = () => {
                   <option key={e.type}>{e.type}</option>
                 ))}
               </select>
-              <LockButton
-                locked={clientTargetTypeLock}
-                setLocked={setClientTargetTypeLock}
-              />
-              <DiceButton
-                onClick={() => {
-                  if (clientTargetTypeLock) {
-                    return;
-                  }
-                  setClientTargetType(
-                    rollArray(
-                      score_generator_data.client_target.map((e) => e.type)
-                    )
-                  );
-                }}
-              />
+                <div className="flex items-center justify-between">
+                    <LockButton
+                        locked={clientTargetTypeLock}
+                        setLocked={setClientTargetTypeLock}
+                        />
+                    <DiceButton
+                        onClick={() => {
+                            if (clientTargetTypeLock) {
+                                return;
+                            }
+                            setClientTargetType(
+                                rollArray(
+                                    score_generator_data.client_target.map((e) => e.type)
+                                )
+                            );
+                        }}
+                        />
+                </div>
             </div>
           }
           content={
@@ -154,13 +175,13 @@ const ScoreGenerator = () => {
 
         <Card
           header={
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <label htmlFor="workType" className="font-bold">
                 Work
               </label>
               <select
                 id="workType"
-                className="cursor-pointer ml-3 bg-bitdBlack"
+                className="w-fit cursor-pointer ml-3 bg-bitdBlack"
                 value={workType}
                 onChange={(e) => {
                   if (workTypeLock) {
@@ -177,6 +198,7 @@ const ScoreGenerator = () => {
                   <option key={e.type}>{e.type}</option>
                 ))}
               </select>
+                <div className="flex items-center justify-between">
               <LockButton locked={workTypeLock} setLocked={setWorkTypeLock} />
               <DiceButton
                 onClick={() => {
@@ -188,6 +210,7 @@ const ScoreGenerator = () => {
                   );
                 }}
               />
+                </div>
             </div>
           }
           content={
@@ -217,8 +240,9 @@ const ScoreGenerator = () => {
 
         <Card
           header={
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <span className="font-bold">Twist</span>
+                <div className="flex items-center justify-between">
               <LockButton locked={twistLock} setLocked={setTwistLock} />
               <DiceButton
                 onClick={() => {
@@ -228,6 +252,7 @@ const ScoreGenerator = () => {
                   setTwist(rollArray(score_generator_data.twist));
                 }}
               />
+                </div>
             </div>
           }
           content={
@@ -239,8 +264,9 @@ const ScoreGenerator = () => {
 
         <Card
           header={
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <span className="font-bold">Connection</span>
+                <div className="flex items-center justify-between">
               <LockButton
                 locked={connectionLock}
                 setLocked={setConnectionLock}
@@ -253,6 +279,7 @@ const ScoreGenerator = () => {
                   setConnection(rollArray(score_generator_data.connection));
                 }}
               />
+                </div>
             </div>
           }
           content={
@@ -261,20 +288,6 @@ const ScoreGenerator = () => {
             </div>
           }
         />
-
-        <button
-          className="rounded shadow-lg 
-                                bg-bitdDarkGray text-bitdLightGray
-                                hover:text-bitdOrange
-                                transition-all duration-200 ease-linear
-                                py-2 w-[95%] my-4 mx-2
-                                flex justify-center items-center"
-          onClick={handleRollClick}
-          type="button"
-        >
-          Roll
-          <DiceIcon className="ml-4" size="20" />
-        </button>
       </form>
     </div>
   );

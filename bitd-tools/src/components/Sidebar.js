@@ -3,7 +3,10 @@ import {
   HiUserGroup as FactionIcon,
   HiUser as CharacterIcon,
 } from "react-icons/hi";
-import { GiTakeMyMoney as ScoreIcon } from "react-icons/gi";
+import { 
+    GiDevilMask as DevilsBargainIcon,
+    GiTakeMyMoney as ScoreIcon,
+} from "react-icons/gi";
 
 const Sidebar = ({ setCurrentPage }) => {
   return (
@@ -28,6 +31,11 @@ const Sidebar = ({ setCurrentPage }) => {
         text="Score Generator"
         onClick={() => setCurrentPage(3)}
       />
+        <SideBarIcon 
+            icon={<DevilsBargainIcon size="30" />}
+            text="Devil's Bargain"
+            onClick={() => setCurrentPage(4)}
+        />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Factions from "./components/Factions";
 import Homepage from "./components/Homepage";
 import ScoreGenerator from "./components/ScoreGenerator";
 import Sidebar from "./components/Sidebar";
+import DevilsBargain from "./components/DevilsBargain";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +13,7 @@ const pages = [
   <CharacterCreatorBase />,
   <Factions />,
   <ScoreGenerator />,
+    <DevilsBargain />, 
 ];
 
 function App() {
