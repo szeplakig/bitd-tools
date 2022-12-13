@@ -227,7 +227,7 @@ const CharacterCreator = () => {
               </li>
               <hr className="white" />
               {savedElements(keyBase).map((value) => (
-                <li className="inline-flex cursor-pointer">
+                <li className="inline-flex cursor-pointer" key={`li-${value}`}>
                   <svg
                     className="w-6 h-6 m-1"
                     fill="none"
@@ -435,7 +435,7 @@ const CharacterCreator = () => {
                   Object.keys(classes[selectedClass].special_abilities).map(
                     (special_ability_name) => {
                       return [
-                        <div>
+                        <div key={`div-${special_ability_name}`}>
                           <input
                             id={`${special_ability_name}-checkbox`}
                             type="checkbox"
@@ -491,7 +491,7 @@ const CharacterCreator = () => {
                 {selectedClass &&
                   Object.keys(classes[selectedClass].friends_or_rivals).map(
                     (acquaintance) => [
-                      <div>
+                      <div key={`div-${selectedClass}-${selectedClass}`}>
                         <input
                           type="radio"
                           className="top"
@@ -600,7 +600,7 @@ const CharacterCreator = () => {
                     ...(selectedClass ? classes[selectedClass].items : {}),
                     ...standard_items,
                   }).map((item) => [
-                    <div>
+                    <div key={`div-${item.name}`}>
                       <input
                         id={`${item.name}-checkbox`}
                         type="checkbox"
@@ -637,7 +637,7 @@ const CharacterCreator = () => {
             <h1 className="mb-5">Character Actions</h1>
             {characterActions &&
               Object.keys(characterActions).map((actionGroupName) => [
-                <h3>
+                <h3 key={`h3-${actionGroupName}`}>
                   <a
                     href="javascript:;"
                     onClick={(event) =>
