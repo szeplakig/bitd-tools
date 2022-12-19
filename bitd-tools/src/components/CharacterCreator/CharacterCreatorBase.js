@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/CharacterCreator.css";
 import example_char_portrait from "../../assets/images/example.png";
 import savedElements from "../../util/savedElements";
+import savedElement from "../../util/savedElement";
 import savedKeyExists from "../../util/savedKeyExists";
 import save from "../../util/save";
 import remove from "../../util/remove";
@@ -66,13 +67,13 @@ const CharacterCreator = () => {
     setRollArgs(rollArgs);
   };
 
-  const saveCurrentCharacter = (store = localStorage) => {
+  const saveCurrentCharacter = () => {
     if (characterName.length === 0) {
       alert(`Cannot save character without name!`);
       return;
     }
     const characterKey = keyBase + characterName;
-    const characterExists = savedKeyExists(characterKey, store);
+    const characterExists = savedKeyExists(characterKey);
     if (
       characterExists &&
       !window.confirm(
@@ -94,36 +95,51 @@ const CharacterCreator = () => {
       characterInventory,
       selectedTargetLoad,
     };
-    save(characterKey, characterData, store);
-    setSavedCharacters(savedCount(keyBase, store));
+    save(characterKey, characterData);
+    setSavedCharacters(savedCount(keyBase));
   };
-  const loadCharacter = (data) => {
+  const loadCharacter = (data, confirmed = true) => {
     if (
+      !confirmed ||
       window.confirm("Do you really want to overwrite your current character?")
     ) {
-      setCharacterName(data.characterName);
-      setCharacterAlias(data.characterAlias);
-      setSelectedClass(data.selectedClass);
-      setSelectedHeritage(data.selectedHeritage);
-      setSelectedBackground(data.selectedBackground);
-      setSelectedVice(data.selectedVice);
-      setSelectedAbilities(data.selectedAbilities);
-      setCharacterFriendsOrRivals(data.characterFriendsOrRivals);
-      setCharacterActions(data.characterActions);
-      setCharacterInventory(data.characterInventory);
-      setSelectedTargetLoad(data.selectedTargetLoad);
+      console.log(data);
+      if (data.characterName) setCharacterName(data.characterName);
+      if (data.characterAlias) setCharacterAlias(data.characterAlias);
+      if (data.selectedClass) setSelectedClass(data.selectedClass);
+      if (data.selectedHeritage) setSelectedHeritage(data.selectedHeritage);
+      if (data.selectedBackground)
+        setSelectedBackground(data.selectedBackground);
+      if (data.selectedVice) setSelectedVice(data.selectedVice);
+      if (data.selectedAbilities) setSelectedAbilities(data.selectedAbilities);
+      if (data.characterFriendsOrRivals)
+        setCharacterFriendsOrRivals(data.characterFriendsOrRivals);
+      if (data.characterActions) setCharacterActions(data.characterActions);
+      if (data.characterInventory)
+        setCharacterInventory(data.characterInventory);
+      if (data.selectedTargetLoad)
+        setSelectedTargetLoad(data.selectedTargetLoad);
     }
   };
 
   useEffect(() => {
-    const autosaves = savedElements(keyBase, sessionStorage);
-    if (autosaves.length > 0) {
-      loadCharacter([0]);
+    const characterData = {
+      characterName,
+      characterAlias,
+      selectedClass,
+      selectedHeritage,
+      selectedBackground,
+      selectedVice,
+      selectedAbilities,
+      characterFriendsOrRivals,
+      characterActions,
+      characterInventory,
+      selectedTargetLoad,
+    };
+    if (characterData !== savedElement(keyBase + "autosave", sessionStorage)) {
+      console.log(characterData);
+      save(keyBase + "autosave", characterData, sessionStorage);
     }
-  }, []);
-
-  useEffect(() => {
-    saveCurrentCharacter(sessionStorage);
   }, [
     characterName,
     characterAlias,
@@ -137,6 +153,17 @@ const CharacterCreator = () => {
     characterInventory,
     selectedTargetLoad,
   ]);
+  const loadOnStart = () => {
+    const el = savedElement(keyBase + "autosave", sessionStorage);
+    if (el) {
+      loadCharacter(el, false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("load");
+    loadOnStart();
+  }, []);
 
   const remove_character = (characterName, store = localStorage) => {
     if (window.confirm(`Do you really want to remove ${characterName}`)) {
@@ -164,8 +191,8 @@ const CharacterCreator = () => {
   const setCharacterFriendsOrRivalsHelper = (className) => {
     if (className !== "") {
       const friendsOrRivals = {};
-      for (const fr of classes[className].friends_or_rivals) {
-        friendsOrRivals[fr.name] = null;
+      for (const fr in classes[className].friends_or_rivals) {
+        friendsOrRivals[fr] = null;
       }
       setCharacterFriendsOrRivals(friendsOrRivals);
     } else {
@@ -179,35 +206,6 @@ const CharacterCreator = () => {
     setCharacterActionsHelper(className);
     setCharacterFriendsOrRivalsHelper(className);
   };
-
-  // const transform = (obj) => {
-  //   if (Array.isArray(obj)) {
-  //     console.log("Array", obj);
-  //     if (obj[0].name !== undefined) {
-  //       const obj2 = {};
-  //       for (const el of obj) {
-  //         obj2[el.name] = transform(el);
-  //       }
-  //       return obj2;
-  //     } else {
-  //       const obj2 = [];
-  //       for (const el of obj) {
-  //         obj2.push(transform(el));
-  //       }
-  //       return obj2;
-  //     }
-  //   } else if (!["string", "number"].includes(typeof obj)) {
-  //     console.log("Keyed", obj, typeof obj);
-  //     const obj2 = {};
-  //     for (const key of Object.keys(obj)) {
-  //       obj2[key] = transform(obj[key]);
-  //     }
-  //     return obj2;
-  //   } else {
-  //     console.log("Other", obj);
-  //     return obj;
-  //   }
-  // };
 
   return (
     <div>
@@ -459,7 +457,7 @@ const CharacterCreator = () => {
                   Object.keys(classes[selectedClass].special_abilities).map(
                     (special_ability_name) => {
                       return [
-                        <div key={`div-${special_ability_name}`}>
+                        <div key={`div-0-${special_ability_name}`}>
                           <input
                             id={`${special_ability_name}-checkbox`}
                             type="checkbox"
@@ -481,7 +479,7 @@ const CharacterCreator = () => {
                             className="flex-none w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           ></input>
                         </div>,
-                        <div>
+                        <div key={`div-1-${special_ability_name}`}>
                           <label
                             htmlFor={`${special_ability_name}-checkbox`}
                             className="text-gray-900 dark:text-gray-300 break-words"
@@ -489,7 +487,7 @@ const CharacterCreator = () => {
                             {special_ability_name}
                           </label>
                         </div>,
-                        <div>
+                        <div key={`div-3-${special_ability_name}`}>
                           <h2 className="break-words max-h-[20vh] overflow-x-hidden overflow-y-auto">
                             {
                               classes[selectedClass].special_abilities[
@@ -515,7 +513,7 @@ const CharacterCreator = () => {
                 {selectedClass &&
                   Object.keys(classes[selectedClass].friends_or_rivals).map(
                     (acquaintance) => [
-                      <div key={`div-${selectedClass}-${selectedClass}`}>
+                      <div key={`div-0-${selectedClass}-${selectedClass}`}>
                         <input
                           type="radio"
                           className="top"
@@ -559,10 +557,10 @@ const CharacterCreator = () => {
                           }
                         />
                       </div>,
-                      <div>
+                      <div key={`div-1-${selectedClass}-${selectedClass}`}>
                         <h3 className="inline-block ml-5">{acquaintance}</h3>
                       </div>,
-                      <div>
+                      <div key={`div-2-${selectedClass}-${selectedClass}`}>
                         <h3 className="inline-block ml-5">
                           {
                             classes[selectedClass].friends_or_rivals[
@@ -624,7 +622,7 @@ const CharacterCreator = () => {
                     ...(selectedClass ? classes[selectedClass].items : {}),
                     ...standard_items,
                   }).map((item) => [
-                    <div key={`div-${item.name}`}>
+                    <div key={`div-0-${item.name}`}>
                       <input
                         id={`${item.name}-checkbox`}
                         type="checkbox"
@@ -637,6 +635,13 @@ const CharacterCreator = () => {
                           load: item.load,
                         })}
                         onChange={(event) => {
+                          console.log(
+                            characterInventory,
+                            characterInventory.includes({
+                              name: item.name,
+                              load: item.load,
+                            })
+                          );
                           let inv = [...characterInventory];
                           const v = JSON.parse(event.target.value);
                           if (inv.includes(v)) {
@@ -649,9 +654,9 @@ const CharacterCreator = () => {
                         className="w-[20px] h-[20px] text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       ></input>
                     </div>,
-                    <div>{item.name}</div>,
-                    <div>{item.load}</div>,
-                    <div>{item.description}</div>,
+                    <div key={`div-1-${item.name}`}>{item.name}</div>,
+                    <div key={`div-2-${item.name}`}>{item.load}</div>,
+                    <div key={`div-3-${item.name}`}>{item.description}</div>,
                   ])}
                 </div>
               </div>
@@ -692,13 +697,14 @@ const CharacterCreator = () => {
                   )
                 ),
               ])}
-            <h3>
+            {/* <h3>
               Total:{" "}
-              {Object.values(characterActions).reduce(
-                (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
-                0
-              )}
-            </h3>
+              {characterActions &&
+                Object.values(characterActions).reduce(
+                  (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
+                  0
+                )}
+            </h3> */}
             <button onClick={() => setCharacterActionsHelper(selectedClass)}>
               Reset
             </button>

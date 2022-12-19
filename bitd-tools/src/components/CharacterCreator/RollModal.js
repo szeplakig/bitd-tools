@@ -143,6 +143,7 @@ export default function RollModal({
           Rolls:&nbsp;
           {rollObj.rolls.map((r, i, a) => [
             <span
+              key={`roll-span-${i}`}
               className={
                 r < 4
                   ? "text-red-500"
