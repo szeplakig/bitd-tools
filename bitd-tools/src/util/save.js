@@ -1,4 +1,4 @@
-const save = (key, object) => {
-  localStorage.setItem(key, JSON.stringify(object));
+const save = (key, object, store = localStorage) => {
+  store.setItem(key, JSON.stringify(object));
 };
 export default save;

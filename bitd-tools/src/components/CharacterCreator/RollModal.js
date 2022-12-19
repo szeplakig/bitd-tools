@@ -98,13 +98,13 @@ export default function RollModal({
       rolls,
       min_roll: Math.min(...rolls),
       max_roll: Math.max(...rolls),
-      is_critical: rolls.filter((v) => v == 6).length >= 2,
+      is_critical: rolls.filter((v) => v === 6).length >= 2,
       created_at: Date.now(),
     };
-    if (rollObj.rollType == "Save") {
+    if (rollObj.rollType === "Save") {
       const { characterActions, actionGroupName } = rollArgs;
       rollObj.actionGroupName = actionGroupName;
-    } else if (rollObj.rollType == "Action") {
+    } else if (rollObj.rollType === "Action") {
       const { characterActions, actionGroupName, actionName } = rollArgs;
       rollObj.actionGroupName = actionGroupName;
       rollObj.actionName = actionName;
@@ -294,7 +294,7 @@ export default function RollModal({
                         doRoll(dc, selectedPosition, selectedEffect);
                         resetState();
                         setShowRollModal(false);
-                      } else if (dc == 0) {
+                      } else if (dc === 0) {
                         doRoll(2, selectedPosition, selectedEffect);
                         resetState();
                         setShowRollModal(false);

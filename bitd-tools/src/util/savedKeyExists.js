@@ -1,5 +1,5 @@
-const savedKeyExists = (key) => {
-  return localStorage.getItem(key) !== null;
+const savedKeyExists = (key, store = localStorage) => {
+  return store.getItem(key) !== null;
 };
 
 export default savedKeyExists;

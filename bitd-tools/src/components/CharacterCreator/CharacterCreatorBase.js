@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/CharacterCreator.css";
 import example_char_portrait from "../../assets/images/example.png";
 import savedElements from "../../util/savedElements";
@@ -66,13 +66,13 @@ const CharacterCreator = () => {
     setRollArgs(rollArgs);
   };
 
-  const saveCurrentCharacter = () => {
+  const saveCurrentCharacter = (store = localStorage) => {
     if (characterName.length === 0) {
       alert(`Cannot save character without name!`);
       return;
     }
     const characterKey = keyBase + characterName;
-    const characterExists = savedKeyExists(characterKey);
+    const characterExists = savedKeyExists(characterKey, store);
     if (
       characterExists &&
       !window.confirm(
@@ -94,8 +94,8 @@ const CharacterCreator = () => {
       characterInventory,
       selectedTargetLoad,
     };
-    save(characterKey, characterData);
-    setSavedCharacters(savedCount(keyBase));
+    save(characterKey, characterData, store);
+    setSavedCharacters(savedCount(keyBase, store));
   };
   const loadCharacter = (data) => {
     if (
@@ -114,10 +114,34 @@ const CharacterCreator = () => {
       setSelectedTargetLoad(data.selectedTargetLoad);
     }
   };
-  const remove_character = (characterName) => {
+
+  useEffect(() => {
+    const autosaves = savedElements(keyBase, sessionStorage);
+    if (autosaves.length > 0) {
+      loadCharacter([0]);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveCurrentCharacter(sessionStorage);
+  }, [
+    characterName,
+    characterAlias,
+    selectedClass,
+    selectedHeritage,
+    selectedBackground,
+    selectedVice,
+    selectedAbilities,
+    characterFriendsOrRivals,
+    characterActions,
+    characterInventory,
+    selectedTargetLoad,
+  ]);
+
+  const remove_character = (characterName, store = localStorage) => {
     if (window.confirm(`Do you really want to remove ${characterName}`)) {
-      remove(keyBase + characterName);
-      setSavedCharacters(savedCount(keyBase));
+      remove(keyBase + characterName, store);
+      setSavedCharacters(savedCount(keyBase, store));
     }
   };
 
@@ -226,7 +250,7 @@ const CharacterCreator = () => {
                 </span>
               </li>
               <hr className="white" />
-              {savedElements(keyBase).map((value) => (
+              {savedElements(keyBase, localStorage).map((value) => (
                 <li className="inline-flex cursor-pointer" key={`li-${value}`}>
                   <svg
                     className="w-6 h-6 m-1"
