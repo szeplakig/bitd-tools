@@ -217,7 +217,7 @@ const CharacterCreator = () => {
       ></RollModal>
       <div className="flex justify-center items-start align-top flex-col sm:flex-row">
         <div
-          className="m-[5px] p-[5px] bg-bitdBlack z-10
+          className="m-[5px] p-[5px] bg-bitdBlack
                   flex overflow-y-scroll overflow-x-auto w-full max-h-[200px]
                   lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
                   sm:flex-col sm:static sm:h-[90vh]
