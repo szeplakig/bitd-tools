@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../styles/CharacterCreator.css";
 import example_char_portrait from "../../assets/images/example.png";
 import savedElements from "../../util/savedElements";
-import savedElement from "../../util/savedElement";
+import useSessionStoredState from "../../util/sessionState";
 import savedKeyExists from "../../util/savedKeyExists";
 import save from "../../util/save";
 import remove from "../../util/remove";
@@ -44,22 +44,57 @@ const CharacterCreator = () => {
       Sway: 0,
     },
   };
-  let [characterName, setCharacterName] = useState("");
-  let [characterAlias, setCharacterAlias] = useState("");
-  let [selectedClass, setSelectedClass] = useState("");
-  let [selectedHeritage, setSelectedHeritage] = useState("");
-  let [selectedBackground, setSelectedBackground] = useState("");
-  let [selectedVice, setSelectedVice] = useState("");
-  let [selectedAbilities, setSelectedAbilities] = useState([]);
-  let [characterFriendsOrRivals, setCharacterFriendsOrRivals] = useState({});
-  let [characterActions, setCharacterActions] = useState(
+  let [characterName, setCharacterName] = useSessionStoredState(
+    "characterName",
+    ""
+  );
+  let [characterAlias, setCharacterAlias] = useSessionStoredState(
+    "characterAlias",
+    ""
+  );
+  let [selectedClass, setSelectedClass] = useSessionStoredState(
+    "selectedClass",
+    ""
+  );
+  let [selectedHeritage, setSelectedHeritage] = useSessionStoredState(
+    "selectedHeritage",
+    ""
+  );
+  let [selectedBackground, setSelectedBackground] = useSessionStoredState(
+    "selectedBackground",
+    ""
+  );
+  let [selectedVice, setSelectedVice] = useSessionStoredState(
+    "selectedVice",
+    ""
+  );
+  let [selectedAbilities, setSelectedAbilities] = useSessionStoredState(
+    "selectedAbilities",
+    []
+  );
+  let [characterFriendsOrRivals, setCharacterFriendsOrRivals] =
+    useSessionStoredState("characterFriendsOrRivals", {});
+  let [characterActions, setCharacterActions] = useSessionStoredState(
+    "characterActions",
     Object.assign({}, default_actions)
   );
-  let [characterInventory, setCharacterInventory] = useState([]);
-  let [selectedTargetLoad, setSelectedTargetLoad] = useState(0);
+  let [characterInventory, setCharacterInventory] = useSessionStoredState(
+    "characterInventory",
+    []
+  );
+  let [selectedTargetLoad, setSelectedTargetLoad] = useSessionStoredState(
+    "selectedTargetLoad",
+    0
+  );
 
-  let [savedCharacters, setSavedCharacters] = useState(0);
-  let [selectedMenuScreen, setSelectedMenuScreen] = useState(0);
+  let [savedCharacters, setSavedCharacters] = useSessionStoredState(
+    "savedCharacters",
+    0
+  );
+  let [selectedMenuScreen, setSelectedMenuScreen] = useSessionStoredState(
+    "selectedMenuScreen",
+    0
+  );
 
   const showRollMenu = (rollType, rollArgs) => {
     setShowRollModal(true);
@@ -98,12 +133,10 @@ const CharacterCreator = () => {
     save(characterKey, characterData);
     setSavedCharacters(savedCount(keyBase));
   };
-  const loadCharacter = (data, confirmed = true) => {
+  const loadCharacter = (data) => {
     if (
-      !confirmed ||
       window.confirm("Do you really want to overwrite your current character?")
     ) {
-      console.log(data);
       if (data.characterName) setCharacterName(data.characterName);
       if (data.characterAlias) setCharacterAlias(data.characterAlias);
       if (data.selectedClass) setSelectedClass(data.selectedClass);
@@ -121,49 +154,6 @@ const CharacterCreator = () => {
         setSelectedTargetLoad(data.selectedTargetLoad);
     }
   };
-
-  useEffect(() => {
-    const characterData = {
-      characterName,
-      characterAlias,
-      selectedClass,
-      selectedHeritage,
-      selectedBackground,
-      selectedVice,
-      selectedAbilities,
-      characterFriendsOrRivals,
-      characterActions,
-      characterInventory,
-      selectedTargetLoad,
-    };
-    if (characterData !== savedElement(keyBase + "autosave", sessionStorage)) {
-      console.log(characterData);
-      save(keyBase + "autosave", characterData, sessionStorage);
-    }
-  }, [
-    characterName,
-    characterAlias,
-    selectedClass,
-    selectedHeritage,
-    selectedBackground,
-    selectedVice,
-    selectedAbilities,
-    characterFriendsOrRivals,
-    characterActions,
-    characterInventory,
-    selectedTargetLoad,
-  ]);
-  const loadOnStart = () => {
-    const el = savedElement(keyBase + "autosave", sessionStorage);
-    if (el) {
-      loadCharacter(el, false);
-    }
-  };
-
-  useEffect(() => {
-    console.log("load");
-    loadOnStart();
-  }, []);
 
   const remove_character = (characterName, store = localStorage) => {
     if (window.confirm(`Do you really want to remove ${characterName}`)) {
@@ -200,11 +190,17 @@ const CharacterCreator = () => {
     }
   };
 
+  let currentItems = { ...standard_items };
+
   const setSelectedClassHelper = (className) => {
     setSelectedClass(className);
     setSelectedAbilities([]);
     setCharacterActionsHelper(className);
     setCharacterFriendsOrRivalsHelper(className);
+    currentItems = {
+      ...(className ? classes[className].items : {}),
+      ...standard_items,
+    };
   };
 
   return (
@@ -614,7 +610,14 @@ const CharacterCreator = () => {
                   </div>
                   <div>
                     <h2>
-                      {characterInventory.reduce((p, item) => p + item.load, 0)}
+                      {characterInventory.reduce(
+                        (p, itemName) =>
+                          p +
+                          (currentItems[itemName] !== undefined
+                            ? currentItems[itemName].load
+                            : 0),
+                        0
+                      )}
                       /{selectedTargetLoad}
                     </h2>
                   </div>
@@ -647,32 +650,16 @@ const CharacterCreator = () => {
                   <div>
                     <h2>Description</h2>
                   </div>
-                  {Object.values({
-                    ...(selectedClass ? classes[selectedClass].items : {}),
-                    ...standard_items,
-                  }).map((item) => [
+                  {Object.values(currentItems).map((item) => [
                     <div key={`div-0-${item.name}`}>
                       <input
                         id={`${item.name}-checkbox`}
                         type="checkbox"
-                        value={JSON.stringify({
-                          name: item.name,
-                          load: item.load,
-                        })}
-                        checked={characterInventory.includes({
-                          name: item.name,
-                          load: item.load,
-                        })}
+                        value={item.name}
+                        checked={characterInventory.includes(item.name)}
                         onChange={(event) => {
-                          console.log(
-                            characterInventory,
-                            characterInventory.includes({
-                              name: item.name,
-                              load: item.load,
-                            })
-                          );
                           let inv = [...characterInventory];
-                          const v = JSON.parse(event.target.value);
+                          const v = event.target.value;
                           if (inv.includes(v)) {
                             inv = inv.splice(inv.indexOf(v), 1);
                           } else {
