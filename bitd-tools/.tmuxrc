@@ -1,0 +1,7 @@
+rename-session bitd-tools
+rename-window nvim
+send "nvim ." C-m
+new-window -n npm
+send "npm run start" C-m
+new-window -n shell
+send "git status" C-m

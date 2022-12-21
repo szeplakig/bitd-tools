@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .sidebar-icon {
+        @apply  relative flex items-center justify-center h-12 w-12 my-2 mx-auto
+        bg-bitdDarkGray text-bitdLightGray rounded-xl
+        hover:bg-bitdGray hover:text-bitdOrange hover:rounded-3xl
+        transition-all duration-200 ease-linear
+        cursor-pointer;
+    }
+
+    .sidebar-tooltip {
+        @apply  absolute w-auto p-2 m-2 min-w-max left-14
+        rounded-md shadow-md sm:block hidden
+        text-white bg-bitdGray
+        text-sm font-bold
+        transition-all duration-100 scale-0 origin-left;
+    }
+    .characterCreatorDiv {
+        @apply break-words 
+        overflow-hidden
+        text-ellipsis
+    }
+}
+
+body {
+  font-family: 'Zilla Slab';
+  font-size: 22px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #3B3C41;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0D0E13;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #E75B06;
+}
