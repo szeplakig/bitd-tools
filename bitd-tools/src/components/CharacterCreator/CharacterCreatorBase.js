@@ -217,10 +217,10 @@ const CharacterCreator = () => {
       ></RollModal>
       <div className="flex justify-center items-start align-top">
         <div
-          className="outerDiv bg-bitdBlack z-10
-                  flex fixed overflow-y-hidden overflow-x-auto w-full h-16 
+          className="m-[5px] p-[5px] bg-bitdBlack z-10
+                  flex fixed overflow-y-scroll overflow-x-auto w-full h-[100px] 
                   lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
-                  sm:flex-col sm:static sm:h-full
+                  sm:flex-col sm:static sm:h-[90vh]
                   lg:max-w-[275px] rounded shadow-lg"
         >
           <div className="w-full">
@@ -259,6 +259,7 @@ const CharacterCreator = () => {
                     onClick={() => loadCharacter(value)}
                   >
                     <path
+
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
@@ -286,18 +287,22 @@ const CharacterCreator = () => {
             </ul>
           </div>
         </div>
+
         <div
-          className="outerDiv
-          characterCreatorGridParent
+          className="m-[5px] p-[5px] mt-[105px] sm:mt-[5px]
+          md:grid md:grid-cols-10 md:row-auto md:gap-[10px]
           characterCreatorDiv
           rounded overflow-hidden
           shadow-lg bg-bitdGray text-white
           lg:w-[70%]"
         >
-          <div className="characterCreatorPortrait characterCreatorDiv rounded">
+          <div className="min-h-[4ovh] overflow-hidden 
+                        md:row-start-1 md:col-start-1 md:row-end-5 md:col-end-3
+                        characterCreatorDiv rounded">
             <img src={example_char_portrait}></img>
           </div>
-          <div className="characterCreatorName characterCreatorDiv rounded w-full h-full">
+          <div className="md:col-start-3 md:col-end-7
+                        characterCreatorDiv rounded w-full h-full">
             <input
               className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
               id="characterName"
@@ -307,7 +312,7 @@ const CharacterCreator = () => {
               onChange={(event) => setCharacterName(event.target.value)}
             ></input>
           </div>
-          <div className="characterCreatorAlias characterCreatorDiv rounded w-full h-full">
+          <div className="md:col-start-7 md:col-end-11 overflow-auto characterCreatorDiv rounded w-full h-full">
             <input
               className="shadow appearance-none border rounded w-full h-full py-2 px-3 text-white-bold focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
               id="characterAlias"
@@ -317,7 +322,8 @@ const CharacterCreator = () => {
               onChange={(event) => setCharacterAlias(event.target.value)}
             ></input>
           </div>
-          <div className="characterCreatorClassSelect characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-2 md:col-start-3 md:row-end-3 md:col-end-5 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             <select
               id="characterClass"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
@@ -336,14 +342,16 @@ const CharacterCreator = () => {
               })}
             </select>
           </div>
-          <div className="characterCreatorClassInfo characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-2 md:col-start-5 md:row-end-3 md:col-end-11 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             {selectedClass && (
               <h3 className="w-full h-full">
                 {classes[selectedClass].description}
               </h3>
             )}
           </div>
-          <div className="characterCreatorBackgroundSelect characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-3 md:col-start-3 md:row-end-4 md:col-end-5 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             <select
               id="characterBackground"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
@@ -360,14 +368,16 @@ const CharacterCreator = () => {
               })}
             </select>
           </div>
-          <div className="characterCreatorBackgroundInfo characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-3 md:col-start-5 md:row-end-4 md:col-end-11 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             {selectedBackground && (
               <h3 className="w-full h-full">
                 {backgrounds[selectedBackground].description}
               </h3>
             )}
           </div>
-          <div className="characterCreatorHeritageSelect characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-4 md:col-start-3 md:row-end-5 md:col-end-5 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             <select
               id="characterHeritage"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
@@ -384,14 +394,16 @@ const CharacterCreator = () => {
               })}
             </select>
           </div>
-          <div className="characterCreatorHeritageInfo characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-4 md:col-start-5 md:row-end-5 md:col-end-11 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             {selectedHeritage && (
               <h3 className="w-full h-full">
                 {heritages[selectedHeritage].description}
               </h3>
             )}
           </div>
-          <div className="characterCreatorViceSelect characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-5 md:col-start-3 md:row-end-6 md:col-end-5 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             <select
               id="characterVice"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline hover:text-bitdOrange bg-bitdDarkGray"
@@ -408,14 +420,15 @@ const CharacterCreator = () => {
               })}
             </select>
           </div>
-          <div className="characterCreatorViceInfo characterCreatorDiv rounded w-full h-full">
+          <div className="md:row-start-5 md:col-start-5 md:row-end-6 md:col-end-11 overflow-auto
+                        characterCreatorDiv rounded w-full h-full">
             {selectedVice && (
               <h3 className="w-full h-full">
                 {vices[selectedVice].description}
               </h3>
             )}
           </div>
-          <div className="characterSwitchMenu">
+          <div className="md:row-start-6 md:col-start-1 md:row-end-7 md:col-end-8 overflow-auto">
             <div className="flex flex-row justify-evenly">
               <h1
                 className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
@@ -482,7 +495,7 @@ const CharacterCreator = () => {
                         <div key={`div-1-${special_ability_name}`}>
                           <label
                             htmlFor={`${special_ability_name}-checkbox`}
-                            className="text-gray-900 dark:text-gray-300 break-words"
+                            className="text-grey-900 break-words"
                           >
                             {special_ability_name}
                           </label>
@@ -589,7 +602,7 @@ const CharacterCreator = () => {
                   <div>
                     <label
                       htmlFor="target-load"
-                      className="mr-2 text-gray-900 dark:text-gray-300"
+                      className="mr-2 text-grey-900"
                     >
                       Target load:
                     </label>
@@ -662,7 +675,8 @@ const CharacterCreator = () => {
               </div>
             )}
           </div>
-          <div className="characterCreatorActions characterCreatorDiv rounded">
+          <div className="md:row-start-6 md:col-start-8 md:row-end-7 md:col-end-11 overflow-auto
+                        characterCreatorDiv rounded">
             <h1 className="mb-5">Character Actions</h1>
             {characterActions &&
               Object.keys(characterActions).map((actionGroupName) => [
@@ -709,7 +723,9 @@ const CharacterCreator = () => {
               Reset
             </button>
           </div>
-          <div className="div16 characterCreatorDiv">
+          <div className="md:row-start-5 md:col-start-1 md:row-end-6 md:col-end-3
+                        h-[8vh] overflow-auto
+                        characterCreatorDiv">
             <h2 className="mb-5">Empty</h2>
           </div>
         </div>

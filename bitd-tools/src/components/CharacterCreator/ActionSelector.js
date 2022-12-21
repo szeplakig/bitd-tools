@@ -63,7 +63,7 @@ const ActionSelector = ({
     }),
     <label
       htmlFor={`${actionName}-checkbox`}
-      className="ml-2 text-gray-900 dark:text-gray-300"
+      className="ml-2 text-grey-900"
     >
       <a
         href="javascript:;"

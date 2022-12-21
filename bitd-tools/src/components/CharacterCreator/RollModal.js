@@ -184,7 +184,7 @@ export default function RollModal({
                   <div className="flex items-center mb-4">
                     <label
                       htmlFor="assistance-checkbox"
-                      className="mr-2 text-gray-900 dark:text-gray-300"
+                      className="mr-2 text-grey-900"
                     >
                       Assistance:
                     </label>
@@ -198,7 +198,7 @@ export default function RollModal({
                   <div className="flex items-center mb-4">
                     <label
                       htmlFor="push-or-bargain-checkbox"
-                      className="mr-2 text-gray-900 dark:text-gray-300"
+                      className="mr-2 text-grey-900"
                     >
                       Push yourself or Devil's bargain:
                     </label>
@@ -212,7 +212,7 @@ export default function RollModal({
                   <div className="flex items-center mb-4">
                     <label
                       htmlFor="other-bonus-number"
-                      className="mr-2 text-gray-900 dark:text-gray-300"
+                      className="mr-2 text-grey-900"
                     >
                       Other Bonus:
                     </label>
@@ -224,7 +224,7 @@ export default function RollModal({
                       onChange={(event) =>
                         setOtherBonus(parseInt(event.target.value))
                       }
-                      className="text-black"
+                      className="max-w-[50%] text-black"
                     ></input>
                   </div>
                   <hr className="mb-3" />
