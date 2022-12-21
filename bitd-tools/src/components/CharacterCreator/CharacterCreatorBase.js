@@ -215,16 +215,16 @@ const CharacterCreator = () => {
         rollType={rollType}
         rollArgs={rollArgs}
       ></RollModal>
-      <div className="flex justify-center items-start align-top">
+      <div className="flex justify-center items-start align-top flex-col sm:flex-row">
         <div
           className="m-[5px] p-[5px] bg-bitdBlack z-10
-                  flex fixed overflow-y-scroll overflow-x-auto w-full h-[100px] 
+                  flex overflow-y-scroll overflow-x-auto w-full max-h-[200px]
                   lg:h-[90vh] sm:overflow-y-auto sm:overflow-x-hidden
                   sm:flex-col sm:static sm:h-[90vh]
                   lg:max-w-[275px] rounded shadow-lg"
         >
           <div className="w-full">
-            <ul className="w-full">
+            <ul className="w-full flex flex-col">
               <li>
                 <span
                   className="inline-flex cursor-pointer"
@@ -288,7 +288,7 @@ const CharacterCreator = () => {
         </div>
 
         <div
-          className="m-[5px] p-[5px] mt-[105px] sm:mt-[5px]
+          className="m-[5px] p-[5px] 
           md:grid md:grid-cols-10 md:row-auto md:gap-[10px]
           characterCreatorDiv
           rounded overflow-hidden

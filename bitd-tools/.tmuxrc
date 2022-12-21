@@ -4,4 +4,5 @@ send "nvim ." C-m
 new-window -n npm
 send "npm run start" C-m
 new-window -n shell
+send "git pull" C-m
 send "git status" C-m
