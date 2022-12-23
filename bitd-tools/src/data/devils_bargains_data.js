@@ -10,7 +10,7 @@ const devils_bargains_data = [
     desc: "A friendly faction hears you did a Score against their ally. -1 to that faction's relationship rating.",
   },
   {
-    name: "Hunter Becomes Hunter",
+    name: "Hunter Becomes Hunted",
     type: "Immediate",
     desc: "You've been so preoccupied with the obstacles in front of you that you didn't notice the rival lining up a shot behind you.",
   },

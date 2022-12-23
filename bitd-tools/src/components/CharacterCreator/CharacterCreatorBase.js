@@ -447,7 +447,7 @@ const CharacterCreator = () => {
             <div className="flex flex-row justify-evenly">
               <h1
                 className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
-                  selectedMenuScreen == 0 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                  selectedMenuScreen === 0 ? "bg-bitdDarkGray" : "bg-bitdBlack"
                 }`}
                 onClick={() => setSelectedMenuScreen(0)}
               >
@@ -455,7 +455,7 @@ const CharacterCreator = () => {
               </h1>
               <h1
                 className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
-                  selectedMenuScreen == 1 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                  selectedMenuScreen === 1 ? "bg-bitdDarkGray" : "bg-bitdBlack"
                 }`}
                 onClick={() => setSelectedMenuScreen(1)}
               >
@@ -465,14 +465,14 @@ const CharacterCreator = () => {
               </h1>
               <h1
                 className={`mb-5 inline-flex cursor-pointer p-2 rounded shadow-xl border border-black ${
-                  selectedMenuScreen == 2 ? "bg-bitdDarkGray" : "bg-bitdBlack"
+                  selectedMenuScreen === 2 ? "bg-bitdDarkGray" : "bg-bitdBlack"
                 }`}
                 onClick={() => setSelectedMenuScreen(2)}
               >
                 Character Inventory
               </h1>
             </div>
-            {selectedMenuScreen == 0 && (
+            {selectedMenuScreen === 0 && (
               <div className="characterCreatorDiv rounded characterSpecialAbilitiesGrid">
                 <div></div>
                 <div>
@@ -529,7 +529,7 @@ const CharacterCreator = () => {
                   )}
               </div>
             )}
-            {selectedMenuScreen == 1 && (
+            {selectedMenuScreen === 1 && (
               <div className="characterFriendsNRivals characterCreatorDiv rounded">
                 <div></div>
                 <div>
@@ -553,7 +553,7 @@ const CharacterCreator = () => {
                             setCharacterFriendsOrRivals(current);
                           }}
                           defaultChecked={
-                            characterFriendsOrRivals[acquaintance] == "Friend"
+                            characterFriendsOrRivals[acquaintance] === "Friend"
                           }
                         />
                         <input
@@ -581,7 +581,7 @@ const CharacterCreator = () => {
                             setCharacterFriendsOrRivals(current);
                           }}
                           defaultChecked={
-                            characterFriendsOrRivals[acquaintance] == "Rival"
+                            characterFriendsOrRivals[acquaintance] === "Rival"
                           }
                         />
                       </div>,
@@ -601,7 +601,7 @@ const CharacterCreator = () => {
                   )}
               </div>
             )}
-            {selectedMenuScreen == 2 && (
+            {selectedMenuScreen === 2 && (
               <div className="characterCreatorDiv rounded ">
                 <div className="characterInventoryGrid">
                   <div></div>
@@ -661,7 +661,7 @@ const CharacterCreator = () => {
                           let inv = [...characterInventory];
                           const v = event.target.value;
                           if (inv.includes(v)) {
-                            inv = inv.splice(inv.indexOf(v), 1);
+                            inv.splice(inv.indexOf(v), 1);
                           } else {
                             inv.push(v);
                           }
