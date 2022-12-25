@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/CharacterCreator.css";
+import HiddenInput from "./HiddenInput";
 import example_char_portrait from "../../assets/images/example.png";
 import savedElements from "../../util/savedElements";
 import useSessionStoredState from "../../util/sessionState";
@@ -23,6 +24,7 @@ const CharacterCreator = () => {
   const [showRollModal, setShowRollModal] = React.useState(false);
   const [rollType, setRollType] = React.useState(undefined);
   const [rollArgs, setRollArgs] = React.useState({});
+  const [showLoadInput, setShowLoadInput] = React.useState(false)
 
   const default_actions = {
     Insight: {
@@ -605,8 +607,9 @@ const CharacterCreator = () => {
               <div className="characterCreatorDiv rounded ">
                 <div className="characterInventoryGrid">
                   <div></div>
+                  <div></div>
                   <div>
-                    <h2>Current load:</h2>
+                    <h2>Load:</h2>
                   </div>
                   <div>
                     <h2>
@@ -618,24 +621,20 @@ const CharacterCreator = () => {
                             : 0),
                         0
                       )}
-                      /{selectedTargetLoad}
-                    </h2>
-                  </div>
-                  <div>
-                    <label htmlFor="target-load" className="mr-2 text-grey-900">
-                      Target load:
-                    </label>
-                    <input
-                      id="target-load"
-                      type="number"
-                      min={0}
-                      step={1}
+                      /<HiddenInput
+                      show={showLoadInput}
                       value={selectedTargetLoad}
-                      onChange={(event) =>
-                        setSelectedTargetLoad(event.target.value)
+                      handleChange={(event) =>
+                        {
+                          if (event.target.value !== ""){
+                            setSelectedTargetLoad(event.target.value);
+                          }
+                        }
                       }
-                      className="text-black"
-                    ></input>
+                      handleBlur={() => setShowLoadInput(false)}
+                      handleClick={() => setShowLoadInput(true)}
+                    ></HiddenInput>
+                    </h2>
                   </div>
                 </div>
                 <hr className="my-10" />
