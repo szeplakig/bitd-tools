@@ -333,7 +333,7 @@ const CharacterCreator = () => {
                 setSelectedClassHelper(event.target.value);
               }}
             >
-              <option value="">Choose a Class</option>
+              <option value="">Class</option>
               {Object.keys(classes).map((key) => {
                 return (
                   <option key={key} value={key}>
@@ -363,7 +363,7 @@ const CharacterCreator = () => {
               value={selectedBackground}
               onChange={(event) => setSelectedBackground(event.target.value)}
             >
-              <option value="">Choose a Background</option>
+              <option value="">Background</option>
               {Object.keys(backgrounds).map((key) => {
                 return (
                   <option key={key} value={key}>
@@ -393,7 +393,7 @@ const CharacterCreator = () => {
               value={selectedHeritage}
               onChange={(event) => setSelectedHeritage(event.target.value)}
             >
-              <option value="">Choose a Heritage</option>
+              <option value="">Heritage</option>
               {Object.keys(heritages).map((key) => {
                 return (
                   <option key={key} value={key}>
@@ -423,7 +423,7 @@ const CharacterCreator = () => {
               value={selectedVice}
               onChange={(event) => setSelectedVice(event.target.value)}
             >
-              <option value="">Choose a Vice</option>
+              <option value="">Vice</option>
               {Object.keys(vices).map((key) => {
                 return (
                   <option key={key} value={key}>
@@ -686,8 +686,8 @@ const CharacterCreator = () => {
             {characterActions &&
               Object.keys(characterActions).map((actionGroupName) => [
                 <h3 key={`h3-${actionGroupName}`}>
-                  <a
-                    href="javascript:;"
+                  <span
+                    className="cursor-pointer"
                     onClick={(event) =>
                       showRollMenu("Save", {
                         actionGroupName,
@@ -696,7 +696,7 @@ const CharacterCreator = () => {
                     }
                   >
                     {actionGroupName}
-                  </a>
+                  </span>
                 </h3>,
                 Object.keys(characterActions[actionGroupName]).map(
                   (actionName) => (
@@ -716,14 +716,14 @@ const CharacterCreator = () => {
                   )
                 ),
               ])}
-            {/* <h3>
+            <h3>
               Total:{" "}
               {characterActions &&
                 Object.values(characterActions).reduce(
                   (p, c) => p + Object.values(c).reduce((p2, c2) => p2 + c2, 0),
                   0
                 )}
-            </h3> */}
+            </h3>
             <button onClick={() => setCharacterActionsHelper(selectedClass)}>
               Reset
             </button>

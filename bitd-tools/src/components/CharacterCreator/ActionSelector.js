@@ -1,15 +1,10 @@
 import React from "react";
 
+
 import {
   classes,
-  heritages,
-  backgrounds,
-  vices,
-  actions,
-  standard_items,
 } from "../../data/characters_data";
 
-// import { TextField, MenuItem, Box } from "@mui/material";
 
 const ActionSelector = ({
   selectedClass,
@@ -35,7 +30,7 @@ const ActionSelector = ({
             id={`${actionName}-checkbox`}
             key={selectedClass + actionName + n}
             type="checkbox"
-            className="w-4 h-4 border- rounded-full text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="ml-2 w-4 h-4 border- rounded-full text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             checked={characterActions[actionGroupName][actionName] >= n}
             onChange={() => {
               const actions = Object.assign({}, characterActions);
@@ -62,8 +57,8 @@ const ActionSelector = ({
       }
     }),
     <label htmlFor={`${actionName}-checkbox`} className="ml-2 text-grey-900">
-      <a
-        href="javascript:;"
+      <span
+      className="cursor-pointer"
         onClick={(event) =>
           showRollMenu("Action", {
             actionGroupName,
@@ -73,7 +68,7 @@ const ActionSelector = ({
         }
       >
         <h4>{actionName}</h4>
-      </a>
+      </span>
     </label>,
   ];
 };
